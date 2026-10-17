@@ -5,6 +5,7 @@
     "description": "Tebak angka 1 sampai 100 dalam 7 kali coba.",
     "tags": ["angka", "santai"],
     "author": "nopanpeno",
+    "license": "MIT",
     "touch": true
   },
   {
@@ -13,6 +14,7 @@
     "description": "Cocokkan 8 pasang kartu dengan langkah sesedikit mungkin.",
     "tags": ["memori", "santai"],
     "author": "nopanpeno",
+    "license": "MIT",
     "touch": true
   },
   {
@@ -21,6 +23,7 @@
     "description": "Ketuk sebanyak mungkin dalam 10 detik.",
     "tags": ["refleks", "cepat"],
     "author": "nopanpeno",
+    "license": "MIT",
     "touch": true
   },
   {
@@ -29,6 +32,7 @@
     "description": "Batu gunting kertas lawan komputer. Kejar kemenangan beruntun.",
     "tags": ["klasik", "santai"],
     "author": "nopanpeno",
+    "license": "MIT",
     "touch": true
   },
   {
@@ -37,6 +41,7 @@
     "description": "Pilih warna tulisan, bukan arti katanya. 30 detik.",
     "tags": ["warna", "refleks"],
     "author": "nopanpeno",
+    "license": "MIT",
     "touch": true
   }
 ]

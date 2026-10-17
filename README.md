@@ -15,6 +15,7 @@ data.html        ekspor dan impor data pemain
 games.json       daftar game, satu sumber data
 games/<id>/      satu folder per game
 css/ js/         kode platform
+scripts/         pengecekan kontrak game
 ```
 
 ## Cadangan data pemain
@@ -46,13 +47,17 @@ Buka http://localhost:8000
   "description": "Tebak angka 1 sampai 100 dalam 7 kali coba.",
   "tags": ["angka", "santai"],
   "author": "nama-github",
+  "license": "MIT",
   "touch": true
 }
 ```
 
-3. Kirim pull request.
+3. Jalankan `node scripts/check-games.mjs` sampai keluar `OK`.
+4. Kirim pull request.
 
-`id` harus sama dengan nama folder.
+Panduan lengkap ada di [CONTRIBUTING.md](CONTRIBUTING.md).
+
+`id` harus sama dengan nama folder. `license` mencakup game dan semua asetnya.
 
 ### Aturan game
 
@@ -68,6 +73,10 @@ Setiap pull request game ditinjau sebelum digabung. Sandbox ini tidak mengisolas
 ## Deploy
 
 GitHub Pages dari branch `main`, folder root. Tiap merge ke `main` memperbarui situs sendiri.
+
+## Berkontribusi
+
+Baca [CONTRIBUTING.md](CONTRIBUTING.md) dan [kode etik](CODE_OF_CONDUCT.md).
 
 ## Lisensi
 
