@@ -21,7 +21,7 @@ scripts/         pengecekan kontrak game
 
 ## Cadangan data pemain
 
-Buka halaman **Data pemain** (tautan di bawah katalog). Unduh cadangan `.json`, lalu impor di browser atau HP lain. Hanya kunci milik game di `games.json` yang dibaca dan dipulihkan, yaitu kunci berawalan `<id-game>:`. Itu sebabnya aturan kunci `localStorage` di bawah wajib.
+Buka halaman **Data pemain** (tautan di bawah katalog). Unduh cadangan `.json`, lalu impor di browser atau HP lain. Hanya kunci milik game di `games.json` yang dibaca dan dipulihkan, yaitu kunci berawalan `<id-game>:`. Itu sebabnya game wajib mengikuti aturan `nvanplayStorage` di bawah.
 
 ## Jalankan di komputer
 
@@ -68,9 +68,9 @@ Panduan lengkap ada di [CONTRIBUTING.md](CONTRIBUTING.md).
 - Game memakai `nvanplayStorage` untuk membaca dan menulis data. Kunci tetap diawali id game, misalnya `tebak-angka:best`.
 - Tanpa skrip pelacak atau iklan pihak ketiga.
 - Bisa dimainkan di layar selebar 360 px.
-- Sandbox iframe memberi `allow-scripts`, `allow-same-origin`, dan `allow-forms`. Tanpa `allow-forms`, tombol submit tidak jalan. Game tidak boleh membuka popup atau pindah halaman.
+- Sandbox iframe memberi `allow-scripts` dan `allow-forms`, tanpa `allow-same-origin`. Game berjalan dengan origin terisolasi dan memakai jembatan `nvanplayStorage` untuk data yang hanya berprefix ID game. Tanpa `allow-forms`, tombol submit tidak jalan. Game tidak boleh membuka popup atau pindah halaman.
 
-Setiap pull request game ditinjau sebelum digabung. Sandbox ini tidak mengisolasi game sepenuhnya dari situs.
+Setiap pull request game tetap ditinjau sebelum digabung. Isolasi origin membatasi akses ke DOM dan storage situs utama, tetapi tidak menggantikan review perilaku game.
 
 ## Deploy
 

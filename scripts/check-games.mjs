@@ -79,7 +79,7 @@ for (const g of games) {
   if (directStorage) fail(id, `${directStorage.f}: gunakan jembatan nvanplayStorage, bukan localStorage langsung.`);
   const usesStorage = code.some(c => /\bnvanplayStorage\b/.test(c.text));
   if (usesStorage && !code.some(c => c.text.includes(`'${id}:`) || c.text.includes(`"${id}:`) || c.text.includes('`' + id + ':'))) {
-    fail(id, `memakai localStorage, tapi tidak ada kunci berawalan "${id}:".`);
+    fail(id, `memakai nvanplayStorage, tapi tidak ada kunci berawalan "${id}:".`);
   }
 }
 
