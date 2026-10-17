@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "tebak-angka",
+    "title": "Tebak Angka",
+    "description": "Tebak angka 1 sampai 100 dalam 7 kali coba.",
+    "tags": ["angka", "santai"],
+    "author": "nopanpeno",
+    "touch": true
+  }
+]
