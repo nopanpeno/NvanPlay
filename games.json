@@ -30,5 +30,13 @@
     "tags": ["klasik", "santai"],
     "author": "nopanpeno",
     "touch": true
+  },
+  {
+    "id": "tebak-warna",
+    "title": "Tebak Warna",
+    "description": "Pilih warna tulisan, bukan arti katanya. 30 detik.",
+    "tags": ["warna", "refleks"],
+    "author": "nopanpeno",
+    "touch": true
   }
 ]
