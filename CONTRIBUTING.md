@@ -38,15 +38,15 @@ Terima kasih sudah mau menambah game. Satu pull request, satu game.
 
 - Berjalan penuh di browser. Tanpa permintaan ke server sendiri.
 - Folder game maksimal 5 MB. `cover.png` rasio 16:9, maksimal 200 KB.
-- Kunci `localStorage` diawali id game, misalnya `tebak-angka:best`. Halaman Data pemain hanya mencadangkan kunci seperti ini.
+- Pakai `window.nvanplayStorage.getItem(key)` dan `window.nvanplayStorage.setItem(key, value)` untuk menyimpan data. Kunci diawali id game, misalnya `tebak-angka:best`. Jangan akses `localStorage` langsung; pemutar menyediakan data melalui jembatan yang hanya menerima prefix game tersebut.
 - Tanpa skrip pelacak, iklan, atau pustaka dari luar situs. Taruh semua file di folder game.
 - Nyaman di layar selebar 360 px. Tombol cukup besar untuk jari.
-- Game jalan di iframe dengan `sandbox="allow-scripts allow-same-origin allow-forms"`. Jangan buka popup atau pindah halaman.
+- Game jalan di iframe dengan `sandbox="allow-scripts allow-forms"` pada origin terisolasi. Jangan buka popup atau pindah halaman.
 - Jangan pakai karakter, gambar, atau suara yang kamu tidak punya haknya.
 
 ## Yang dicek pengelola
 
-Pengelola membaca kode game sebelum menggabungkan. Sandbox di atas tidak memisahkan game sepenuhnya dari situs, jadi tinjauan manusia tetap wajib. Kode yang dikaburkan atau diminifikasi tanpa sumber aslinya akan ditolak.
+Pengelola membaca kode game sebelum menggabungkan. Origin sandbox memisahkan DOM game dari situs utama; jembatan penyimpanan hanya menerima kunci berprefix ID game. Tinjauan manusia tetap wajib untuk menilai perilaku game. Kode yang dikaburkan atau diminifikasi tanpa sumber aslinya akan ditolak.
 
 ## Mengubah platform
 

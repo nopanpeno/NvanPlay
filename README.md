@@ -4,7 +4,7 @@ Kumpulan game kecil yang langsung dimainkan di browser. Situs statis di GitHub P
 
 Main di: https://nopanpeno.github.io/NvanPlay/
 
-Skor dan progres disimpan di `localStorage` perangkat pemain. Hapus data browser, skor ikut hilang.
+Skor dan progres disimpan di `localStorage` perangkat pemain oleh pemutar. Hapus data browser, skor ikut hilang.
 
 ## Struktur
 
@@ -14,7 +14,7 @@ player.html      pemutar (iframe sandbox), dibuka dengan ?id=<id-game>
 data.html        ekspor dan impor data pemain
 games.json       daftar game, satu sumber data
 games/<id>/      satu folder per game
-css/ js/         kode platform
+css/ js/         kode platform dan jembatan penyimpanan game
 fonts/           font Bricolage Grotesque (lisensi OFL di folder itu)
 scripts/         pengecekan kontrak game
 ```
@@ -65,7 +65,7 @@ Panduan lengkap ada di [CONTRIBUTING.md](CONTRIBUTING.md).
 
 - Jalan penuh di browser, tanpa permintaan ke server sendiri.
 - Total ukuran folder maksimal 5 MB.
-- Kunci `localStorage` diawali id game, misalnya `tebak-angka:best`.
+- Game memakai `nvanplayStorage` untuk membaca dan menulis data. Kunci tetap diawali id game, misalnya `tebak-angka:best`.
 - Tanpa skrip pelacak atau iklan pihak ketiga.
 - Bisa dimainkan di layar selebar 360 px.
 - Sandbox iframe memberi `allow-scripts`, `allow-same-origin`, dan `allow-forms`. Tanpa `allow-forms`, tombol submit tidak jalan. Game tidak boleh membuka popup atau pindah halaman.

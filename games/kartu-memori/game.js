@@ -13,13 +13,13 @@
 
   function loadBest() {
     try {
-      var v = parseInt(localStorage.getItem(KEY), 10);
+      var v = parseInt(window.nvanplayStorage.getItem(KEY), 10);
       return v > 0 ? v : null;
     } catch (e) { return null; }
   }
 
   function saveBest(n) {
-    try { localStorage.setItem(KEY, String(n)); } catch (e) { /* abaikan */ }
+    try { window.nvanplayStorage.setItem(KEY, String(n)); } catch (e) { /* abaikan */ }
   }
 
   function showBest() {
