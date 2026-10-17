@@ -81,6 +81,15 @@ for (const g of games) {
   if (usesStorage && !code.some(c => c.text.includes(`'${id}:`) || c.text.includes(`"${id}:`) || c.text.includes('`' + id + ':'))) {
     fail(id, `memakai nvanplayStorage, tapi tidak ada kunci berawalan "${id}:".`);
   }
+  if (usesStorage) {
+    const entry = code.find(c => c.f === join(dir, 'index.html'));
+    const html = entry ? entry.text : '';
+    const bridge = html.indexOf('<script src="../../js/game-storage.js"></script>');
+    const loader = html.indexOf('<script src="../../js/game-loader.js"></script>');
+    if (bridge < 0 || loader < 0 || loader < bridge) {
+      fail(id, 'index.html harus memuat game-storage.js lalu game-loader.js sebelum kode game.');
+    }
+  }
 }
 
 if (existsSync('games')) {

@@ -39,7 +39,12 @@ Terima kasih sudah mau menambah game. Satu pull request, satu game.
 - Berjalan penuh di browser. Tanpa permintaan ke server sendiri.
 - Folder game maksimal 5 MB. `cover.png` rasio 16:9, maksimal 200 KB.
 - Pakai `window.nvanplayStorage.getItem(key)` dan `window.nvanplayStorage.setItem(key, value)` untuk menyimpan data. Kunci diawali id game, misalnya `tebak-angka:best`. Jangan akses `localStorage` langsung; pemutar menyediakan data melalui jembatan yang hanya menerima prefix game tersebut.
-- Tanpa skrip pelacak, iklan, atau pustaka dari luar situs. Taruh semua file di folder game.
+- Tanpa skrip pelacak, iklan, atau pustaka dari luar situs. Taruh semua aset khusus game di folder game.
+- Jika game memakai data, muat jembatan sebelum pemuat game di `index.html`:
+  ```html
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+  ```
 - Nyaman di layar selebar 360 px. Tombol cukup besar untuk jari.
 - Game jalan di iframe dengan `sandbox="allow-scripts allow-forms"` pada origin terisolasi. Jangan buka popup atau pindah halaman.
 - Jangan pakai karakter, gambar, atau suara yang kamu tidak punya haknya.
