@@ -21,6 +21,35 @@ body {
 .site-header p, .empty { color: var(--muted); }
 a { color: var(--accent); }
 
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  background: #fff;
+  border: 1px solid #e4e4de;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card:hover, .card:focus-visible { border-color: var(--accent); }
+.card-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #e9e9e3;
+}
+.card-cover.no-cover { visibility: hidden; }
+.card-body { padding: 12px; }
+.card-title { margin: 0 0 4px; font-size: 1.05rem; }
+.card-desc { margin: 0 0 8px; color: var(--muted); font-size: .9rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.tag { font-size: .75rem; padding: 2px 8px; border-radius: 99px; background: #eef2fe; color: var(--accent); }
+
 .player-page { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
 .player-bar { display: flex; align-items: center; gap: 12px; padding: 8px 16px; border-bottom: 1px solid #e4e4de; }
 .player-bar h1 { margin: 0; font-size: 1.1rem; }
