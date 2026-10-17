@@ -58,5 +58,15 @@
     "license": "MIT",
     "color": "#2d45d6",
     "touch": true
+  },
+  {
+    "id": "ingat-urutan",
+    "title": "Ingat Urutan",
+    "description": "Ingat dan ulangi urutan warna yang makin panjang.",
+    "tags": ["memori", "santai"],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#8b5cf6",
+    "touch": true
   }
 ]
