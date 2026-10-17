@@ -1,0 +1,22 @@
+:root {
+  --bg: #fafaf7;
+  --fg: #1c1c1a;
+  --muted: #6b6b66;
+  --accent: #2f6fed;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.5;
+}
+.site-header, main, .site-footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px;
+}
+.site-header h1 { margin: 0; }
+.site-header p, .empty { color: var(--muted); }
+a { color: var(--accent); }
