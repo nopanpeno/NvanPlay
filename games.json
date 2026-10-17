@@ -6,5 +6,13 @@
     "tags": ["angka", "santai"],
     "author": "nopanpeno",
     "touch": true
+  },
+  {
+    "id": "kartu-memori",
+    "title": "Kartu Memori",
+    "description": "Cocokkan 8 pasang kartu dengan langkah sesedikit mungkin.",
+    "tags": ["memori", "santai"],
+    "author": "nopanpeno",
+    "touch": true
   }
 ]
