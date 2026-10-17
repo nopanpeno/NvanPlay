@@ -130,3 +130,30 @@ a { color: var(--accent); }
   cursor: pointer;
 }
 .theme-toggle[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+
+.panel {
+  margin: 16px 0;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.panel h2 { margin: 0 0 8px; font-size: 1.1rem; }
+.panel p { margin: 0 0 12px; }
+.btn {
+  font: inherit;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--on-accent);
+  cursor: pointer;
+}
+.btn:disabled { opacity: .5; cursor: default; }
+.status { min-height: 1.5em; font-weight: bold; }
+.status.error { color: #c62828; }
+:root[data-theme="dark"] .status.error { color: #ff8a80; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .status.error { color: #ff8a80; }
+}
+.site-footer { display: flex; gap: 16px; }

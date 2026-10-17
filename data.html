@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data pemain · NvanPlay</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%231a56c8%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-size=%2720%27 font-family=%27sans-serif%27 font-weight=%27bold%27 text-anchor=%27middle%27 fill=%27white%27%3EN%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <script>try{var t=localStorage.getItem('nvanplay:theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Data pemain</h1>
+    <p><a href="index.html">&larr; Kembali ke katalog</a></p>
+  </header>
+  <main>
+    <p>Skor dan progres disimpan di browser ini saja. Kalau data browser dihapus atau ganti HP, semuanya hilang. Simpan cadangan di sini.</p>
+
+    <section class="panel">
+      <h2>Ekspor</h2>
+      <p id="summary" class="empty">Memeriksa data…</p>
+      <button id="export" class="btn" type="button" disabled>Unduh cadangan</button>
+    </section>
+
+    <section class="panel">
+      <h2>Impor</h2>
+      <p>Pilih file cadangan NvanPlay (.json). Data dengan nama yang sama akan ditimpa.</p>
+      <input id="file" type="file" accept="application/json,.json" aria-label="File cadangan">
+    </section>
+
+    <p id="status" class="status" role="status"></p>
+  </main>
+  <script src="js/theme.js"></script>
+  <script src="js/data.js"></script>
+</body>
+</html>
