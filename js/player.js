@@ -30,7 +30,7 @@ fetch('games.json')
     frame.title = game.title;
     // allow-same-origin supaya game bisa pakai localStorage.
     // Tanpa itu, localStorage error di iframe sandbox.
-    frame.sandbox = 'allow-scripts allow-same-origin';
+    frame.sandbox = 'allow-scripts allow-same-origin allow-forms';
     frame.src = 'games/' + encodeURIComponent(game.id) + '/index.html';
     stage.replaceChildren(frame);
   })
