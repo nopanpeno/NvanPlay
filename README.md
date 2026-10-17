@@ -1,22 +1,69 @@
 # NvanPlay
 
-Platform game kecil, statis, di-hosting di GitHub Pages. Tanpa server, tanpa database.
+Kumpulan game kecil yang langsung dimainkan di browser. Situs statis di GitHub Pages: tanpa server, tanpa database, tanpa akun.
 
-Data pemain (skor, progres) disimpan di `localStorage` perangkat pemain.
+Main di: https://nopanpeno.github.io/NvanPlay/
+
+Skor dan progres disimpan di `localStorage` perangkat pemain. Hapus data browser, skor ikut hilang.
 
 ## Struktur
 
 ```
-index.html      halaman katalog
-games.json      daftar game (satu sumber data)
-games/<id>/     satu folder per game
-css/ js/        kode platform
+index.html       katalog game
+player.html      pemutar (iframe sandbox), dibuka dengan ?id=<id-game>
+games.json       daftar game, satu sumber data
+games/<id>/      satu folder per game
+css/ js/         kode platform
 ```
 
-## Status
+## Jalankan di komputer
 
-Dalam pengerjaan. Lihat PRD untuk rencana lengkap.
+Perlu server lokal, karena katalog dibaca lewat `fetch`.
+
+```
+python3 -m http.server 8000
+```
+
+Buka http://localhost:8000
+
+## Tambah game
+
+1. Buat folder `games/<id>/` berisi:
+   - `index.html`: titik masuk game
+   - `cover.png`: gambar 16:9, maksimal 200 KB
+   - `game.js` dan file lain: opsional
+2. Tambah satu entri di `games.json`:
+
+```json
+{
+  "id": "tebak-angka",
+  "title": "Tebak Angka",
+  "description": "Tebak angka 1 sampai 100 dalam 7 kali coba.",
+  "tags": ["angka", "santai"],
+  "author": "nama-github",
+  "touch": true
+}
+```
+
+3. Kirim pull request.
+
+`id` harus sama dengan nama folder.
+
+### Aturan game
+
+- Jalan penuh di browser, tanpa permintaan ke server sendiri.
+- Total ukuran folder maksimal 5 MB.
+- Kunci `localStorage` diawali id game, misalnya `tebak-angka:best`.
+- Tanpa skrip pelacak atau iklan pihak ketiga.
+- Bisa dimainkan di layar selebar 360 px.
+- Sandbox iframe memberi `allow-scripts`, `allow-same-origin`, dan `allow-forms`. Tanpa `allow-forms`, tombol submit tidak jalan. Game tidak boleh membuka popup atau pindah halaman.
+
+Setiap pull request game ditinjau sebelum digabung. Sandbox ini tidak mengisolasi game sepenuhnya dari situs.
+
+## Deploy
+
+GitHub Pages dari branch `main`, folder root. Tiap merge ke `main` memperbarui situs sendiri.
 
 ## Lisensi
 
-MIT. Lihat [LICENSE](LICENSE).
+MIT. Lihat [LICENSE](LICENSE). Lisensi aset (gambar, suara) tiap game ikut pembuat game.
