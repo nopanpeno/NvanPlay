@@ -11,10 +11,15 @@ Skor dan progres disimpan di `localStorage` perangkat pemain. Hapus data browser
 ```
 index.html       katalog game
 player.html      pemutar (iframe sandbox), dibuka dengan ?id=<id-game>
+data.html        ekspor dan impor data pemain
 games.json       daftar game, satu sumber data
 games/<id>/      satu folder per game
 css/ js/         kode platform
 ```
+
+## Cadangan data pemain
+
+Buka halaman **Data pemain** (tautan di bawah katalog). Unduh cadangan `.json`, lalu impor di browser atau HP lain. Hanya kunci milik game di `games.json` yang dibaca dan dipulihkan, yaitu kunci berawalan `<id-game>:`. Itu sebabnya aturan kunci `localStorage` di bawah wajib.
 
 ## Jalankan di komputer
 
