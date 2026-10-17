@@ -73,21 +73,42 @@ function doImport(file) {
       payload.data && typeof payload.data === 'object' && !Array.isArray(payload.data);
     if (!ok) return say('Ini bukan file cadangan NvanPlay.', true);
 
-    let restored = 0, skipped = 0;
+    const entries = Object.entries(payload.data);
+    const eligible = entries.filter(([key, value]) =>
+      isGameKey(key) && typeof value === 'string' && value.length <= MAX_VALUE
+    );
+    const skipped = entries.length - eligible.length;
+    const previous = new Map();
+    const written = [];
+
     try {
-      Object.entries(payload.data).forEach(([key, value]) => {
-        if (isGameKey(key) && typeof value === 'string' && value.length <= MAX_VALUE) {
-          localStorage.setItem(key, value);
-          restored++;
-        } else {
-          skipped++;
-        }
-      });
+      // Ambil semua nilai lama sebelum menulis agar kegagalan bisa dibatalkan.
+      for (const [key] of eligible) previous.set(key, localStorage.getItem(key));
+      for (const [key, value] of eligible) {
+        localStorage.setItem(key, value);
+        written.push(key);
+      }
     } catch (e) {
-      return say('Gagal menyimpan. Penyimpanan browser penuh atau diblokir.', true);
+      let rollbackFailed = false;
+      for (const key of written.reverse()) {
+        try {
+          const oldValue = previous.get(key);
+          if (oldValue === null) localStorage.removeItem(key);
+          else localStorage.setItem(key, oldValue);
+        } catch (rollbackError) {
+          rollbackFailed = true;
+        }
+      }
+      refresh();
+      return say(
+        rollbackFailed
+          ? 'Gagal menyimpan dan pemulihan otomatis tidak tuntas.'
+          : 'Gagal menyimpan. Perubahan impor dibatalkan.',
+        true
+      );
     }
     refresh();
-    say('Dipulihkan: ' + restored + ' data' + (skipped ? ', dilewati: ' + skipped : '') + '.', !restored && skipped > 0);
+    say('Dipulihkan: ' + eligible.length + ' data' + (skipped ? ', dilewati: ' + skipped : '') + '.', !eligible.length && skipped > 0);
   }).catch(() => say('File tidak bisa dibaca.', true))
     .finally(() => { fileInput.value = ''; });
 }

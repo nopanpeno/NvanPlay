@@ -75,9 +75,20 @@ for (const g of games) {
       fail(id, `${f}: permintaan jaringan ke luar.`);
     }
   }
-  const usesStorage = code.some(c => /localStorage/.test(c.text));
+  const directStorage = code.find(c => /\blocalStorage\s*(?:\.|\[)/.test(c.text));
+  if (directStorage) fail(id, `${directStorage.f}: gunakan jembatan nvanplayStorage, bukan localStorage langsung.`);
+  const usesStorage = code.some(c => /\bnvanplayStorage\b/.test(c.text));
   if (usesStorage && !code.some(c => c.text.includes(`'${id}:`) || c.text.includes(`"${id}:`) || c.text.includes('`' + id + ':'))) {
-    fail(id, `memakai localStorage, tapi tidak ada kunci berawalan "${id}:".`);
+    fail(id, `memakai nvanplayStorage, tapi tidak ada kunci berawalan "${id}:".`);
+  }
+  if (usesStorage) {
+    const entry = code.find(c => c.f === join(dir, 'index.html'));
+    const html = entry ? entry.text : '';
+    const bridge = html.indexOf('<script src="../../js/game-storage.js"></script>');
+    const loader = html.indexOf('<script src="../../js/game-loader.js"></script>');
+    if (bridge < 0 || loader < 0 || loader < bridge) {
+      fail(id, 'index.html harus memuat game-storage.js lalu game-loader.js sebelum kode game.');
+    }
   }
 }
 

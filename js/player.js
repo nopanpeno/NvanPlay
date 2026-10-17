@@ -1,6 +1,39 @@
 // Pemutar: muat satu game dari katalog ke dalam iframe.
 // Hanya id yang ada di games.json yang boleh dimuat.
 const stage = document.getElementById('stage');
+
+function installStorageBridge(frame, game) {
+  const prefix = game.id + ':';
+
+  function sendState() {
+    const values = Object.create(null);
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith(prefix)) values[key] = localStorage.getItem(key);
+      }
+    } catch (e) {
+      // Game tetap berjalan tanpa nilai tersimpan jika storage tidak tersedia.
+    }
+    frame.contentWindow.postMessage({ app: 'nvanplay', type: 'storage:init', prefix, values }, '*');
+  }
+
+  window.addEventListener('message', event => {
+    if (event.source !== frame.contentWindow) return;
+    const message = event.data;
+    if (!message || message.app !== 'nvanplay') return;
+    if (message.type === 'storage:request') {
+      sendState();
+      return;
+    }
+    if (message.type !== 'storage:set' || typeof message.key !== 'string' ||
+        !message.key.startsWith(prefix) || message.key.length > 256 ||
+        typeof message.value !== 'string' || message.value.length > 10000) return;
+    try { localStorage.setItem(message.key, message.value); } catch (e) {
+      // Skor terbaik bersifat opsional; game tetap berjalan saat storage penuh.
+    }
+  });
+}
 const titleEl = document.getElementById('game-title');
 
 function fail(message) {
@@ -28,9 +61,9 @@ fetch('games.json')
     const frame = document.createElement('iframe');
     frame.className = 'game-frame';
     frame.title = game.title;
-    // allow-same-origin supaya game bisa pakai localStorage.
-    // Tanpa itu, localStorage error di iframe sandbox.
-    frame.sandbox = 'allow-scripts allow-same-origin allow-forms';
+    // Opaque origin menjaga game terpisah dari DOM dan storage situs utama.
+    frame.sandbox = 'allow-scripts allow-forms';
+    installStorageBridge(frame, game);
     frame.src = 'games/' + encodeURIComponent(game.id) + '/index.html';
     stage.replaceChildren(frame);
   })
