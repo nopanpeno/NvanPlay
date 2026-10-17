@@ -20,3 +20,10 @@ body {
 .site-header h1 { margin: 0; }
 .site-header p, .empty { color: var(--muted); }
 a { color: var(--accent); }
+
+.player-page { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+.player-bar { display: flex; align-items: center; gap: 12px; padding: 8px 16px; border-bottom: 1px solid #e4e4de; }
+.player-bar h1 { margin: 0; font-size: 1.1rem; }
+.back { text-decoration: none; white-space: nowrap; }
+.stage { flex: 1; min-height: 0; }
+.game-frame { display: block; width: 100%; height: 100%; border: 0; }
