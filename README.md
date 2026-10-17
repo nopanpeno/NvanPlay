@@ -15,6 +15,7 @@ data.html        ekspor dan impor data pemain
 games.json       daftar game, satu sumber data
 games/<id>/      satu folder per game
 css/ js/         kode platform
+fonts/           font Bricolage Grotesque (lisensi OFL di folder itu)
 scripts/         pengecekan kontrak game
 ```
 
@@ -48,6 +49,7 @@ Buka http://localhost:8000
   "tags": ["angka", "santai"],
   "author": "nama-github",
   "license": "MIT",
+  "color": "#2f6fed",
   "touch": true
 }
 ```

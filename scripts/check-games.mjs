@@ -41,6 +41,7 @@ for (const g of games) {
   if (!Array.isArray(g.tags) || !g.tags.length || !g.tags.every(t => typeof t === 'string' && t.trim())) {
     fail(id, 'field "tags" wajib berupa daftar teks, minimal satu.');
   }
+  if (g.color !== undefined && !/^#[0-9a-fA-F]{6}$/.test(g.color)) fail(id, 'field "color" harus berupa warna hex enam digit, misalnya #2f6fed.');
   if (typeof g.touch !== 'boolean') fail(id, 'field "touch" wajib true atau false.');
 
   const dir = join('games', id);

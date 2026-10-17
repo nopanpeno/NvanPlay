@@ -22,6 +22,7 @@ Terima kasih sudah mau menambah game. Satu pull request, satu game.
   "tags": ["angka", "santai"],
   "author": "nama-github",
   "license": "MIT",
+  "color": "#2f6fed",
   "touch": true
 }
 ```
@@ -30,6 +31,7 @@ Terima kasih sudah mau menambah game. Satu pull request, satu game.
 - `description`: satu kalimat.
 - `author`: nama GitHub kamu.
 - `license`: lisensi game dan asetnya (gambar, suara, font). Kalau ada aset dari orang lain, tulis sumber dan lisensinya di sini, misalnya `"MIT; ikon: CC0 dari kenney.nl"`.
+- `color`: warna khas game, hex enam digit. Dipakai untuk bayangan kartu di katalog. Opsional; ambil dari warna dominan `cover.png`.
 - `touch`: `true` kalau bisa dimainkan dengan sentuhan saja.
 
 ## Aturan game
