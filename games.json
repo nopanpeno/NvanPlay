@@ -48,5 +48,15 @@
     "license": "MIT",
     "color": "#ffb703",
     "touch": true
+  },
+  {
+    "id": "hitung-kilat",
+    "title": "Hitung Kilat",
+    "description": "Jawab soal penjumlahan sebanyak mungkin dalam 30 detik.",
+    "tags": ["angka", "refleks"],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#2d45d6",
+    "touch": true
   }
 ]
