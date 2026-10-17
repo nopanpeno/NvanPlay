@@ -8,19 +8,33 @@ function el(tag, className, text) {
   return node;
 }
 
-function card(game) {
+function bestOf(id) {
+  try {
+    const v = parseInt(localStorage.getItem(id + ':best'), 10);
+    return v > 0 ? v : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function card(game, index) {
   const link = el('a', 'card');
   link.href = 'player.html?id=' + encodeURIComponent(game.id);
+  if (/^#[0-9a-f]{6}$/i.test(game.color || '')) link.style.setProperty('--tile', game.color);
 
   const cover = el('img', 'card-cover');
   cover.src = 'games/' + encodeURIComponent(game.id) + '/cover.png';
   cover.alt = '';
-  cover.loading = 'lazy';
+  // Kartu pertama ada di layar saat dibuka, jadi jangan ditunda.
+  cover.loading = index < 4 ? 'eager' : 'lazy';
   cover.addEventListener('error', () => cover.classList.add('no-cover'));
 
   const body = el('div', 'card-body');
   body.append(el('h2', 'card-title', game.title));
   body.append(el('p', 'card-desc', game.description));
+
+  const best = bestOf(game.id);
+  if (best) body.append(el('p', 'card-record', 'Rekormu: ' + best));
 
   const tags = el('ul', 'tags');
   (game.tags || []).forEach(t => tags.append(el('li', 'tag', t)));
@@ -31,6 +45,7 @@ function card(game) {
 }
 
 const filters = document.getElementById('filters');
+const randomBtn = document.getElementById('random');
 let allGames = [];
 let query = '';
 let activeTag = '';
@@ -54,7 +69,7 @@ function render() {
     return;
   }
   const grid = el('div', 'grid');
-  shown.forEach(g => grid.append(card(g)));
+  shown.forEach((g, i) => grid.append(card(g, i)));
   catalog.append(grid);
 }
 
@@ -96,9 +111,23 @@ fetch('games.json')
   })
   .then(games => {
     allGames = games;
-    if (games.length) buildFilters();
+    if (games.length) {
+      buildFilters();
+      randomBtn.disabled = false;
+    }
     render();
   })
   .catch(() => {
     catalog.replaceChildren(el('p', 'empty', 'Katalog gagal dimuat.'));
   });
+
+randomBtn.addEventListener('click', () => {
+  if (!allGames.length) return;
+  const pick = allGames[Math.floor(Math.random() * allGames.length)];
+  location.href = 'player.html?id=' + encodeURIComponent(pick.id);
+});
+
+// Kembali dari game lewat tombol back: perbarui rekor di kartu.
+window.addEventListener('pageshow', e => {
+  if (e.persisted && allGames.length) render();
+});

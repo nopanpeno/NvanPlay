@@ -6,6 +6,7 @@
     "tags": ["angka", "santai"],
     "author": "nopanpeno",
     "license": "MIT",
+    "color": "#2f6fed",
     "touch": true
   },
   {
@@ -15,6 +16,7 @@
     "tags": ["memori", "santai"],
     "author": "nopanpeno",
     "license": "MIT",
+    "color": "#2e9a55",
     "touch": true
   },
   {
@@ -24,6 +26,7 @@
     "tags": ["refleks", "cepat"],
     "author": "nopanpeno",
     "license": "MIT",
+    "color": "#e5483a",
     "touch": true
   },
   {
@@ -33,6 +36,7 @@
     "tags": ["klasik", "santai"],
     "author": "nopanpeno",
     "license": "MIT",
+    "color": "#8b5cf6",
     "touch": true
   },
   {
@@ -42,6 +46,7 @@
     "tags": ["warna", "refleks"],
     "author": "nopanpeno",
     "license": "MIT",
+    "color": "#ffb703",
     "touch": true
   }
 ]
