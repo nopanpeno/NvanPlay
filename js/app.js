@@ -127,7 +127,7 @@ randomBtn.addEventListener('click', () => {
   location.href = 'player.html?id=' + encodeURIComponent(pick.id);
 });
 
-// Kembali dari game lewat tombol back: perbarui rekor di kartu.
-window.addEventListener('pageshow', e => {
-  if (e.persisted && allGames.length) render();
+// Perbarui rekor setiap katalog ditampilkan kembali setelah bermain.
+window.addEventListener('pageshow', () => {
+  if (allGames.length) render();
 });

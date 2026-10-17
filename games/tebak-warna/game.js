@@ -38,6 +38,14 @@
     bestEl.textContent = b ? 'Terbaik: ' + b : '';
   }
 
+  function recordScore() {
+    var best = loadBest();
+    if (!best || score > best) {
+      saveBest(score);
+      showBest();
+    }
+  }
+
   function setButtons(enabled) {
     buttons.forEach(function (b) { b.disabled = !enabled; });
   }
@@ -61,11 +69,10 @@
     running = false;
     setButtons(false);
     showTime(0);
+    recordScore();
     var best = loadBest();
-    var record = !best || score > best;
-    if (record && score > 0) saveBest(score);
-    showBest();
-    msg.textContent = 'Skor ' + score + ', salah ' + wrong + (record && score > 0 ? '. Rekor baru!' : '.');
+    var record = best !== null && score === best && score > 0;
+    msg.textContent = 'Skor ' + score + ', salah ' + wrong + (record ? '. Rekor terbaik!' : '.');
     startBtn.textContent = 'Main lagi';
     startBtn.hidden = false;
     startBtn.focus();
@@ -101,6 +108,7 @@
       if (c === current) {
         score++;
         scoreEl.textContent = 'Skor: ' + score;
+        recordScore();
       } else {
         wrong++;
       }
