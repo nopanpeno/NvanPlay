@@ -14,5 +14,13 @@
     "tags": ["memori", "santai"],
     "author": "nopanpeno",
     "touch": true
+  },
+  {
+    "id": "klik-cepat",
+    "title": "Klik Cepat",
+    "description": "Ketuk sebanyak mungkin dalam 10 detik.",
+    "tags": ["refleks", "cepat"],
+    "author": "nopanpeno",
+    "touch": true
   }
 ]
