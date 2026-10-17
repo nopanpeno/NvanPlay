@@ -7,7 +7,7 @@ Terima kasih sudah mau menambah game. Satu pull request, satu game.
 1. Fork repo ini, buat branch baru, misalnya `game-nama-game`.
 2. Tambah folder `games/<id>/` dengan `index.html` dan `cover.png`.
 3. Tambah satu entri di `games.json` (lihat contoh di bawah).
-4. Jalankan pengecekan: `node scripts/check-games.mjs`. Harus keluar `OK`.
+4. Jalankan pengecekan: `node scripts/check-games.mjs`. Harus keluar `OK`. Pengecekan yang sama jalan otomatis di GitHub Actions saat kamu mengirim pull request.
 5. Coba game lewat pemutar, bukan hanya `index.html` langsung:
    `python3 -m http.server 8000`, buka `http://localhost:8000/player.html?id=<id>`.
 6. Kirim pull request dan isi daftar periksa di formulir.
