@@ -22,5 +22,13 @@
     "tags": ["refleks", "cepat"],
     "author": "nopanpeno",
     "touch": true
+  },
+  {
+    "id": "suit",
+    "title": "Suit",
+    "description": "Batu gunting kertas lawan komputer. Kejar kemenangan beruntun.",
+    "tags": ["klasik", "santai"],
+    "author": "nopanpeno",
+    "touch": true
   }
 ]
