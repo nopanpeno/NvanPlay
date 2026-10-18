@@ -142,5 +142,19 @@
     "license": "MIT",
     "color": "#8b5cf6",
     "touch": true
+  },
+  {
+    "id": "ular-tangga",
+    "title": "Ular Tangga",
+    "description": "Balapan ke kotak 100 bersama 2–4 pemain di satu layar.",
+    "tags": [
+      "multiplayer",
+      "klasik",
+      "santai"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#d94f5c",
+    "touch": true
   }
 ]
