@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f1ff">
+  <title>Ludo Lokal</title>
+  <style>
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    :root { color-scheme: light; --ink: #17142b; --paper: #f4f1ff; --line: #d8d4e8; --purple: #6d4bd1; }
+    body { margin: 0; padding: 16px; background: var(--paper); color: var(--ink); font: 16px/1.5 system-ui, sans-serif; }
+    main { width: 100%; max-width: 720px; margin: 0 auto; }
+    h1 { margin: 0; font-size: clamp(1.6rem, 7vw, 2.25rem); }
+    .intro { margin: 4px 0 16px; color: #5d5872; }
+    .panel { padding: 16px; border: 2px solid var(--line); border-radius: 16px; background: #fff; box-shadow: 4px 4px 0 #d8d4e8; }
+    .setup-grid { display: grid; gap: 12px; }
+    label { display: grid; gap: 6px; font-weight: 650; }
+    select, input { width: 100%; min-height: 44px; padding: 9px 12px; border: 2px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); font: inherit; }
+    input { min-width: 0; }
+    .name-list { display: grid; gap: 10px; }
+    .btn { min-height: 48px; padding: 10px 16px; border: 0; border-radius: 12px; background: var(--purple); color: #fff; font: inherit; font-weight: 750; cursor: pointer; touch-action: manipulation; }
+    .btn:disabled { opacity: .55; cursor: default; }
+    .btn.secondary { background: #ece8fa; color: var(--ink); }
+    :focus-visible { outline: 3px solid #302072; outline-offset: 3px; }
+    .rules { margin: 14px 0 0; padding-left: 20px; color: #5d5872; }
+    .game-panel { display: grid; gap: 14px; }
+    .game-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; }
+    .turn { margin: 0; font-size: 1.15rem; font-weight: 800; }
+    .dice { min-width: 76px; padding: 7px 12px; border: 2px solid var(--line); border-radius: 12px; background: #fff; font-size: 1.2rem; font-weight: 800; text-align: center; }
+    .status { min-height: 3em; margin: 0; padding: 10px 12px; border-radius: 10px; background: #f4f1ff; }
+    .board { display: block; width: min(100%, 560px); height: auto; margin: 0 auto; border-radius: 16px; }
+    .player-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .player-card { display: flex; align-items: center; gap: 9px; min-width: 0; padding: 9px 10px; border: 2px solid var(--line); border-radius: 10px; background: #fff; }
+    .player-card.active { border-color: var(--purple); box-shadow: 0 0 0 2px #e9e2ff; }
+    .player-dot { flex: none; width: 14px; height: 14px; border: 2px solid #17142b33; border-radius: 50%; }
+    .player-copy { display: grid; min-width: 0; }
+    .player-name { overflow-wrap: anywhere; }
+    .player-position { color: #5d5872; font-size: .82rem; }
+    .actions { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+    @media (max-width: 380px) {
+      body { padding: 10px; }
+      .panel { padding: 12px; }
+      .actions { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Ludo Lokal</h1>
+    <p class="intro">Main bareng di satu layar. Lempar dadu, makan bidak lawan, dan jadi yang pertama sampai rumah.</p>
+
+    <section id="setup" class="panel" aria-labelledby="setup-title">
+      <h2 id="setup-title">Atur pemain</h2>
+      <div class="setup-grid">
+        <label for="player-count">Jumlah pemain
+          <select id="player-count">
+            <option value="2">2 pemain</option>
+            <option value="3">3 pemain</option>
+            <option value="4">4 pemain</option>
+          </select>
+        </label>
+        <div id="name-list" class="name-list"></div>
+        <button id="start" class="btn" type="button">Mulai main</button>
+      </div>
+      <ul class="rules">
+        <li>Satu bidak untuk setiap pemain; giliran dimainkan bergantian di perangkat yang sama.</li>
+        <li>Perlu angka 6 untuk keluar dari markas. Dapat 6 berarti boleh melempar lagi.</li>
+        <li>Mendarat di bidak lawan mengirimnya kembali ke markas. Kotak mulai aman.</li>
+        <li>Masuk jalur rumah dan sampai tujuan perlu angka yang pas. Yang pertama sampai menang.</li>
+      </ul>
+    </section>
+
+    <section id="game" class="panel game-panel" hidden aria-label="Permainan Ludo">
+      <div class="game-top">
+        <p id="turn" class="turn"></p>
+        <div id="dice" class="dice" aria-label="Hasil dadu">—</div>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <svg id="board" class="board" viewBox="0 0 600 600" aria-hidden="true"></svg>
+      <ul id="player-list" class="player-list" aria-label="Posisi pemain"></ul>
+      <div class="actions">
+        <button id="roll" class="btn" type="button">Lempar dadu</button>
+        <button id="new-game" class="btn secondary" type="button">Atur ulang pemain</button>
+      </div>
+    </section>
+  </main>
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+</body>
+</html>
