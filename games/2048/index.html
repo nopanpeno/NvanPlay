@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2048</title>
+  <style>
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body { margin: 0; padding: 18px; min-height: 100vh; display: grid; place-items: center; background: #f7f4ed; color: #433d35; font: 16px/1.45 system-ui, sans-serif; }
+    main { width: min(100%, 390px); }
+    h1 { margin: 0; font-size: 2rem; }
+    p { margin: 4px 0 12px; }
+    .scores { display: flex; gap: 8px; margin: 12px 0; }
+    .score { flex: 1; padding: 8px; border-radius: 8px; background: #e9e3d9; text-align: center; }
+    .score strong { display: block; font-size: 1.15rem; }
+    .board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; aspect-ratio: 1; padding: 8px; border-radius: 12px; background: #b8afa2; touch-action: none; outline-offset: 4px; }
+    .tile { display: grid; place-items: center; min-width: 0; border-radius: 8px; background: #d9d2c8; font-size: clamp(1.1rem, 8vw, 2rem); font-weight: 800; }
+    .tile[data-value="2"] { background: #eee4da; } .tile[data-value="4"] { background: #ede0c8; }
+    .tile[data-value="8"] { background: #f2b179; color: #fff; } .tile[data-value="16"] { background: #f59563; color: #fff; }
+    .tile[data-value="32"] { background: #f67c5f; color: #fff; } .tile[data-value="64"] { background: #f65e3b; color: #fff; }
+    .tile.high { background: #edcf72; color: #fff; }
+    .status { min-height: 3em; margin: 10px 0; }
+    .controls { display: grid; grid-template-columns: repeat(3, 48px); grid-template-rows: repeat(2, 44px); justify-content: center; gap: 6px; margin: 12px auto; }
+    button { min-height: 44px; padding: 8px 12px; border: 0; border-radius: 8px; background: #705b45; color: #fff; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation; }
+    .controls button { padding: 4px; font-size: 1.2rem; }
+    .up { grid-column: 2; grid-row: 1; } .left { grid-column: 1; grid-row: 2; } .down { grid-column: 2; grid-row: 2; } .right { grid-column: 3; grid-row: 2; }
+    :focus-visible { outline: 3px solid #2d45d6; outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>2048</h1>
+    <p>Gabungkan angka yang sama sampai jadi 2048. Geser papan atau pakai tombol panah.</p>
+    <div class="scores">
+      <div class="score">Skor<strong id="score">0</strong></div>
+      <div class="score">Rekor<strong id="best">0</strong></div>
+    </div>
+    <div id="board" class="board" role="grid" aria-label="Papan 2048" tabindex="0"></div>
+    <p id="status" class="status" role="status" aria-live="polite">Gunakan tombol panah untuk menggeser.</p>
+    <div class="controls" role="group" aria-label="Kontrol geser">
+      <button class="up" data-direction="up" aria-label="Geser ke atas">↑</button>
+      <button class="left" data-direction="left" aria-label="Geser ke kiri">←</button>
+      <button class="down" data-direction="down" aria-label="Geser ke bawah">↓</button>
+      <button class="right" data-direction="right" aria-label="Geser ke kanan">→</button>
+    </div>
+    <button id="new-game" type="button">Mulai ulang</button>
+  </main>
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+</body>
+</html>

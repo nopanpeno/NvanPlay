@@ -156,5 +156,47 @@
     "license": "MIT",
     "color": "#d94f5c",
     "touch": true
+  },
+  {
+    "id": "2048",
+    "title": "2048",
+    "description": "Geser dan gabungkan angka yang sama sampai mencapai 2048.",
+    "tags": [
+      "angka",
+      "puzzle",
+      "santai"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#e99b62",
+    "touch": true
+  },
+  {
+    "id": "labirin",
+    "title": "Labirin",
+    "description": "Temukan jalan keluar dari labirin acak secepat mungkin.",
+    "tags": [
+      "puzzle",
+      "refleks",
+      "santai"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#287750",
+    "touch": true
+  },
+  {
+    "id": "empat-segaris",
+    "title": "Empat Segaris",
+    "description": "Dua pemain bergantian menyusun empat bidak dalam satu garis.",
+    "tags": [
+      "multiplayer",
+      "strategi",
+      "klasik"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#2563eb",
+    "touch": true
   }
 ]
