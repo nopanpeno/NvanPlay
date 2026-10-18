@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Empat Segaris</title>
+  <style>
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body { margin: 0; padding: 16px; min-height: 100vh; display: grid; place-items: center; background: #f1f5ff; color: #172554; font: 16px/1.45 system-ui, sans-serif; }
+    main { width: min(100%, 520px); }
+    h1 { margin: 0; font-size: 1.9rem; }
+    p { margin: 4px 0 12px; }
+    .setup { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0; }
+    label { display: grid; gap: 4px; font-weight: 650; }
+    input { width: 100%; min-width: 0; min-height: 44px; padding: 8px 10px; border: 2px solid #cbd5e1; border-radius: 9px; font: inherit; }
+    .board { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; padding: 8px; border-radius: 14px; background: #2563eb; }
+    .column { display: grid; grid-template-rows: repeat(6, 1fr); gap: 6px; min-width: 0; padding: 0; border: 0; background: transparent; cursor: pointer; }
+    .column:disabled { cursor: default; opacity: 1; }
+    .slot { display: grid; place-items: center; aspect-ratio: 1; border-radius: 50%; background: #eff6ff; }
+    .disc { width: 82%; height: 82%; border-radius: 50%; background: transparent; }
+    .disc.red { background: #ef4444; box-shadow: inset 0 -3px 0 #b91c1c; }
+    .disc.yellow { background: #facc15; box-shadow: inset 0 -3px 0 #ca8a04; }
+    .turn { min-height: 1.5em; margin: 12px 0 4px; font-weight: 800; }
+    .status { min-height: 3em; margin: 4px 0 12px; }
+    button.action { min-height: 46px; padding: 9px 14px; border: 0; border-radius: 9px; background: #172554; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+    :focus-visible { outline: 3px solid #e11d48; outline-offset: 3px; }
+    @media (max-width: 380px) { body { padding: 10px; } .board { gap: 4px; padding: 6px; } .column { gap: 4px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Empat Segaris</h1>
+    <p>Dua pemain bergantian menjatuhkan bidak. Jadilah yang pertama menyusun empat bidak segaris.</p>
+    <section id="setup" class="setup">
+      <label for="name-red">Pemain merah<input id="name-red" maxlength="16" value="Pemain 1"></label>
+      <label for="name-yellow">Pemain kuning<input id="name-yellow" maxlength="16" value="Pemain 2"></label>
+    <button id="start" class="action" type="button">Mulai main</button>
+    </section>
+    <section id="playing" hidden>
+    <p id="turn" class="turn"></p>
+    <div id="board" class="board" role="group" aria-label="Papan Empat Segaris"></div>
+    <p id="status" class="status" role="status" aria-live="polite">Pilih kolom untuk menjatuhkan bidak.</p>
+    <button id="new-game" class="action" type="button">Atur ulang pemain</button>
+    </section>
+  </main>
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+</body>
+</html>

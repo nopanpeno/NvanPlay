@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Labirin</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 16px; min-height: 100vh; display: grid; place-items: center; background: #f0f8f4; color: #173b2d; font: 16px/1.45 system-ui, sans-serif; }
+    main { width: min(100%, 460px); }
+    h1 { margin: 0; font-size: 1.9rem; }
+    p { margin: 4px 0 12px; }
+    .stats { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+    .stat { flex: 1; padding: 8px 10px; border-radius: 9px; background: #dcefe4; }
+    .stat strong { display: block; }
+    .maze { display: block; width: min(100%, 420px); height: auto; margin: auto; background: #fff; border: 3px solid #24573f; border-radius: 8px; }
+    .status { min-height: 3em; margin: 10px 0; }
+    .pad { display: grid; grid-template-columns: repeat(3, 52px); grid-template-rows: repeat(2, 46px); justify-content: center; gap: 6px; margin: 12px auto; }
+    button { min-height: 46px; padding: 8px 14px; border: 0; border-radius: 9px; background: #287750; color: #fff; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation; }
+    .pad button { padding: 4px; font-size: 1.2rem; }
+    .up { grid-column: 2; grid-row: 1; } .left { grid-column: 1; grid-row: 2; } .down { grid-column: 2; grid-row: 2; } .right { grid-column: 3; grid-row: 2; }
+    :focus-visible { outline: 3px solid #17462f; outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Labirin</h1>
+    <p>Cari jalan dari titik hijau ke pintu merah. Setiap permainan punya labirin baru.</p>
+    <div class="stats">
+      <div class="stat">Waktu<strong id="timer">0 detik</strong></div>
+      <div class="stat">Rekor<strong id="best">—</strong></div>
+      <div class="stat">Langkah<strong id="steps">0</strong></div>
+    </div>
+    <svg id="maze" class="maze" viewBox="0 0 420 420" role="img" aria-label="Labirin. Gunakan tombol panah atau kontrol arah untuk bergerak."></svg>
+    <p id="status" class="status" role="status" aria-live="polite">Mulai dari titik hijau dan cari pintu keluar.</p>
+    <div class="pad" role="group" aria-label="Kontrol arah">
+      <button class="up" data-direction="0" aria-label="Bergerak ke atas">↑</button>
+      <button class="left" data-direction="3" aria-label="Bergerak ke kiri">←</button>
+      <button class="down" data-direction="2" aria-label="Bergerak ke bawah">↓</button>
+      <button class="right" data-direction="1" aria-label="Bergerak ke kanan">→</button>
+    </div>
+    <button id="new-maze" type="button">Labirin baru</button>
+  </main>
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+</body>
+</html>
