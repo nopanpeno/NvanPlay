@@ -68,5 +68,15 @@
     "license": "MIT",
     "color": "#8b5cf6",
     "touch": true
+  },
+  {
+    "id": "reaksi",
+    "title": "Reaksi",
+    "description": "Ketuk secepat mungkin saat layar berubah hijau.",
+    "tags": ["refleks", "santai"],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#0e8f8c",
+    "touch": true
   }
 ]
