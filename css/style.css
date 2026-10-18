@@ -152,6 +152,17 @@ a { color: var(--accent); }
   cursor: pointer;
 }
 .chip[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+.clear-filters {
+  justify-self: start;
+  font: inherit;
+  padding: 8px 12px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: inherit;
+  cursor: pointer;
+}
+.results-count { margin: 0 0 12px; color: var(--muted); font-size: .9rem; }
 
 /* Catalog */
 .grid {
