@@ -88,5 +88,15 @@
     "license": "MIT",
     "color": "#d6336c",
     "touch": true
+  },
+  {
+    "id": "tebak-kata",
+    "title": "Tebak Kata",
+    "description": "Tebak kata huruf demi huruf sebelum kesempatan salahmu habis.",
+    "tags": ["kata", "santai"],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#f97316",
+    "touch": true
   }
 ]

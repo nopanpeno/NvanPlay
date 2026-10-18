@@ -77,6 +77,8 @@ a { color: var(--accent); }
 .empty { color: var(--muted); }
 
 .theme-toggle {
+  flex: none;
+  white-space: nowrap;
   margin-left: auto;
   font: inherit;
   font-size: .85rem;
@@ -199,11 +201,12 @@ a { color: var(--accent); }
 
 /* Player */
 .player-page { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
-.player-bar { display: flex; align-items: center; gap: 12px; padding: 8px 16px; border-bottom: 2px solid var(--line); }
-.player-bar h1 { font-size: 1.15rem; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.player-bar { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-bottom: 2px solid var(--line); }
+.player-bar .theme-toggle { padding: 6px 10px; }
+.player-bar h1 { font-size: 1.05rem; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .back {
   flex: none;
-  padding: 6px 12px;
+  padding: 6px 10px;
   border: 2px solid var(--line);
   border-radius: 99px;
   background: var(--surface);

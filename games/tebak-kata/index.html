@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tebak Kata</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: grid; place-items: center;
+      font-family: system-ui, sans-serif; background: #fafaf7; color: #1c1c1a;
+    }
+    main { width: 100%; max-width: 360px; padding: 16px; text-align: center; }
+    h1 { margin: 0 0 4px; font-size: 1.4rem; }
+    #info { display: flex; justify-content: space-between; margin: 8px 0 0; color: #55554f; }
+    #hint { margin: 4px 0 0; font-weight: bold; }
+    #gallows { display: block; width: 120px; height: 120px; margin: 4px auto; }
+    #gallows .frame { stroke: #1c1c1a; }
+    #gallows .part { stroke: #b3261e; display: none; }
+    #gallows .part.on { display: inline; }
+    #word { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; min-height: 2.6rem; }
+    .slot {
+      width: 1.9rem; padding-bottom: 2px; border-bottom: 3px solid #1c1c1a;
+      font-size: 1.7rem; font-weight: bold; line-height: 1.5; letter-spacing: 0;
+    }
+    #word.long { gap: 4px; }
+    #word.long .slot { width: 1.45rem; font-size: 1.3rem; }
+    .slot.miss { color: #b3261e; }
+    #keys { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+    #keys button {
+      padding: 12px 0; border: 2px solid #1c1c1a; border-radius: 10px; background: #fff;
+      color: #1c1c1a; font: inherit; font-size: 1.05rem; font-weight: bold; cursor: pointer;
+      touch-action: manipulation;
+    }
+    #keys button.ok { background: #cfeed8; }
+    #keys button.no { background: #f6d2cf; color: #6b1d17; }
+    #keys button:disabled { cursor: default; }
+    #msg { min-height: 1.6em; margin: 12px 0 0; font-size: 1.1rem; font-weight: bold; }
+    #again {
+      margin-top: 8px; font-size: 1rem; padding: 12px 20px; border: 0; border-radius: 8px;
+      background: #1c1c1a; color: #fff; cursor: pointer;
+    }
+    [hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Tebak Kata</h1>
+    <div id="info"><span id="streak">Beruntun: 0</span><span id="best"></span></div>
+    <p id="hint"></p>
+    <svg id="gallows" viewBox="0 0 120 120" fill="none" stroke-width="5" stroke-linecap="round" role="img" aria-label="Gambar tiang gantung">
+      <g class="frame"><path d="M15 112h60M35 112V10h55M90 10v14"/></g>
+      <circle class="part" cx="90" cy="35" r="11"/>
+      <path class="part" d="M90 46v32"/>
+      <path class="part" d="M90 54L74 68"/>
+      <path class="part" d="M90 54l16 14"/>
+      <path class="part" d="M90 78L76 98"/>
+      <path class="part" d="M90 78l14 20"/>
+    </svg>
+    <div id="word" role="img" aria-label="Kata"></div>
+    <div id="keys" role="group" aria-label="Pilih huruf"></div>
+    <p id="msg" aria-live="polite"></p>
+    <button id="again" type="button" hidden>Kata berikutnya</button>
+  </main>
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+</body>
+</html>
