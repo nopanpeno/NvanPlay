@@ -78,5 +78,15 @@
     "license": "MIT",
     "color": "#0e8f8c",
     "touch": true
+  },
+  {
+    "id": "xo",
+    "title": "XO",
+    "description": "Tiga tanda segaris lawan komputer. Kejar kemenangan beruntun.",
+    "tags": ["klasik", "strategi"],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#d6336c",
+    "touch": true
   }
 ]
