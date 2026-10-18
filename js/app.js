@@ -49,12 +49,28 @@ const randomBtn = document.getElementById('random');
 let allGames = [];
 let query = '';
 let activeTag = '';
+let sortMode = 'default';
 
 function matches(game) {
   if (activeTag && !(game.tags || []).includes(activeTag)) return false;
   if (!query) return true;
   const text = [game.title, game.description, ...(game.tags || [])].join(' ').toLowerCase();
   return text.includes(query);
+}
+
+function orderGames(games) {
+  const ordered = [...games];
+  if (sortMode === 'title') {
+    return ordered.sort((a, b) => a.title.localeCompare(b.title, 'id', { sensitivity: 'base' }));
+  }
+  if (sortMode === 'recorded') {
+    return ordered.sort((a, b) => {
+      const aHasRecord = bestOf(a.id) !== null;
+      const bHasRecord = bestOf(b.id) !== null;
+      return Number(bHasRecord) - Number(aHasRecord) || a.title.localeCompare(b.title, 'id', { sensitivity: 'base' });
+    });
+  }
+  return ordered;
 }
 
 function render() {
@@ -74,7 +90,7 @@ function render() {
     return;
   }
   const grid = el('div', 'grid');
-  shown.forEach((g, i) => grid.append(card(g, i)));
+  orderGames(shown).forEach((g, i) => grid.append(card(g, i)));
   catalog.append(grid);
 }
 
@@ -90,6 +106,20 @@ function buildFilters() {
     clearButton.hidden = !(query || activeTag);
     render();
   });
+
+  const sortLabel = el('label', 'sort-control', 'Urutkan');
+  const sortSelect = el('select', 'sort-select');
+  sortSelect.setAttribute('aria-label', 'Urutkan game');
+  [['default', 'Urutan awal'], ['title', 'Judul A–Z'], ['recorded', 'Rekor tersimpan dulu']].forEach(([value, label]) => {
+    const option = el('option', '', label);
+    option.value = value;
+    sortSelect.append(option);
+  });
+  sortSelect.addEventListener('change', () => {
+    sortMode = sortSelect.value;
+    render();
+  });
+  sortLabel.append(sortSelect);
 
   const chips = el('div', 'chips');
   chips.setAttribute('role', 'group');
@@ -121,7 +151,7 @@ function buildFilters() {
     search.focus();
   });
 
-  filters.replaceChildren(search, chips, clearButton);
+  filters.replaceChildren(search, sortLabel, chips, clearButton);
 }
 
 fetch('games.json')
