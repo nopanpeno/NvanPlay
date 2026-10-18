@@ -17,10 +17,33 @@ function bestOf(id) {
   }
 }
 
+const FAVORITES_KEY = 'nvanplay:favorites';
+
+function readFavorites() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]');
+    return new Set(Array.isArray(saved) ? saved.filter(id => typeof id === 'string') : []);
+  } catch (e) {
+    return new Set();
+  }
+}
+
+let favorites = readFavorites();
+
+function saveFavorites() {
+  try {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favorites]));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 function card(game, index) {
-  const link = el('a', 'card');
+  const article = el('article', 'card');
+  if (/^#[0-9a-f]{6}$/i.test(game.color || '')) article.style.setProperty('--tile', game.color);
+  const link = el('a', 'card-open');
   link.href = 'player.html?id=' + encodeURIComponent(game.id);
-  if (/^#[0-9a-f]{6}$/i.test(game.color || '')) link.style.setProperty('--tile', game.color);
 
   const cover = el('img', 'card-cover');
   cover.src = 'games/' + encodeURIComponent(game.id) + '/cover.png';
@@ -41,7 +64,22 @@ function card(game, index) {
   body.append(tags);
 
   link.append(cover, body);
-  return link;
+
+  const isFavorite = favorites.has(game.id);
+  const favorite = el('button', 'favorite-button' + (isFavorite ? ' is-favorite' : ''), isFavorite ? '★' : '☆');
+  favorite.type = 'button';
+  favorite.setAttribute('aria-pressed', String(isFavorite));
+  favorite.setAttribute('aria-label', isFavorite ? 'Hapus ' + game.title + ' dari favorit' : 'Tambahkan ' + game.title + ' ke favorit');
+  favorite.title = favorite.getAttribute('aria-label');
+  favorite.addEventListener('click', () => {
+    if (favorites.has(game.id)) favorites.delete(game.id);
+    else favorites.add(game.id);
+    if (!saveFavorites()) storageStatus.hidden = false;
+    if (favoriteChip) favoriteChip.textContent = 'Favorit (' + favorites.size + ')';
+    render();
+  });
+  article.append(link, favorite);
+  return article;
 }
 
 const filters = document.getElementById('filters');
@@ -49,9 +87,14 @@ const randomBtn = document.getElementById('random');
 let allGames = [];
 let query = '';
 let activeTag = '';
+let favoritesOnly = false;
 let sortMode = 'default';
+let favoriteChip;
+const storageStatus = el('p', 'storage-status', 'Favorit tidak bisa disimpan di browser ini.');
+storageStatus.hidden = true;
 
 function matches(game) {
+  if (favoritesOnly && !favorites.has(game.id)) return false;
   if (activeTag && !(game.tags || []).includes(activeTag)) return false;
   if (!query) return true;
   const text = [game.title, game.description, ...(game.tags || [])].join(' ').toLowerCase();
@@ -84,6 +127,7 @@ function render() {
   status.setAttribute('role', 'status');
   status.setAttribute('aria-live', 'polite');
   catalog.append(status);
+  if (!storageStatus.hidden) catalog.append(storageStatus);
 
   if (!shown.length) {
     catalog.append(el('p', 'empty', 'Tidak ada game yang cocok. Hapus pencarian atau filter untuk melihat semua game.'));
@@ -103,7 +147,7 @@ function buildFilters() {
   search.setAttribute('aria-label', 'Cari game');
   search.addEventListener('input', () => {
     query = search.value.trim().toLowerCase();
-    clearButton.hidden = !(query || activeTag);
+    clearButton.hidden = !(query || activeTag || favoritesOnly);
     render();
   });
 
@@ -124,6 +168,16 @@ function buildFilters() {
   const chips = el('div', 'chips');
   chips.setAttribute('role', 'group');
   chips.setAttribute('aria-label', 'Saring per tag');
+  favoriteChip = el('button', 'chip favorite-filter', 'Favorit (' + favorites.size + ')');
+  favoriteChip.type = 'button';
+  favoriteChip.setAttribute('aria-pressed', 'false');
+  favoriteChip.addEventListener('click', () => {
+    favoritesOnly = !favoritesOnly;
+    favoriteChip.setAttribute('aria-pressed', String(favoritesOnly));
+    clearButton.hidden = !(query || activeTag || favoritesOnly);
+    render();
+  });
+  chips.append(favoriteChip);
   tags.forEach(tag => {
     const chip = el('button', 'chip', tag);
     chip.type = 'button';
@@ -132,7 +186,7 @@ function buildFilters() {
       activeTag = activeTag === tag ? '' : tag;
       chips.querySelectorAll('.chip').forEach(c =>
         c.setAttribute('aria-pressed', String(c.textContent === activeTag)));
-      clearButton.hidden = !(query || activeTag);
+      clearButton.hidden = !(query || activeTag || favoritesOnly);
       render();
     });
     chips.append(chip);
@@ -144,6 +198,7 @@ function buildFilters() {
   clearButton.addEventListener('click', () => {
     query = '';
     activeTag = '';
+    favoritesOnly = false;
     search.value = '';
     chips.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
     clearButton.hidden = true;
@@ -181,3 +236,4 @@ randomBtn.addEventListener('click', () => {
   const pick = allGames[Math.floor(Math.random() * allGames.length)];
   location.href = 'player.html?id=' + encodeURIComponent(pick.id);
 });
+
