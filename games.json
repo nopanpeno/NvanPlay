@@ -3,7 +3,10 @@
     "id": "tebak-angka",
     "title": "Tebak Angka",
     "description": "Tebak angka 1 sampai 100 dalam 7 kali coba.",
-    "tags": ["angka", "santai"],
+    "tags": [
+      "angka",
+      "santai"
+    ],
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#2f6fed",
@@ -13,7 +16,10 @@
     "id": "kartu-memori",
     "title": "Kartu Memori",
     "description": "Cocokkan 8 pasang kartu dengan langkah sesedikit mungkin.",
-    "tags": ["memori", "santai"],
+    "tags": [
+      "memori",
+      "santai"
+    ],
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#2e9a55",
@@ -23,7 +29,10 @@
     "id": "klik-cepat",
     "title": "Klik Cepat",
     "description": "Ketuk sebanyak mungkin dalam 10 detik.",
-    "tags": ["refleks", "cepat"],
+    "tags": [
+      "refleks",
+      "cepat"
+    ],
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#e5483a",
@@ -33,7 +42,10 @@
     "id": "suit",
     "title": "Suit",
     "description": "Batu gunting kertas lawan komputer. Kejar kemenangan beruntun.",
-    "tags": ["klasik", "santai"],
+    "tags": [
+      "klasik",
+      "santai"
+    ],
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#8b5cf6",
@@ -43,7 +55,10 @@
     "id": "tebak-warna",
     "title": "Tebak Warna",
     "description": "Pilih warna tulisan, bukan arti katanya. 30 detik.",
-    "tags": ["warna", "refleks"],
+    "tags": [
+      "warna",
+      "refleks"
+    ],
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#ffb703",
@@ -53,7 +68,10 @@
     "id": "hitung-kilat",
     "title": "Hitung Kilat",
     "description": "Jawab soal penjumlahan sebanyak mungkin dalam 30 detik.",
-    "tags": ["angka", "refleks"],
+    "tags": [
+      "angka",
+      "refleks"
+    ],
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#2d45d6",
@@ -63,7 +81,10 @@
     "id": "ingat-urutan",
     "title": "Ingat Urutan",
     "description": "Ingat dan ulangi urutan warna yang makin panjang.",
-    "tags": ["memori", "santai"],
+    "tags": [
+      "memori",
+      "santai"
+    ],
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#8b5cf6",
@@ -73,7 +94,10 @@
     "id": "reaksi",
     "title": "Reaksi",
     "description": "Ketuk secepat mungkin saat layar berubah hijau.",
-    "tags": ["refleks", "santai"],
+    "tags": [
+      "refleks",
+      "santai"
+    ],
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#0e8f8c",
@@ -83,7 +107,10 @@
     "id": "xo",
     "title": "XO",
     "description": "Tiga tanda segaris lawan komputer. Kejar kemenangan beruntun.",
-    "tags": ["klasik", "strategi"],
+    "tags": [
+      "klasik",
+      "strategi"
+    ],
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#d6336c",
@@ -93,10 +120,27 @@
     "id": "tebak-kata",
     "title": "Tebak Kata",
     "description": "Tebak kata huruf demi huruf sebelum kesempatan salahmu habis.",
-    "tags": ["kata", "santai"],
+    "tags": [
+      "kata",
+      "santai"
+    ],
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#f97316",
+    "touch": true
+  },
+  {
+    "id": "ludo-lokal",
+    "title": "Ludo Lokal",
+    "description": "Main Ludo 2–4 orang di satu layar, satu bidak untuk tiap pemain.",
+    "tags": [
+      "multiplayer",
+      "klasik",
+      "santai"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#8b5cf6",
     "touch": true
   }
 ]
