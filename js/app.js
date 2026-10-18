@@ -64,8 +64,13 @@ function render() {
     return;
   }
   const shown = allGames.filter(matches);
+  const status = el('p', 'results-count', shown.length + ' dari ' + allGames.length + ' game ditampilkan');
+  status.setAttribute('role', 'status');
+  status.setAttribute('aria-live', 'polite');
+  catalog.append(status);
+
   if (!shown.length) {
-    catalog.append(el('p', 'empty', 'Tidak ada game yang cocok.'));
+    catalog.append(el('p', 'empty', 'Tidak ada game yang cocok. Hapus pencarian atau filter untuk melihat semua game.'));
     return;
   }
   const grid = el('div', 'grid');
@@ -82,6 +87,7 @@ function buildFilters() {
   search.setAttribute('aria-label', 'Cari game');
   search.addEventListener('input', () => {
     query = search.value.trim().toLowerCase();
+    clearButton.hidden = !(query || activeTag);
     render();
   });
 
@@ -96,12 +102,26 @@ function buildFilters() {
       activeTag = activeTag === tag ? '' : tag;
       chips.querySelectorAll('.chip').forEach(c =>
         c.setAttribute('aria-pressed', String(c.textContent === activeTag)));
+      clearButton.hidden = !(query || activeTag);
       render();
     });
     chips.append(chip);
   });
 
-  filters.replaceChildren(search, chips);
+  const clearButton = el('button', 'clear-filters', 'Hapus pencarian dan filter');
+  clearButton.type = 'button';
+  clearButton.hidden = true;
+  clearButton.addEventListener('click', () => {
+    query = '';
+    activeTag = '';
+    search.value = '';
+    chips.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
+    clearButton.hidden = true;
+    render();
+    search.focus();
+  });
+
+  filters.replaceChildren(search, chips, clearButton);
 }
 
 fetch('games.json')
@@ -121,13 +141,13 @@ fetch('games.json')
     catalog.replaceChildren(el('p', 'empty', 'Katalog gagal dimuat.'));
   });
 
+// Perbarui rekor setiap katalog ditampilkan kembali setelah bermain.
+window.addEventListener('pageshow', () => {
+  if (allGames.length) render();
+});
+
 randomBtn.addEventListener('click', () => {
   if (!allGames.length) return;
   const pick = allGames[Math.floor(Math.random() * allGames.length)];
   location.href = 'player.html?id=' + encodeURIComponent(pick.id);
-});
-
-// Perbarui rekor setiap katalog ditampilkan kembali setelah bermain.
-window.addEventListener('pageshow', () => {
-  if (allGames.length) render();
 });
