@@ -131,6 +131,16 @@ a { color: var(--accent); }
   color: inherit;
 }
 .search::placeholder { color: var(--muted); }
+.sort-control { display: flex; align-items: center; gap: 10px; color: var(--muted); }
+.sort-select {
+  max-width: 100%;
+  font: inherit;
+  padding: 8px 10px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--fg);
+}
 .chips {
   display: flex;
   gap: 8px;
