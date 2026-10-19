@@ -226,5 +226,19 @@
     "license": "MIT",
     "color": "#2ea34f",
     "touch": true
+  },
+  {
+    "id": "tebak-emoji",
+    "title": "Tebak Emoji",
+    "description": "Tebak kata dan ungkapan dari petunjuk emoji.",
+    "tags": [
+      "kata",
+      "tebak",
+      "santai"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#ffb703",
+    "touch": true
   }
 ]
