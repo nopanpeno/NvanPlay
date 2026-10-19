@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tangkap Cacing</title>
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
+  <style>
+    #info { display: flex; justify-content: space-between; margin: 10px 0; font-weight: 700; }
+    #best { color: var(--muted); }
+    #board { display: grid; grid-template-columns: repeat(16, 1fr); gap: 1px; width: 100%; aspect-ratio: 1; padding: 2px; border: 3px solid var(--line); border-radius: 10px; background: var(--line); touch-action: none; -webkit-user-select: none; user-select: none; }
+    .cell { min-width: 0; background: var(--surface); }
+    .cell.body { background: var(--good); }
+    .cell.head { background: var(--good); box-shadow: inset 0 0 0 3px var(--fg); }
+    .cell.food { background: var(--bad); border-radius: 50%; box-shadow: inset 0 0 0 2px var(--surface); }
+    #pad { display: grid; grid-template-columns: repeat(3, 56px); grid-template-rows: repeat(2, 48px); justify-content: center; gap: 6px; margin: 12px auto 0; }
+    #pad button { padding: 0; margin: 0; font-size: 1.3rem; border: 2px solid var(--line); border-radius: 10px; background: var(--accent); color: var(--on-accent); font-weight: 700; cursor: pointer; touch-action: manipulation; }
+    #pad .up { grid-column: 2; grid-row: 1; } #pad .left { grid-column: 1; grid-row: 2; } #pad .down { grid-column: 2; grid-row: 2; } #pad .right { grid-column: 3; grid-row: 2; }
+    #tools { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+    #msg { min-height: 1.6em; margin: 10px 0 0; font-size: 1.05rem; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Tangkap Cacing</h1>
+    <p>Makan buah merah, jangan tabrak dinding atau badanmu. Panah, geser, atau tombol layar.</p>
+    <div id="info"><span id="score">Skor: 0</span><span id="best"></span></div>
+    <div id="board" role="img" aria-label="Papan permainan cacing 16 kali 16"></div>
+    <div id="pad">
+      <button class="up" type="button" aria-label="Atas">&uarr;</button>
+      <button class="left" type="button" aria-label="Kiri">&larr;</button>
+      <button class="down" type="button" aria-label="Bawah">&darr;</button>
+      <button class="right" type="button" aria-label="Kanan">&rarr;</button>
+    </div>
+    <div id="tools">
+      <button class="g-btn" id="start" type="button">Mulai</button>
+      <button class="g-btn" id="pause" type="button" hidden>Jeda</button>
+    </div>
+    <p id="msg" aria-live="polite">Tekan Mulai atau arah apa saja.</p>
+  </main>
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+</body>
+</html>

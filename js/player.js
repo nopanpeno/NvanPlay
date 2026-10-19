@@ -73,6 +73,8 @@ fetch('games.json')
         frame.contentWindow.postMessage({ app: 'nvanplay', type: 'theme:set', theme: event.detail.theme }, '*');
       }
     });
+    // Fokus ke game supaya tombol panah dan spasi langsung sampai tanpa klik dulu.
+    frame.addEventListener('load', () => frame.focus());
     stage.replaceChildren(frame);
   })
   .catch(() => fail('Katalog gagal dimuat.'));

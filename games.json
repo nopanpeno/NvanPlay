@@ -212,5 +212,19 @@
     "license": "MIT",
     "color": "#4f6bed",
     "touch": true
+  },
+  {
+    "id": "tangkap-cacing",
+    "title": "Tangkap Cacing",
+    "description": "Makan buah, tumbuh panjang, jangan tabrak dinding atau badan sendiri.",
+    "tags": [
+      "arcade",
+      "refleks",
+      "klasik"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#2ea34f",
+    "touch": true
   }
 ]
