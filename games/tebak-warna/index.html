@@ -4,29 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tebak Warna</title>
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; min-height: 100vh; display: grid; place-items: center;
-      font-family: system-ui, sans-serif; background: #fafaf7; color: #1c1c1a;
-    }
-    main { width: 100%; max-width: 360px; padding: 16px; text-align: center; }
-    h1 { margin: 0 0 4px; font-size: 1.4rem; }
     #info { display: flex; justify-content: space-between; margin: 12px 0; font-size: 1.1rem; }
-    #word {
-      display: grid; place-items: center; height: 120px; margin-bottom: 12px;
-      background: #222; border-radius: 12px; font-size: 2.6rem; font-weight: bold;
-    }
+    #word { display: grid; place-items: center; height: 120px; margin-bottom: 12px; background: #222; border: 2px solid var(--line); border-radius: 12px; font-size: 2.6rem; font-weight: bold; }
     #choices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    #choices button {
-      padding: 16px 4px; font: inherit; font-size: 1.05rem; font-weight: bold;
-      border: 0; border-radius: 10px; color: #111; cursor: pointer; touch-action: manipulation;
-    }
+    #choices button { padding: 16px 4px; font: inherit; font-size: 1.05rem; font-weight: bold; border: 2px solid var(--line); border-radius: 10px; color: #111; cursor: pointer; touch-action: manipulation; }
     #choices button:disabled { opacity: .45; cursor: default; }
     #msg { min-height: 1.6em; margin: 12px 0 0; font-size: 1.1rem; }
-    #best { color: #55554f; margin: 4px 0 0; }
-    #start { margin-top: 12px; font-size: 1.05rem; padding: 12px 20px; border: 0; border-radius: 8px; background: #1a56c8; color: #fff; cursor: pointer; }
-    [hidden] { display: none; }
+    #best { color: var(--muted); margin: 4px 0 0; }
+    #start { margin-top: 12px; }
   </style>
 </head>
 <body>
@@ -38,7 +26,7 @@
     <div id="choices" role="group" aria-label="Pilihan warna"></div>
     <p id="msg" aria-live="polite"></p>
     <p id="best"></p>
-    <button id="start" type="button">Mulai</button>
+    <button class="g-btn" id="start" type="button">Mulai</button>
   </main>
   <script src="../../js/game-storage.js"></script>
   <script src="../../js/game-loader.js"></script>

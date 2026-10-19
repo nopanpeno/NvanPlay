@@ -4,21 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hitung Kilat</title>
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; font-family: system-ui, sans-serif; background: #fffaf0; color: #20203a; }
-    main { width: 100%; max-width: 380px; padding: 18px; text-align: center; }
-    h1 { margin: 0 0 4px; font-size: 1.6rem; }
+    main { max-width: 380px; padding: 18px; }
+    h1 { font-size: 1.6rem; }
     #info { display: flex; justify-content: space-between; margin: 14px 0; font-size: 1.1rem; font-weight: 700; }
-    #question { display: grid; place-items: center; min-height: 120px; margin: 12px 0; padding: 16px; border: 3px solid #20203a; border-radius: 16px; background: #ffd23f; font-size: 2.5rem; font-weight: 800; }
+    #question { display: grid; place-items: center; min-height: 120px; margin: 12px 0; padding: 16px; border: 3px solid var(--line); border-radius: 16px; background: #ffd23f; color: #20203a; font-size: 2.5rem; font-weight: 800; }
     #choices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    #choices button { min-height: 58px; border: 2px solid #20203a; border-radius: 12px; background: #fff; color: #20203a; font: inherit; font-size: 1.25rem; font-weight: 700; cursor: pointer; touch-action: manipulation; }
-    #choices button:hover:not(:disabled) { background: #e9eaff; }
+    #choices button { min-height: 58px; border: 2px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--fg); font: inherit; font-size: 1.25rem; font-weight: 700; cursor: pointer; touch-action: manipulation; }
+    #choices button:hover:not(:disabled) { background: var(--hover); }
     #choices button:disabled { opacity: .6; cursor: default; }
     #msg { min-height: 1.6em; margin: 12px 0 0; }
-    #best { min-height: 1.4em; color: #555; }
-    #start { margin-top: 8px; padding: 12px 22px; border: 2px solid #20203a; border-radius: 10px; background: #2d45d6; color: white; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation; }
-    [hidden] { display: none; }
+    #best { min-height: 1.4em; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -30,7 +28,7 @@
     <div id="choices" role="group" aria-label="Pilihan jawaban"></div>
     <p id="msg" aria-live="polite"></p>
     <p id="best"></p>
-    <button id="start" type="button">Mulai</button>
+    <button class="g-btn" id="start" type="button">Mulai</button>
   </main>
   <script src="../../js/game-storage.js"></script>
   <script src="../../js/game-loader.js"></script>

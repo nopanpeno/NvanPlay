@@ -4,25 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kartu Memori</title>
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; min-height: 100vh; display: grid; place-items: center;
-      font-family: system-ui, sans-serif; background: #fafaf7; color: #1c1c1a;
-    }
-    main { width: 100%; max-width: 360px; padding: 16px; text-align: center; }
-    h1 { margin: 0 0 4px; font-size: 1.4rem; }
-    #info { display: flex; justify-content: space-between; margin: 8px 0; color: #55554f; }
+    #info { display: flex; justify-content: space-between; margin: 8px 0; color: var(--muted); }
     #board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .card {
-      aspect-ratio: 1; font-size: 2rem; border: 0; border-radius: 10px; padding: 0;
-      background: #1a56c8; color: transparent; cursor: pointer;
-    }
-    .card.open { background: #fff; color: inherit; border: 2px solid #1a56c8; }
-    .card.done { background: #e3f1e6; color: inherit; border: 2px solid #2e7d46; cursor: default; }
+    .card { aspect-ratio: 1; font-size: 2rem; border: 2px solid var(--line); border-radius: 10px; padding: 0; background: var(--accent); color: transparent; cursor: pointer; }
+    .card.open { background: var(--surface); color: inherit; border-color: var(--accent); }
+    .card.done { background: var(--good-bg); color: inherit; border-color: var(--good); cursor: default; }
     #msg { min-height: 1.6em; margin: 12px 0 0; font-size: 1.05rem; }
-    #again { margin-top: 8px; font-size: 1rem; padding: 12px 16px; border: 0; border-radius: 8px; background: #1c1c1a; color: #fff; cursor: pointer; }
-    [hidden] { display: none; }
   </style>
 </head>
 <body>
@@ -31,7 +21,7 @@
     <div id="info"><span id="moves">Langkah: 0</span><span id="best"></span></div>
     <div id="board"></div>
     <p id="msg" aria-live="polite"></p>
-    <button id="again" type="button" hidden>Main lagi</button>
+    <button class="g-btn" id="again" type="button" hidden>Main lagi</button>
   </main>
   <script src="../../js/game-storage.js"></script>
   <script src="../../js/game-loader.js"></script>

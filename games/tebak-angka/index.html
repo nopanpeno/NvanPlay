@@ -4,21 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tebak Angka</title>
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; min-height: 100vh; display: grid; place-items: center;
-      font-family: system-ui, sans-serif; background: #fafaf7; color: #1c1c1a;
-    }
-    main { width: 100%; max-width: 360px; padding: 16px; text-align: center; }
-    h1 { margin: 0 0 4px; font-size: 1.4rem; }
     #hint { min-height: 3em; margin: 16px 0; font-size: 1.1rem; }
-    #tries { color: #6b6b66; margin: 0; }
+    #tries { color: var(--muted); margin: 0; }
     form { display: flex; gap: 8px; }
-    input { flex: 1; min-width: 0; font-size: 1.2rem; padding: 12px; border: 1px solid #c9c9c2; border-radius: 8px; }
-    button { font-size: 1rem; padding: 12px 16px; border: 0; border-radius: 8px; background: #2f6fed; color: #fff; cursor: pointer; }
-    #again { margin-top: 12px; background: #1c1c1a; }
-    [hidden] { display: none; }
+    form .g-btn { margin-top: 0; }
+    input { flex: 1; min-width: 0; font-size: 1.2rem; padding: 12px; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); }
+    #again { margin-top: 12px; }
   </style>
 </head>
 <body>
@@ -28,11 +22,11 @@
     <p id="hint" aria-live="polite">Ayo mulai!</p>
     <form id="form">
       <input id="guess" type="number" inputmode="numeric" min="1" max="100" placeholder="1 - 100" required>
-      <button type="submit">Tebak</button>
+      <button class="g-btn" type="submit">Tebak</button>
     </form>
     <p id="tries"></p>
     <p id="best"></p>
-    <button id="again" type="button" hidden>Main lagi</button>
+    <button class="g-btn" id="again" type="button" hidden>Main lagi</button>
   </main>
   <script src="../../js/game-storage.js"></script>
   <script src="../../js/game-loader.js"></script>

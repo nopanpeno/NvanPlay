@@ -4,43 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tebak Kata</title>
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; min-height: 100vh; display: grid; place-items: center;
-      font-family: system-ui, sans-serif; background: #fafaf7; color: #1c1c1a;
-    }
-    main { width: 100%; max-width: 360px; padding: 16px; text-align: center; }
-    h1 { margin: 0 0 4px; font-size: 1.4rem; }
-    #info { display: flex; justify-content: space-between; margin: 8px 0 0; color: #55554f; }
+    #info { display: flex; justify-content: space-between; margin: 8px 0 0; color: var(--muted); }
     #hint { margin: 4px 0 0; font-weight: bold; }
     #gallows { display: block; width: 120px; height: 120px; margin: 4px auto; }
-    #gallows .frame { stroke: #1c1c1a; }
-    #gallows .part { stroke: #b3261e; display: none; }
+    #gallows .frame { stroke: var(--fg); }
+    #gallows .part { stroke: var(--bad); display: none; }
     #gallows .part.on { display: inline; }
     #word { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; min-height: 2.6rem; }
-    .slot {
-      width: 1.9rem; padding-bottom: 2px; border-bottom: 3px solid #1c1c1a;
-      font-size: 1.7rem; font-weight: bold; line-height: 1.5; letter-spacing: 0;
-    }
+    .slot { width: 1.9rem; padding-bottom: 2px; border-bottom: 3px solid var(--fg); font-size: 1.7rem; font-weight: bold; line-height: 1.5; letter-spacing: 0; }
     #word.long { gap: 4px; }
     #word.long .slot { width: 1.45rem; font-size: 1.3rem; }
-    .slot.miss { color: #b3261e; }
+    .slot.miss { color: var(--bad); }
     #keys { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
-    #keys button {
-      padding: 12px 0; border: 2px solid #1c1c1a; border-radius: 10px; background: #fff;
-      color: #1c1c1a; font: inherit; font-size: 1.05rem; font-weight: bold; cursor: pointer;
-      touch-action: manipulation;
-    }
-    #keys button.ok { background: #cfeed8; }
-    #keys button.no { background: #f6d2cf; color: #6b1d17; }
+    #keys button { padding: 12px 0; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); font: inherit; font-size: 1.05rem; font-weight: bold; cursor: pointer; touch-action: manipulation; }
+    #keys button.ok { background: var(--good-bg); border-color: var(--good); }
+    #keys button.no { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); }
     #keys button:disabled { cursor: default; }
     #msg { min-height: 1.6em; margin: 12px 0 0; font-size: 1.1rem; font-weight: bold; }
-    #again {
-      margin-top: 8px; font-size: 1rem; padding: 12px 20px; border: 0; border-radius: 8px;
-      background: #1c1c1a; color: #fff; cursor: pointer;
-    }
-    [hidden] { display: none; }
   </style>
 </head>
 <body>
@@ -60,7 +43,7 @@
     <div id="word" role="img" aria-label="Kata"></div>
     <div id="keys" role="group" aria-label="Pilih huruf"></div>
     <p id="msg" aria-live="polite"></p>
-    <button id="again" type="button" hidden>Kata berikutnya</button>
+    <button class="g-btn" id="again" type="button" hidden>Kata berikutnya</button>
   </main>
   <script src="../../js/game-storage.js"></script>
   <script src="../../js/game-loader.js"></script>
