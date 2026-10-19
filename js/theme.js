@@ -17,6 +17,8 @@
 
   function update() {
     var dark = isDark();
+    btn.textContent = dark ? 'Mode terang' : 'Mode gelap';
+    btn.setAttribute('aria-label', dark ? 'Aktifkan mode terang' : 'Aktifkan mode gelap');
     btn.setAttribute('aria-pressed', String(dark));
   }
 
