@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sapu Ranjau</title>
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
+  <style>
+    main { max-width: 400px; }
+    #info { display: flex; justify-content: space-between; margin: 10px 0; font-weight: 700; }
+    #board { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; -webkit-user-select: none; user-select: none; }
+    .cell { aspect-ratio: 1; min-width: 0; padding: 0; border: 2px solid var(--line); border-radius: 6px; background: var(--accent); color: var(--on-accent); font: inherit; font-size: 1.05rem; font-weight: 800; line-height: 1; cursor: pointer; touch-action: manipulation; }
+    .cell.open { background: var(--surface); color: var(--fg); border-color: var(--hover); cursor: default; }
+    .cell.n1 { color: var(--accent); }
+    .cell.n2 { color: var(--good); }
+    .cell.n3 { color: var(--bad); }
+    .cell.mine { background: var(--bad-bg); border-color: var(--bad); }
+    .cell.wrong { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); }
+    .cell:disabled { cursor: default; }
+    #tools { display: flex; justify-content: center; gap: 8px; margin: 12px 0 0; }
+    #flag-mode[aria-pressed="true"] { background: var(--highlight); color: var(--fg); }
+    #msg { min-height: 1.6em; margin: 12px 0 0; font-size: 1.05rem; font-weight: bold; }
+    #best { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Sapu Ranjau</h1>
+    <p>Buka semua kotak aman. Angka = jumlah ranjau di sekelilingnya.</p>
+    <div id="info"><span id="mines">Ranjau: 12</span><span id="timer">Waktu: 0 d</span><span id="best"></span></div>
+    <div id="board" role="group" aria-label="Papan Sapu Ranjau"></div>
+    <div id="tools">
+      <button class="g-btn" id="flag-mode" type="button" aria-pressed="false">Mode bendera</button>
+      <button class="g-btn" id="again" type="button">Baru</button>
+    </div>
+    <p id="msg" aria-live="polite">Ketuk kotak untuk mulai.</p>
+  </main>
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+</body>
+</html>

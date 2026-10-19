@@ -198,5 +198,19 @@
     "license": "MIT",
     "color": "#2563eb",
     "touch": true
+  },
+  {
+    "id": "sapu-ranjau",
+    "title": "Sapu Ranjau",
+    "description": "Buka semua kotak aman tanpa menginjak ranjau. Rekor waktu tercepat.",
+    "tags": [
+      "puzzle",
+      "logika",
+      "klasik"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#4f6bed",
+    "touch": true
   }
 ]
