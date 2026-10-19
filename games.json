@@ -254,5 +254,19 @@
     "license": "MIT",
     "color": "#3b82f6",
     "touch": true
+  },
+  {
+    "id": "pecah-balok",
+    "title": "Pecah Balok",
+    "description": "Pantulkan bola untuk meruntuhkan semua balok tanpa kehabisan nyawa.",
+    "tags": [
+      "arcade",
+      "refleks",
+      "klasik"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#e97937",
+    "touch": true
   }
 ]
