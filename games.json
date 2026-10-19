@@ -240,5 +240,19 @@
     "license": "MIT",
     "color": "#ffb703",
     "touch": true
+  },
+  {
+    "id": "ping-pong-lokal",
+    "title": "Ping Pong Lokal",
+    "description": "Adu refleks dua pemain dengan kontrol sederhana di satu layar.",
+    "tags": [
+      "multiplayer",
+      "refleks",
+      "klasik"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#3b82f6",
+    "touch": true
   }
 ]
