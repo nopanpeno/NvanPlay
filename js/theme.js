@@ -25,6 +25,7 @@
     root.dataset.theme = next;
     try { localStorage.setItem(KEY, next); } catch (e) { /* abaikan */ }
     update();
+    document.dispatchEvent(new CustomEvent('nvanplay:themechange', { detail: { theme: next } }));
   });
 
   media.addEventListener('change', update);

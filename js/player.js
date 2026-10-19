@@ -64,7 +64,15 @@ fetch('games.json')
     // Opaque origin menjaga game terpisah dari DOM dan storage situs utama.
     frame.sandbox = 'allow-scripts allow-forms';
     installStorageBridge(frame, game);
-    frame.src = 'games/' + encodeURIComponent(game.id) + '/index.html';
+    // Game ikut pilihan tema pemain: lewat alamat saat dimuat, lewat pesan saat tombol ditekan.
+    const chosen = document.documentElement.dataset.theme;
+    const themeHash = chosen === 'dark' || chosen === 'light' ? '#theme=' + chosen : '';
+    frame.src = 'games/' + encodeURIComponent(game.id) + '/index.html' + themeHash;
+    document.addEventListener('nvanplay:themechange', event => {
+      if (frame.contentWindow) {
+        frame.contentWindow.postMessage({ app: 'nvanplay', type: 'theme:set', theme: event.detail.theme }, '*');
+      }
+    });
     stage.replaceChildren(frame);
   })
   .catch(() => fail('Katalog gagal dimuat.'));

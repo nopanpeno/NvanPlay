@@ -1,0 +1,84 @@
+/* Gaya bersama untuk game. Muat dari index.html game:
+   <link rel="stylesheet" href="../../css/game.css">
+   Pakai variabel warna di bawah supaya game ikut mode terang dan gelap.
+   Tema diatur lewat data-theme di <html> (lihat js/game-theme.js), atau ikut sistem. */
+:root {
+  color-scheme: light;
+  --bg: #f1f1f8;
+  --fg: #17142b;
+  --muted: #5a5873;
+  --accent: #2d45d6;
+  --on-accent: #fff;
+  --surface: #fff;
+  --line: #17142b;
+  --hover: #e9eaff;
+  --good: #1f7a3f;
+  --good-bg: #dff3e5;
+  --bad: #b3261e;
+  --bad-bg: #f6d2cf;
+  --highlight: #fff3c4;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121021;
+  --fg: #ecebfa;
+  --muted: #aaa8c7;
+  --accent: #9db0ff;
+  --on-accent: #101636;
+  --surface: #1b1830;
+  --line: #6c689a;
+  --hover: #2a2745;
+  --good: #7fd69a;
+  --good-bg: #1d3a2a;
+  --bad: #ff8a80;
+  --bad-bg: #3d2220;
+  --highlight: #4a3d12;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #121021;
+    --fg: #ecebfa;
+    --muted: #aaa8c7;
+    --accent: #9db0ff;
+    --on-accent: #101636;
+    --surface: #1b1830;
+    --line: #6c689a;
+    --hover: #2a2745;
+    --good: #7fd69a;
+    --good-bg: #1d3a2a;
+    --bad: #ff8a80;
+    --bad-bg: #3d2220;
+    --highlight: #4a3d12;
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+main { width: 100%; max-width: 360px; padding: 16px; text-align: center; }
+h1 { margin: 0 0 4px; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.01em; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Tombol utama (Mulai, Main lagi). Pakai class="g-btn". */
+.g-btn {
+  margin-top: 8px;
+  padding: 12px 20px;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--on-accent);
+  cursor: pointer;
+  touch-action: manipulation;
+}

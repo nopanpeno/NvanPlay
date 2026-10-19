@@ -45,6 +45,12 @@ Terima kasih sudah mau menambah game. Satu pull request, satu game.
   <script src="../../js/game-storage.js"></script>
   <script src="../../js/game-loader.js"></script>
   ```
+- Ikut mode terang dan gelap. Muat gaya bersama di `<head>`, lalu pakai variabel warnanya (`var(--bg)`, `var(--fg)`, `var(--accent)`, `var(--surface)`, dan seterusnya, lihat `css/game.css`). Tombol utama pakai `class="g-btn"`:
+  ```html
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
+  ```
+  Warna khas game (bidak, kartu berwarna) boleh tetap. Cek game di kedua mode sebelum kirim PR.
 - Nyaman di layar selebar 360 px. Tombol cukup besar untuk jari.
 - Game jalan di iframe dengan `sandbox="allow-scripts allow-forms"` pada origin terisolasi. Jangan buka popup atau pindah halaman.
 - Jangan pakai karakter, gambar, atau suara yang kamu tidak punya haknya.
