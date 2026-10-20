@@ -1,0 +1,57 @@
+.guide-header { gap: 8px 14px; }
+.guide-header .back-link {
+  order: 4;
+  display: inline-block;
+  padding: 8px 12px;
+  border: 2px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--fg);
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--line);
+}
+.guide-layout { min-height: 55vh; }
+.guide-panel {
+  margin: 8px 0 24px;
+  padding: clamp(18px, 5vw, 30px);
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 6px 6px 0 var(--line);
+}
+.guide-panel[hidden] { display: none; }
+.guide-tags { margin: 0 0 4px; color: var(--accent); font-size: .85rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+.guide-panel h2 { margin: 0; font: 800 clamp(1.8rem, 7vw, 2.7rem)/1.1 var(--display); }
+.guide-description { margin: 8px 0 22px; color: var(--muted); }
+.guide-section { margin: 18px 0; padding: 15px 17px; border: 2px solid var(--line); border-radius: 6px; background: var(--bg); }
+.guide-section h3 { margin: 0 0 8px; font: 750 1.15rem/1.3 var(--display); }
+.guide-section p { margin: 0; }
+.guide-section ol, .guide-section ul { margin: 0; padding-left: 22px; }
+.guide-section li + li { margin-top: 6px; }
+.guide-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 24px; }
+.guide-actions .btn-cta { margin: 0; width: auto; }
+.secondary-link { font-weight: 750; color: var(--fg); }
+.card-guide {
+  display: block;
+  margin: 0 10px 12px;
+  padding: 7px 10px;
+  border: 2px solid var(--line);
+  border-radius: 5px;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: .85rem;
+  font-weight: 750;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 2px 2px 0 var(--line);
+}
+.card-guide:hover { background: var(--cta); }
+.card-guide:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--line); }
+@media (max-width: 639px) {
+  .guide-header { margin: 14px 12px 0; }
+  .guide-layout { padding: 14px; }
+  .guide-actions { align-items: stretch; flex-direction: column; }
+  .guide-actions .btn-cta { width: 100%; }
+  .guide-actions .secondary-link { text-align: center; }
+}

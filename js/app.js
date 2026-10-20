@@ -78,7 +78,9 @@ function card(game, index) {
     if (favoriteChip) favoriteChip.textContent = 'Favorit (' + favorites.size + ')';
     render();
   });
-  article.append(link, favorite);
+  const howTo = el('a', 'card-guide', 'Cara main →');
+  howTo.href = 'cara-main.html?id=' + encodeURIComponent(game.id);
+  article.append(link, howTo, favorite);
   return article;
 }
 
