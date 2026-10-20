@@ -419,3 +419,20 @@ body {
   .grid { grid-template-columns: 1fr; }
 }
 
+
+.card-guide {
+  display: block;
+  margin: 0 10px 12px;
+  padding: 7px 10px;
+  border: 2px solid var(--line);
+  border-radius: 5px;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: .85rem;
+  font-weight: 750;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 2px 2px 0 var(--line);
+}
+.card-guide:hover { background: var(--cta); }
+.card-guide:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--line); }

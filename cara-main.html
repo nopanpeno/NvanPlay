@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Panduan singkat aturan dan kontrol game NvanPlay.">
+  <meta name="theme-color" content="#f6f0dc">
+  <title>Cara main · NvanPlay</title>
+  <link rel="preload" href="fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/how-to-play.css">
+  <script>try{var t=localStorage.getItem('nvanplay:theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+  <header class="site-header guide-header">
+    <h1>Cara main</h1>
+    <p>Pahami aturan dan kontrol sebelum mulai.</p>
+    <a class="back-link" href="index.html">← Semua game</a>
+  </header>
+  <main class="guide-layout">
+    <p id="guide-status" class="empty" role="status" aria-live="polite">Memuat panduan…</p>
+    <article id="guide" class="guide-panel" hidden>
+      <p id="guide-tags" class="guide-tags"></p>
+      <h2 id="guide-title"></h2>
+      <p id="guide-description" class="guide-description"></p>
+      <section class="guide-section" aria-labelledby="goal-title">
+        <h3 id="goal-title">🎯 Tujuan</h3>
+        <p id="guide-goal"></p>
+      </section>
+      <section class="guide-section" aria-labelledby="steps-title">
+        <h3 id="steps-title">📖 Cara bermain</h3>
+        <ol id="guide-steps"></ol>
+      </section>
+      <section class="guide-section" aria-labelledby="controls-title">
+        <h3 id="controls-title">🕹️ Kontrol</h3>
+        <ul id="guide-controls"></ul>
+      </section>
+      <div class="guide-actions">
+        <a id="play-link" class="btn btn-cta" href="#">Mulai main</a>
+        <a class="secondary-link" href="index.html">Pilih game lain</a>
+      </div>
+    </article>
+  </main>
+  <script src="js/theme.js"></script>
+  <script src="js/how-to-play.js"></script>
+</body>
+</html>
