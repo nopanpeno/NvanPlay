@@ -1,5 +1,5 @@
 (function () {
-  const guides = {
+  const guides ={
   "2048": {
     "goal": "Gabungkan ubin bernilai sama sampai membentuk ubin 2048. Kamu bisa lanjut bermain untuk mengejar skor lebih tinggi.",
     "steps": [
@@ -222,6 +222,18 @@
     "controls": [
       "Sentuh atau gerakkan pointer/mouse di arena untuk menggeser pemukul.",
       "Di komputer, gunakan ←/→. Tekan Spasi untuk meluncurkan bola."
+    ]
+  },
+  "sudoku-mini": {
+    "goal": "Isi papan 4×4 dengan angka 1–4 tanpa mengulang di baris, kolom, atau kotak 2×2.",
+    "steps": [
+      "Pilih kotak kosong, lalu pilih angka 1–4.",
+      "Setiap baris, kolom, dan kotak 2×2 harus memiliki angka yang berbeda.",
+      "Lengkapi semua kotak; angka awal tidak bisa diubah."
+    ],
+    "controls": [
+      "Ketuk kotak dan angka di layar, atau gunakan tombol angka 1–4 pada keyboard.",
+      "Tekan Backspace atau Delete untuk menghapus angka pilihan."
     ]
   }
 };
