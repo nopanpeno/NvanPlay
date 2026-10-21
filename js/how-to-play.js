@@ -247,6 +247,18 @@
       "Ketuk keping di sebelah ruang kosong.",
       "Di komputer, tombol panah menggeser ruang kosong ke arah yang ditekan."
     ]
+  },
+  "reversi-lokal": {
+    "goal": "Kuasai papan dengan memiliki bidak terbanyak saat tidak ada langkah yang bisa dimainkan.",
+    "steps": [
+      "Main berdua di satu perangkat. Hitam memulai dari posisi tengah.",
+      "Letakkan bidak di kotak kosong yang mengapit rangkaian bidak lawan dengan bidakmu.",
+      "Semua bidak lawan yang terjepit dalam garis lurus akan dibalik menjadi warnamu.",
+      "Jika tidak ada langkah legal, giliranmu dilewati. Pemain dengan bidak terbanyak menang saat permainan berakhir."
+    ],
+    "controls": [
+      "Ketuk kotak bertanda titik untuk menaruh bidak."
+    ]
   }
 };
 

@@ -406,5 +406,24 @@
       "max": 1
     },
     "duration": "medium"
+  },
+  {
+    "id": "reversi-lokal",
+    "title": "Reversi Lokal",
+    "description": "Balik bidak lawan dan kuasai papan 8×8 bersama teman di satu layar.",
+    "tags": [
+      "strategi",
+      "multiplayer",
+      "klasik"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#3986ca",
+    "touch": true,
+    "players": {
+      "min": 2,
+      "max": 2
+    },
+    "duration": "medium"
   }
 ]
