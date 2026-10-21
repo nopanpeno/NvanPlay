@@ -1,0 +1,33 @@
+(function(){
+const canvas=document.querySelector("#arena"),ctx=canvas.getContext("2d"),holeLabel=document.querySelector("#hole"),strokeLabel=document.querySelector("#strokes"),totalLabel=document.querySelector("#total"),bestLabel=document.querySelector("#best"),status=document.querySelector("#status"),nextButton=document.querySelector("#next");
+const W=600,H=380,radius=9,levels=[
+{start:[72,302],cup:[520,76],bumpers:[[235,258,34],[354,142,31],[472,256,28]]},
+{start:[74,74],cup:[524,302],bumpers:[[218,150,33],[338,248,38],[450,116,30]]},
+{start:[75,302],cup:[522,78],bumpers:[[205,231,32],[315,133,36],[432,232,34],[494,146,25]]}
+];
+let index=0,ball={x:72,y:302,vx:0,vy:0},strokes=0,total=0,best=Number(window.nvanplayStorage.getItem("mini-golf:best"))||0,moving=false,aiming=false,aimPoint=null,holeDone=false,roundDone=false,raf=0,last=0,aim={x:1,y:-.45};
+bestLabel.textContent=best||"—";
+function course(){return levels[index]}
+function distance(a,b){return Math.hypot(a.x-b[0],a.y-b[1])}
+function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle="#54ad60";ctx.fillRect(0,0,W,H);ctx.strokeStyle="#1d5538";ctx.lineWidth=18;ctx.strokeRect(9,9,W-18,H-18);ctx.strokeStyle="#8ad47c";ctx.lineWidth=3;for(let y=34;y<H;y+=32){ctx.beginPath();ctx.moveTo(22,y);ctx.lineTo(W-22,y-15);ctx.stroke()}
+const c=course();c.bumpers.forEach(([x,y,r])=>{ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle="#f0c44c";ctx.fill();ctx.lineWidth=5;ctx.strokeStyle="#173e2a";ctx.stroke();ctx.beginPath();ctx.arc(x-r*.28,y-r*.32,r*.2,0,Math.PI*2);ctx.fillStyle="#fff6dd";ctx.fill()});
+ctx.beginPath();ctx.arc(c.cup[0],c.cup[1],19,0,Math.PI*2);ctx.fillStyle="#15251c";ctx.fill();ctx.beginPath();ctx.arc(c.cup[0],c.cup[1],13,0,Math.PI*2);ctx.fillStyle="#070d0a";ctx.fill();ctx.strokeStyle="#fff6dd";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(c.cup[0],c.cup[1]-15);ctx.lineTo(c.cup[0],c.cup[1]-61);ctx.stroke();ctx.fillStyle="#ef5141";ctx.beginPath();ctx.moveTo(c.cup[0],c.cup[1]-60);ctx.lineTo(c.cup[0]+34,c.cup[1]-50);ctx.lineTo(c.cup[0],c.cup[1]-40);ctx.fill();
+if(!moving&&!holeDone&&!roundDone){let dx=aim.x,dy=aim.y;if(aiming&&aimPoint){dx=ball.x-aimPoint.x;dy=ball.y-aimPoint.y}const len=Math.hypot(dx,dy)||1;ctx.setLineDash([7,6]);ctx.strokeStyle="#fff6dd";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(ball.x,ball.y);ctx.lineTo(ball.x+dx/len*72,ball.y+dy/len*72);ctx.stroke();ctx.setLineDash([])}
+ctx.beginPath();ctx.arc(ball.x,ball.y,radius,0,Math.PI*2);ctx.fillStyle="#fffdf5";ctx.fill();ctx.lineWidth=3;ctx.strokeStyle="#172019";ctx.stroke();ctx.beginPath();ctx.arc(ball.x-3,ball.y-3,2,0,Math.PI*2);ctx.fillStyle="#8b9290";ctx.fill()}
+function position(e){const rect=canvas.getBoundingClientRect();return{x:(e.clientX-rect.left)*W/rect.width,y:(e.clientY-rect.top)*H/rect.height}}
+function shoot(vx,vy){const speed=Math.hypot(vx,vy);if(speed<40)return;const factor=Math.min(1,720/speed);ball.vx=vx*factor;ball.vy=vy*factor;moving=true;strokes++;total++;strokeLabel.textContent=strokes;totalLabel.textContent=total;status.textContent="Bola meluncur!";last=performance.now();raf=requestAnimationFrame(frame)}
+function pointerDown(e){if(moving||holeDone||roundDone)return;e.preventDefault();aiming=true;aimPoint=position(e);canvas.setPointerCapture(e.pointerId);draw()}
+function pointerMove(e){if(!aiming)return;aimPoint=position(e);draw()}
+function pointerUp(e){if(!aiming)return;aimPoint=position(e);const p=aimPoint;aiming=false;aimPoint=null;shoot((ball.x-p.x)*6.5,(ball.y-p.y)*6.5);draw()}
+function frame(now){if(!moving)return;const dt=Math.min((now-last)/1000,.03);last=now;const oldX=ball.x,oldY=ball.y;ball.x+=ball.vx*dt;ball.y+=ball.vy*dt;
+if(ball.x<24+radius){ball.x=24+radius;ball.vx=Math.abs(ball.vx)*.72}if(ball.x>W-24-radius){ball.x=W-24-radius;ball.vx=-Math.abs(ball.vx)*.72}if(ball.y<24+radius){ball.y=24+radius;ball.vy=Math.abs(ball.vy)*.72}if(ball.y>H-24-radius){ball.y=H-24-radius;ball.vy=-Math.abs(ball.vy)*.72}
+for(const[x,y,r]of course().bumpers){const dx=ball.x-x,dy=ball.y-y,d=Math.hypot(dx,dy),min=r+radius;if(d<min&&d>0){const nx=dx/d,ny=dy/d;ball.x=x+nx*min;ball.y=y+ny*min;const dot=ball.vx*nx+ball.vy*ny;if(dot<0){ball.vx-=1.72*dot*nx;ball.vy-=1.72*dot*ny}}}
+const speed=Math.hypot(ball.vx,ball.vy);if(distance(ball,course().cup)<14&&speed<260){ball.x=course().cup[0];ball.y=course().cup[1];ball.vx=ball.vy=0;moving=false;holeDone=true;if(index===levels.length-1)finish();else{status.textContent="Hole "+(index+1)+" masuk dalam "+strokes+" pukulan!";nextButton.hidden=false}draw();return}
+const friction=Math.pow(.988,dt*60);ball.vx*=friction;ball.vy*=friction;if(Math.hypot(ball.vx,ball.vy)<8){ball.vx=ball.vy=0;moving=false;status.textContent="Tarik dari bola ke belakang untuk pukulan berikutnya.";draw();return}draw();raf=requestAnimationFrame(frame)}
+function finish(){moving=false;roundDone=true;nextButton.hidden=true;status.textContent="Selesai! Total "+total+" pukulan untuk 3 hole.";if(!best||total<best){best=total;bestLabel.textContent=best;window.nvanplayStorage.setItem("mini-golf:best",String(best));status.textContent+=" Rekor baru! 🎉"}draw()}
+function nextHole(){if(!holeDone||index>=levels.length-1)return;index++;strokes=0;holeDone=false;ball={x:course().start[0],y:course().start[1],vx:0,vy:0};holeLabel.textContent=(index+1)+"/"+levels.length;strokeLabel.textContent="0";nextButton.hidden=true;status.textContent="Hole "+(index+1)+": tarik dari bola ke belakang untuk memukul.";draw()}
+function restart(){cancelAnimationFrame(raf);index=0;strokes=0;total=0;moving=aiming=holeDone=roundDone=false;aim={x:1,y:-.45};ball={x:course().start[0],y:course().start[1],vx:0,vy:0};holeLabel.textContent="1/"+levels.length;strokeLabel.textContent="0";totalLabel.textContent="0";nextButton.hidden=true;status.textContent="Tarik dari bola ke belakang, lalu lepaskan untuk memukul.";draw()}
+canvas.addEventListener("pointerdown",pointerDown);canvas.addEventListener("pointermove",pointerMove);canvas.addEventListener("pointerup",pointerUp);canvas.addEventListener("pointercancel",()=>{aiming=false;aimPoint=null;draw()});nextButton.addEventListener("click",nextHole);document.querySelector("#restart").addEventListener("click",restart);
+document.addEventListener("keydown",e=>{if(e.key==="ArrowUp"||e.key==="ArrowDown"||e.key==="ArrowLeft"||e.key==="ArrowRight"){e.preventDefault();if(moving||holeDone||roundDone)return;if(e.key==="ArrowUp")aim.y=Math.max(-1,aim.y-.12);if(e.key==="ArrowDown")aim.y=Math.min(1,aim.y+.12);if(e.key==="ArrowLeft")aim.x=Math.max(-1,aim.x-.12);if(e.key==="ArrowRight")aim.x=Math.min(1,aim.x+.12);draw()}if(e.code==="Space"){e.preventDefault();if(!moving&&!holeDone&&!roundDone){const len=Math.hypot(aim.x,aim.y)||1;shoot(aim.x/len*480,aim.y/len*480)}}});
+draw();
+})();

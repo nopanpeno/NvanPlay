@@ -444,5 +444,24 @@
       "max": 1
     },
     "duration": "quick"
+  },
+  {
+    "id": "mini-golf",
+    "title": "Mini Golf",
+    "description": "Arahkan pukulan melewati bumper dan masukkan bola ke tiga hole.",
+    "tags": [
+      "arcade",
+      "puzzle",
+      "santai"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#317c56",
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "medium"
   }
 ]

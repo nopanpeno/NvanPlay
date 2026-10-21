@@ -271,6 +271,18 @@
       "Tekan Spasi atau tombol panah atas pada keyboard.",
       "Di ponsel, ketuk tombol Lompat atau area permainan."
     ]
+  },
+  "mini-golf": {
+    "goal": "Masukkan bola ke tiga hole dengan jumlah pukulan sesedikit mungkin.",
+    "steps": [
+      "Tarik dari bola ke arah yang berlawanan dengan tujuanmu untuk mengatur arah dan kekuatan.",
+      "Lepaskan untuk memukul bola. Bola akan memantul dari dinding dan bumper.",
+      "Masukkan bola ke hole, lalu lanjutkan sampai ketiga hole selesai."
+    ],
+    "controls": [
+      "Di HP atau dengan mouse, tarik dari bola lalu lepaskan untuk memukul.",
+      "Di komputer, gunakan tombol panah untuk mengubah arah bidik dan Spasi untuk memukul."
+    ]
   }
 };
 
