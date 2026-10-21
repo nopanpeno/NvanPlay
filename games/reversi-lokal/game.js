@@ -1,0 +1,15 @@
+(function(){
+const boardEl=document.querySelector("#board"),status=document.querySelector("#status"),blackCount=document.querySelector("#black-count"),whiteCount=document.querySelector("#white-count"),reset=document.querySelector("#reset");
+const dirs=[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+let board=[],turn="black",over=false;
+function other(color){return color==="black"?"white":"black"}
+function inside(r,c){return r>=0&&r<8&&c>=0&&c<8}
+function flipsFor(r,c,color){if(board[r][c])return[];const flips=[];for(const[dr,dc]of dirs){let rr=r+dr,cc=c+dc,line=[];while(inside(rr,cc)&&board[rr][cc]===other(color)){line.push([rr,cc]);rr+=dr;cc+=dc}if(line.length&&inside(rr,cc)&&board[rr][cc]===color)flips.push(...line)}return flips}
+function legalMoves(color){const moves=[];for(let r=0;r<8;r++)for(let c=0;c<8;c++)if(flipsFor(r,c,color).length)moves.push([r,c]);return moves}
+function counts(){let black=0,white=0;board.flat().forEach(v=>{if(v==="black")black++;if(v==="white")white++});blackCount.textContent=black;whiteCount.textContent=white;return{black,white}}
+function finish(){over=true;const n=counts();status.textContent=n.black===n.white?"Seri! Kedua pemain punya "+n.black+" bidak.":(n.black>n.white?"Hitam":"Putih")+" menang "+Math.max(n.black,n.white)+"–"+Math.min(n.black,n.white)+"!";draw()}
+function draw(){boardEl.replaceChildren();const legal=over?[]:legalMoves(turn);for(let r=0;r<8;r++)for(let c=0;c<8;c++){const cell=document.createElement("button");cell.type="button";cell.className="square"+(legal.some(([rr,cc])=>rr===r&&cc===c)?" legal":"");cell.setAttribute("role","gridcell");cell.setAttribute("aria-label","Baris "+(r+1)+", kolom "+(c+1)+(board[r][c]?", bidak "+(board[r][c]==="black"?"hitam":"putih"):" kosong")+(cell.classList.contains("legal")?", langkah legal":""));cell.disabled=over||!cell.classList.contains("legal");cell.addEventListener("click",()=>play(r,c));if(board[r][c]){const piece=document.createElement("span");piece.className="piece "+board[r][c];piece.setAttribute("aria-hidden","true");cell.append(piece)}boardEl.append(cell)}}
+function play(r,c){if(over)return;const flips=flipsFor(r,c,turn);if(!flips.length)return;board[r][c]=turn;flips.forEach(([rr,cc])=>board[rr][cc]=turn);const played=turn;turn=other(turn);if(!legalMoves(turn).length){if(!legalMoves(played).length){finish();return}status.textContent=(turn==="black"?"Hitam":"Putih")+" tidak punya langkah, giliran dilewati." ;turn=played}else status.textContent="Giliran "+(turn==="black"?"Hitam":"Putih")+".";counts();draw()}
+function start(){board=Array.from({length:8},()=>Array(8).fill(null));board[3][3]="white";board[3][4]="black";board[4][3]="black";board[4][4]="white";turn="black";over=false;status.textContent="Giliran Hitam. Pilih kotak bertanda titik.";counts();draw()}
+reset.addEventListener("click",start);start();
+})();
