@@ -50,7 +50,9 @@ Buka http://localhost:8000
   "author": "nama-github",
   "license": "MIT",
   "color": "#2f6fed",
-  "touch": true
+  "touch": true,
+  "players": { "min": 1, "max": 1 },
+  "duration": "quick"
 }
 ```
 

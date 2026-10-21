@@ -39,6 +39,15 @@ function saveFavorites() {
   }
 }
 
+function gameMeta(game) {
+  const range = game.players || { min: 1, max: 1 };
+  const players = range.min === range.max
+    ? range.min + ' pemain'
+    : range.min + '–' + range.max + ' pemain';
+  const duration = { quick: '≤3 menit', medium: '4–10 menit', long: '10+ menit' }[game.duration] || 'beragam';
+  return 'Pemain: ' + players + ' · Perkiraan: ' + duration;
+}
+
 function card(game, index) {
   const article = el('article', 'card');
   if (/^#[0-9a-f]{6}$/i.test(game.color || '')) article.style.setProperty('--tile', game.color);
@@ -55,6 +64,7 @@ function card(game, index) {
   const body = el('div', 'card-body');
   body.append(el('h2', 'card-title', game.title));
   body.append(el('p', 'card-desc', game.description));
+  body.append(el('p', 'card-meta', gameMeta(game)));
 
   const best = bestOf(game.id);
   if (best) body.append(el('p', 'card-record', 'Rekormu: ' + best));
@@ -90,6 +100,8 @@ let allGames = [];
 let query = '';
 let activeTag = '';
 let favoritesOnly = false;
+let playerFilter = '';
+let durationFilter = '';
 let sortMode = 'default';
 let favoriteChip;
 const storageStatus = el('p', 'storage-status', 'Favorit tidak bisa disimpan di browser ini.');
@@ -98,6 +110,9 @@ storageStatus.hidden = true;
 function matches(game) {
   if (favoritesOnly && !favorites.has(game.id)) return false;
   if (activeTag && !(game.tags || []).includes(activeTag)) return false;
+  const range = game.players || { min: 1, max: 1 };
+  if (playerFilter && (range.min > Number(playerFilter) || range.max < Number(playerFilter))) return false;
+  if (durationFilter && game.duration !== durationFilter) return false;
   if (!query) return true;
   const text = [game.title, game.description, ...(game.tags || [])].join(' ').toLowerCase();
   return text.includes(query);
@@ -149,7 +164,7 @@ function buildFilters() {
   search.setAttribute('aria-label', 'Cari game');
   search.addEventListener('input', () => {
     query = search.value.trim().toLowerCase();
-    clearButton.hidden = !(query || activeTag || favoritesOnly);
+    syncClearButton();
     render();
   });
 
@@ -167,6 +182,38 @@ function buildFilters() {
   });
   sortLabel.append(sortSelect);
 
+  const filterSelects = el('div', 'filter-selects');
+  const playerLabel = el('label', 'select-filter', 'Jumlah pemain');
+  const playerSelect = el('select', 'sort-select');
+  playerSelect.setAttribute('aria-label', 'Saring jumlah pemain');
+  [['', 'Semua pemain'], ['1', '1 pemain'], ['2', '2 pemain'], ['3', '3 pemain'], ['4', '4 pemain']].forEach(([value, label]) => {
+    const option = el('option', '', label);
+    option.value = value;
+    playerSelect.append(option);
+  });
+  playerSelect.addEventListener('change', () => {
+    playerFilter = playerSelect.value;
+    syncClearButton();
+    render();
+  });
+  playerLabel.append(playerSelect);
+
+  const durationLabel = el('label', 'select-filter', 'Perkiraan durasi');
+  const durationSelect = el('select', 'sort-select');
+  durationSelect.setAttribute('aria-label', 'Saring perkiraan durasi');
+  [['', 'Semua durasi'], ['quick', 'Singkat · ≤3 menit'], ['medium', 'Sedang · 4–10 menit'], ['long', 'Lebih lama · 10+ menit']].forEach(([value, label]) => {
+    const option = el('option', '', label);
+    option.value = value;
+    durationSelect.append(option);
+  });
+  durationSelect.addEventListener('change', () => {
+    durationFilter = durationSelect.value;
+    syncClearButton();
+    render();
+  });
+  durationLabel.append(durationSelect);
+  filterSelects.append(playerLabel, durationLabel);
+
   const chips = el('div', 'chips');
   chips.setAttribute('role', 'group');
   chips.setAttribute('aria-label', 'Saring per tag');
@@ -176,7 +223,7 @@ function buildFilters() {
   favoriteChip.addEventListener('click', () => {
     favoritesOnly = !favoritesOnly;
     favoriteChip.setAttribute('aria-pressed', String(favoritesOnly));
-    clearButton.hidden = !(query || activeTag || favoritesOnly);
+    syncClearButton();
     render();
   });
   chips.append(favoriteChip);
@@ -188,7 +235,7 @@ function buildFilters() {
       activeTag = activeTag === tag ? '' : tag;
       chips.querySelectorAll('.chip').forEach(c =>
         c.setAttribute('aria-pressed', String(c.textContent === activeTag)));
-      clearButton.hidden = !(query || activeTag || favoritesOnly);
+      syncClearButton();
       render();
     });
     chips.append(chip);
@@ -197,18 +244,25 @@ function buildFilters() {
   const clearButton = el('button', 'clear-filters', 'Hapus pencarian dan filter');
   clearButton.type = 'button';
   clearButton.hidden = true;
+  function syncClearButton() {
+    clearButton.hidden = !(query || activeTag || favoritesOnly || playerFilter || durationFilter);
+  }
   clearButton.addEventListener('click', () => {
     query = '';
     activeTag = '';
     favoritesOnly = false;
+    playerFilter = '';
+    durationFilter = '';
     search.value = '';
+    playerSelect.value = '';
+    durationSelect.value = '';
     chips.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
-    clearButton.hidden = true;
+    syncClearButton();
     render();
     search.focus();
   });
 
-  filters.replaceChildren(search, sortLabel, chips, clearButton);
+  filters.replaceChildren(search, sortLabel, filterSelects, chips, clearButton);
 }
 
 fetch('games.json')

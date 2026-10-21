@@ -10,7 +10,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#2f6fed",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   },
   {
     "id": "kartu-memori",
@@ -23,7 +28,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#2e9a55",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   },
   {
     "id": "klik-cepat",
@@ -36,7 +46,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#e5483a",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   },
   {
     "id": "suit",
@@ -49,7 +64,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#8b5cf6",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   },
   {
     "id": "tebak-warna",
@@ -62,7 +82,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#ffb703",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   },
   {
     "id": "hitung-kilat",
@@ -75,7 +100,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#2d45d6",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   },
   {
     "id": "ingat-urutan",
@@ -88,7 +118,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#8b5cf6",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "medium"
   },
   {
     "id": "reaksi",
@@ -101,7 +136,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#0e8f8c",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   },
   {
     "id": "xo",
@@ -114,7 +154,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#d6336c",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   },
   {
     "id": "tebak-kata",
@@ -127,7 +172,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#f97316",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "medium"
   },
   {
     "id": "ludo-lokal",
@@ -141,7 +191,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#8b5cf6",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 2,
+      "max": 4
+    },
+    "duration": "long"
   },
   {
     "id": "ular-tangga",
@@ -155,7 +210,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#d94f5c",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 2,
+      "max": 4
+    },
+    "duration": "long"
   },
   {
     "id": "2048",
@@ -169,7 +229,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#e99b62",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "medium"
   },
   {
     "id": "labirin",
@@ -183,7 +248,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#287750",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   },
   {
     "id": "empat-segaris",
@@ -197,7 +267,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#2563eb",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 2,
+      "max": 2
+    },
+    "duration": "quick"
   },
   {
     "id": "sapu-ranjau",
@@ -211,7 +286,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#4f6bed",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "medium"
   },
   {
     "id": "tangkap-cacing",
@@ -225,7 +305,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#2ea34f",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   },
   {
     "id": "tebak-emoji",
@@ -239,7 +324,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#ffb703",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   },
   {
     "id": "ping-pong-lokal",
@@ -253,7 +343,12 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#3b82f6",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 2,
+      "max": 2
+    },
+    "duration": "quick"
   },
   {
     "id": "pecah-balok",
@@ -267,6 +362,11 @@
     "author": "nopanpeno",
     "license": "MIT",
     "color": "#e97937",
-    "touch": true
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "medium"
   }
 ]
