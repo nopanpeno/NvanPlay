@@ -235,6 +235,18 @@
       "Ketuk kotak dan angka di layar, atau gunakan tombol angka 1–4 pada keyboard.",
       "Tekan Backspace atau Delete untuk menghapus angka pilihan."
     ]
+  },
+  "puzzle-geser": {
+    "goal": "Susun keping angka dari 1 sampai 15, dengan ruang kosong di pojok kanan bawah.",
+    "steps": [
+      "Geser keping yang berdampingan dengan ruang kosong ke dalamnya.",
+      "Terus susun angka dari kiri ke kanan dan baris demi baris.",
+      "Papan diacak dengan langkah legal, jadi susunannya selalu bisa dipecahkan."
+    ],
+    "controls": [
+      "Ketuk keping di sebelah ruang kosong.",
+      "Di komputer, tombol panah menggeser ruang kosong ke arah yang ditekan."
+    ]
   }
 };
 
