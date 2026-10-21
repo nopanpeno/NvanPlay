@@ -259,6 +259,18 @@
     "controls": [
       "Ketuk kotak bertanda titik untuk menaruh bidak."
     ]
+  },
+  "lari-retro": {
+    "goal": "Berlari sejauh mungkin dengan melewati rintangan tanpa tersandung.",
+    "steps": [
+      "Tekan Mulai untuk memulai lari.",
+      "Lompat saat ada rintangan di depanmu.",
+      "Lari makin cepat seiring waktu. Tabrakan mengakhiri permainan; coba pecahkan rekormu."
+    ],
+    "controls": [
+      "Tekan Spasi atau tombol panah atas pada keyboard.",
+      "Di ponsel, ketuk tombol Lompat atau area permainan."
+    ]
   }
 };
 
