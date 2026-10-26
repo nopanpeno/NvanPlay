@@ -11,7 +11,7 @@
     #pad { display: flex; justify-content: center; gap: 6px; margin: 8px 0; }
     #pad .g-btn { padding: 12px 6px; min-width: 50px; min-height: 48px; margin-top: 0; }
     #info { display: flex; justify-content: space-between; max-width: 240px; margin: 8px auto 0; color: var(--muted); }
-    #upcoming { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; color: var(--muted); }
+    #upcoming { display: flex; align-items: center; justify-content: space-between; gap: 8px; max-width: 240px; margin: 8px auto 0; color: var(--muted); }
     #next { width: 80px; height: 40px; }
     #msg { min-height: 1.6em; margin: 8px 0; font-weight: bold; }
   </style>
@@ -21,7 +21,7 @@
     <h1>Blok Susun</h1>
     <p>Susun blok yang jatuh sampai rapat. Jangan sampai menumpuk ke atas.</p>
     <div id="info"><span>Skor: <b id="score">0</b></span><span>Baris: <b id="lines">0</b></span><span>Level: <b id="level">1</b></span></div>
-    <div id="upcoming">Berikut: <canvas id="next" width="80" height="40" aria-label="Blok berikutnya"></canvas></div>
+    <div id="upcoming"><span>Rekor: <b id="best">0</b></span><span>Berikut: <canvas id="next" width="80" height="40" aria-label="Blok berikutnya"></canvas></span></div>
     <canvas id="arena" width="240" height="480" aria-label="Papan Blok Susun"></canvas>
     <div id="pad">
       <button class="g-btn" id="left" type="button" aria-label="Geser kiri">&larr;</button>
