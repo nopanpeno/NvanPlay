@@ -10,6 +10,7 @@
     #arena { display: block; width: 100%; max-width: 240px; margin: 8px auto; aspect-ratio: 1 / 2; border: 3px solid var(--line); border-radius: 8px; background: var(--surface); touch-action: none; }
     #pad { display: flex; justify-content: center; gap: 8px; margin: 8px 0; }
     #pad .g-btn { min-width: 62px; min-height: 48px; margin-top: 0; }
+    #info { display: flex; justify-content: space-between; max-width: 240px; margin: 8px auto 0; color: var(--muted); }
     #msg { min-height: 1.6em; margin: 8px 0; font-weight: bold; }
   </style>
 </head>
@@ -17,6 +18,7 @@
   <main>
     <h1>Blok Susun</h1>
     <p>Susun blok yang jatuh sampai rapat. Jangan sampai menumpuk ke atas.</p>
+    <div id="info"><span>Skor: <b id="score">0</b></span><span>Baris: <b id="lines">0</b></span></div>
     <canvas id="arena" width="240" height="480" aria-label="Papan Blok Susun"></canvas>
     <div id="pad">
       <button class="g-btn" id="left" type="button" aria-label="Geser kiri">&larr;</button>
