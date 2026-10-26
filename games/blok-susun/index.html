@@ -8,9 +8,11 @@
   <script src="../../js/game-theme.js"></script>
   <style>
     #arena { display: block; width: 100%; max-width: 240px; margin: 8px auto; aspect-ratio: 1 / 2; border: 3px solid var(--line); border-radius: 8px; background: var(--surface); touch-action: none; }
-    #pad { display: flex; justify-content: center; gap: 8px; margin: 8px 0; }
-    #pad .g-btn { min-width: 62px; min-height: 48px; margin-top: 0; }
+    #pad { display: flex; justify-content: center; gap: 6px; margin: 8px 0; }
+    #pad .g-btn { padding: 12px 6px; min-width: 50px; min-height: 48px; margin-top: 0; }
     #info { display: flex; justify-content: space-between; max-width: 240px; margin: 8px auto 0; color: var(--muted); }
+    #upcoming { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; color: var(--muted); }
+    #next { width: 80px; height: 40px; }
     #msg { min-height: 1.6em; margin: 8px 0; font-weight: bold; }
   </style>
 </head>
@@ -18,12 +20,14 @@
   <main>
     <h1>Blok Susun</h1>
     <p>Susun blok yang jatuh sampai rapat. Jangan sampai menumpuk ke atas.</p>
-    <div id="info"><span>Skor: <b id="score">0</b></span><span>Baris: <b id="lines">0</b></span></div>
+    <div id="info"><span>Skor: <b id="score">0</b></span><span>Baris: <b id="lines">0</b></span><span>Level: <b id="level">1</b></span></div>
+    <div id="upcoming">Berikut: <canvas id="next" width="80" height="40" aria-label="Blok berikutnya"></canvas></div>
     <canvas id="arena" width="240" height="480" aria-label="Papan Blok Susun"></canvas>
     <div id="pad">
       <button class="g-btn" id="left" type="button" aria-label="Geser kiri">&larr;</button>
       <button class="g-btn" id="rotate" type="button" aria-label="Putar">&#8635;</button>
       <button class="g-btn" id="down" type="button" aria-label="Turun">&darr;</button>
+      <button class="g-btn" id="drop" type="button" aria-label="Jatuhkan">&#10515;</button>
       <button class="g-btn" id="right" type="button" aria-label="Geser kanan">&rarr;</button>
     </div>
     <p id="msg" aria-live="polite">Tekan Mulai.</p>
