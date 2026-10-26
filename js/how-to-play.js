@@ -288,11 +288,11 @@
     "goal": "Susun blok yang jatuh agar tidak menumpuk sampai atas papan.",
     "steps": [
       "Blok jatuh sendiri dari atas, satu per satu.",
-      "Geser blok ke kiri atau kanan, atau turunkan lebih cepat.",
+      "Geser blok ke kiri atau kanan, putar, atau turunkan lebih cepat.",
       "Blok terkunci saat menyentuh dasar atau tumpukan. Game berakhir saat tumpukan penuh."
     ],
     "controls": [
-      "Tombol panah kiri, kanan, dan bawah, atau tombol di layar."
+      "Panah kiri dan kanan untuk geser, panah atas untuk putar, panah bawah untuk turun. Atau pakai tombol di layar."
     ]
   }
 };

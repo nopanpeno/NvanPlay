@@ -1,6 +1,7 @@
 // Blok Susun (mirip Tetris). Dibangun bertahap.
 // Step 1: papan, 7 bentuk jatuh, geser kiri/kanan/turun, kunci di dasar, game over.
-// Belum ada: putar, hapus baris, skor, level, rekor.
+// Step 2: putar blok searah jarum jam, geser otomatis dari dinding.
+// Belum ada: hapus baris, skor, level, rekor.
 (function () {
   var COLS = 10;
   var ROWS = 20;
@@ -8,14 +9,15 @@
   var DROP_MS = 600;
 
   // Tiap bentuk: daftar kotak [x, y] relatif ke pojok kiri atas.
+  // size = sisi kotak putar. 0 = tidak berputar (bentuk O).
   var SHAPES = [
-    { color: '#2bb3c0', cells: [[0,1],[1,1],[2,1],[3,1]] }, // I
-    { color: '#e5c53a', cells: [[1,0],[2,0],[1,1],[2,1]] }, // O
-    { color: '#9b59d0', cells: [[1,0],[0,1],[1,1],[2,1]] }, // T
-    { color: '#4caf50', cells: [[1,0],[2,0],[0,1],[1,1]] }, // S
-    { color: '#e5483a', cells: [[0,0],[1,0],[1,1],[2,1]] }, // Z
-    { color: '#2f6fed', cells: [[0,0],[0,1],[1,1],[2,1]] }, // J
-    { color: '#f08a24', cells: [[2,0],[0,1],[1,1],[2,1]] }  // L
+    { color: '#2bb3c0', size: 4, cells: [[0,1],[1,1],[2,1],[3,1]] }, // I
+    { color: '#e5c53a', size: 0, cells: [[1,0],[2,0],[1,1],[2,1]] }, // O
+    { color: '#9b59d0', size: 3, cells: [[1,0],[0,1],[1,1],[2,1]] }, // T
+    { color: '#4caf50', size: 3, cells: [[1,0],[2,0],[0,1],[1,1]] }, // S
+    { color: '#e5483a', size: 3, cells: [[0,0],[1,0],[1,1],[2,1]] }, // Z
+    { color: '#2f6fed', size: 3, cells: [[0,0],[0,1],[1,1],[2,1]] }, // J
+    { color: '#f08a24', size: 3, cells: [[2,0],[0,1],[1,1],[2,1]] }  // L
   ];
 
   var canvas = document.getElementById('arena');
@@ -49,7 +51,7 @@
 
   function spawn() {
     var shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
-    piece = { color: shape.color, cells: shape.cells, x: 3, y: 0 };
+    piece = { color: shape.color, size: shape.size, cells: shape.cells, x: 3, y: 0 };
     if (!fits(piece.cells, piece.x, piece.y)) gameOver();
   }
 
@@ -69,6 +71,22 @@
       return true;
     }
     return false;
+  }
+
+  // Putar 90 derajat searah jarum jam. Coba geser samping kalau menabrak.
+  function rotate() {
+    if (!running || !piece.size) return;
+    var n = piece.size;
+    var turned = piece.cells.map(function (c) { return [n - 1 - c[1], c[0]]; });
+    var kicks = [0, -1, 1, -2, 2];
+    for (var i = 0; i < kicks.length; i++) {
+      if (fits(turned, piece.x + kicks[i], piece.y)) {
+        piece.cells = turned;
+        piece.x += kicks[i];
+        draw();
+        return;
+      }
+    }
   }
 
   function tick() {
@@ -111,13 +129,14 @@
     grid = emptyGrid();
     running = true;
     startBtn.disabled = true;
-    msg.textContent = 'Geser dengan tombol panah atau tombol di layar.';
+    msg.textContent = 'Geser dan putar dengan tombol panah atau tombol di layar.';
     spawn();
     draw();
     if (running) timer = setInterval(tick, DROP_MS);
   }
 
   startBtn.addEventListener('click', start);
+  document.getElementById('rotate').addEventListener('click', rotate);
   document.getElementById('left').addEventListener('click', function () { move(-1, 0); });
   document.getElementById('right').addEventListener('click', function () { move(1, 0); });
   document.getElementById('down').addEventListener('click', function () { move(0, 1); });
@@ -127,6 +146,7 @@
     if (e.key === 'ArrowLeft') move(-1, 0);
     else if (e.key === 'ArrowRight') move(1, 0);
     else if (e.key === 'ArrowDown') move(0, 1);
+    else if (e.key === 'ArrowUp') rotate();
     else handled = false;
     if (handled) e.preventDefault();
   });
