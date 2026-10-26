@@ -3,7 +3,8 @@
 // Step 2: putar blok searah jarum jam, geser otomatis dari dinding.
 // Step 3: hapus baris penuh, skor, hitung baris.
 // Step 4: level (tiap 10 baris, jatuh makin cepat), drop keras, blok berikutnya.
-// Belum ada: rekor, kontrol sentuh di papan.
+// Step 5: rekor tersimpan (blok-susun:best), kontrol sentuh di papan.
+// Sentuh: geser kiri/kanan = pindah kolom, ketuk = putar, geser cepat ke bawah = jatuhkan.
 (function () {
   var COLS = 10;
   var ROWS = 20;
@@ -12,6 +13,7 @@
   var FASTER_MS = 50;        // makin cepat tiap level
   var MIN_DROP_MS = 100;     // batas tercepat
   var LINES_PER_LEVEL = 10;
+  var KEY = 'blok-susun:best';
   // Poin menurut jumlah baris yang dihapus sekaligus (0 sampai 4).
   var POINTS = [0, 100, 300, 500, 800];
 
@@ -34,6 +36,7 @@
   var scoreEl = document.getElementById('score');
   var linesEl = document.getElementById('lines');
   var levelEl = document.getElementById('level');
+  var bestEl = document.getElementById('best');
   var nextCtx = document.getElementById('next').getContext('2d');
 
   var grid;      // grid[y][x] = warna kotak terkunci, atau null
@@ -41,6 +44,7 @@
   var score = 0;
   var lines = 0;
   var level = 1;
+  var best = 0;
   var upcoming;  // bentuk yang keluar berikutnya
   var running = false;
   var timer = 0;
@@ -197,12 +201,29 @@
     }
   }
 
+  function loadBest() {
+    try {
+      var v = parseInt(window.nvanplayStorage.getItem(KEY), 10);
+      return v > 0 ? v : 0;
+    } catch (e) { return 0; }
+  }
+
+  function saveBest(n) {
+    try { window.nvanplayStorage.setItem(KEY, String(n)); } catch (e) { /* abaikan */ }
+  }
+
   function gameOver() {
     running = false;
     clearInterval(timer);
     startBtn.disabled = false;
     startBtn.textContent = 'Main lagi';
     msg.textContent = 'Tumpukan penuh. Skor akhir: ' + score + '.';
+    if (score > best) {
+      best = score;
+      bestEl.textContent = best;
+      saveBest(best);
+      msg.textContent += ' Rekor baru!';
+    }
     draw();
   }
 
@@ -216,7 +237,7 @@
     showStats();
     running = true;
     startBtn.disabled = true;
-    msg.textContent = 'Panah untuk geser dan putar. Spasi menjatuhkan blok.';
+    msg.textContent = 'Panah atau sentuh papan: geser, ketuk putar, geser bawah jatuhkan.';
     spawn();
     draw();
     if (running) restartTimer();
@@ -229,6 +250,44 @@
   document.getElementById('right').addEventListener('click', function () { move(1, 0); });
   document.getElementById('down').addEventListener('click', function () { move(0, 1); });
 
+  // Sentuh di papan. Satu kolom = lebar papan di layar dibagi 10.
+  var touch = null;
+
+  function columnWidth() {
+    return canvas.getBoundingClientRect().width / COLS;
+  }
+
+  canvas.addEventListener('pointerdown', function (e) {
+    if (!running) return;
+    canvas.setPointerCapture(e.pointerId);
+    touch = { x: e.clientX, startX: e.clientX, startY: e.clientY, moved: false };
+  });
+
+  canvas.addEventListener('pointermove', function (e) {
+    if (!touch || !running) return;
+    var col = columnWidth();
+    var dx = e.clientX - touch.x;
+    while (Math.abs(dx) >= col) {
+      var dir = dx > 0 ? 1 : -1;
+      move(dir, 0);
+      touch.x += dir * col;
+      touch.moved = true;
+      dx = e.clientX - touch.x;
+    }
+  });
+
+  canvas.addEventListener('pointerup', function (e) {
+    if (!touch) return;
+    var col = columnWidth();
+    var dx = e.clientX - touch.startX;
+    var dy = e.clientY - touch.startY;
+    if (!touch.moved && Math.abs(dx) < col / 2 && Math.abs(dy) < col / 2) rotate();
+    else if (dy > col * 3 && dy > Math.abs(dx) * 2) hardDrop();
+    touch = null;
+  });
+
+  canvas.addEventListener('pointercancel', function () { touch = null; });
+
   document.addEventListener('keydown', function (e) {
     var handled = true;
     if (e.key === 'ArrowLeft') move(-1, 0);
@@ -240,6 +299,8 @@
     if (handled) e.preventDefault();
   });
 
+  best = loadBest();
+  bestEl.textContent = best;
   grid = emptyGrid();
   draw();
 })();

@@ -292,10 +292,10 @@
       "Blok terkunci saat menyentuh dasar atau tumpukan.",
       "Baris yang penuh terisi hilang dan memberi skor. Hapus beberapa baris sekaligus untuk poin lebih besar.",
       "Tiap 10 baris, level naik dan blok jatuh makin cepat. Blok berikutnya tampil di atas papan.",
-      "Game berakhir saat tumpukan penuh."
+      "Game berakhir saat tumpukan penuh. Skor tertinggi tersimpan di perangkatmu."
     ],
     "controls": [
-      "Panah kiri dan kanan untuk geser, panah atas untuk putar, panah bawah untuk turun, Spasi untuk jatuhkan langsung. Atau pakai tombol di layar."
+      "Panah kiri dan kanan untuk geser, panah atas untuk putar, panah bawah untuk turun, Spasi untuk jatuhkan langsung. Di layar sentuh: geser di papan untuk pindah, ketuk untuk putar, geser cepat ke bawah untuk jatuhkan. Tombol di layar juga ada."
     ]
   }
 };
