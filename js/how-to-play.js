@@ -291,6 +291,7 @@
       "Geser blok ke kiri atau kanan, putar, turunkan lebih cepat, atau jatuhkan langsung.",
       "Blok terkunci saat menyentuh dasar atau tumpukan.",
       "Baris yang penuh terisi hilang dan memberi skor. Hapus beberapa baris sekaligus untuk poin lebih besar.",
+      "Garis tepi dan pita tipis menunjukkan tempat blok akan mendarat. Pakai itu untuk membidik.",
       "Tiap 10 baris, level naik dan blok jatuh makin cepat. Blok berikutnya tampil di atas papan.",
       "Game berakhir saat tumpukan penuh. Skor tertinggi tersimpan di perangkatmu."
     ],
