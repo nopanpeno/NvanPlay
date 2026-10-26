@@ -463,5 +463,24 @@
       "max": 1
     },
     "duration": "medium"
+  },
+  {
+    "id": "blok-susun",
+    "title": "Blok Susun",
+    "description": "Susun blok yang jatuh sampai rapat. Jangan biarkan menumpuk sampai atas.",
+    "tags": [
+      "arcade",
+      "puzzle",
+      "klasik"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#9b59d0",
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "medium"
   }
 ]
