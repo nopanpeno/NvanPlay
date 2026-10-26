@@ -283,6 +283,17 @@
       "Di HP atau dengan mouse, tarik dari bola lalu lepaskan untuk memukul.",
       "Di komputer, gunakan tombol panah untuk mengubah arah bidik dan Spasi untuk memukul."
     ]
+  },
+  "blok-susun": {
+    "goal": "Susun blok yang jatuh agar tidak menumpuk sampai atas papan.",
+    "steps": [
+      "Blok jatuh sendiri dari atas, satu per satu.",
+      "Geser blok ke kiri atau kanan, atau turunkan lebih cepat.",
+      "Blok terkunci saat menyentuh dasar atau tumpukan. Game berakhir saat tumpukan penuh."
+    ],
+    "controls": [
+      "Tombol panah kiri, kanan, dan bawah, atau tombol di layar."
+    ]
   }
 };
 
