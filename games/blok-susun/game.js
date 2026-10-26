@@ -5,6 +5,7 @@
 // Step 4: level (tiap 10 baris, jatuh makin cepat), drop keras, blok berikutnya.
 // Step 5: rekor tersimpan (blok-susun:best), kontrol sentuh di papan.
 // Sentuh: geser kiri/kanan = pindah kolom, ketuk = putar, geser cepat ke bawah = jatuhkan.
+// Step 6: bayangan blok dan pita ke bawah, supaya mudah membidik tempat mendarat.
 (function () {
   var COLS = 10;
   var ROWS = 20;
@@ -182,6 +183,36 @@
     }
   }
 
+  // Baris tempat blok akan mendarat kalau dijatuhkan sekarang.
+  function landingY() {
+    var y = piece.y;
+    while (fits(piece.cells, piece.x, y + 1)) y++;
+    return y;
+  }
+
+  // Pita tipis di kolom blok, dan garis tepi di tempat mendarat.
+  function drawGuide() {
+    var gy = landingY();
+    var lowest = {};  // kolom -> kotak paling bawah blok di kolom itu
+    piece.cells.forEach(function (c) {
+      if (!(c[0] in lowest) || c[1] > lowest[c[0]]) lowest[c[0]] = c[1];
+    });
+    ctx.globalAlpha = 0.15;
+    ctx.fillStyle = piece.color;
+    Object.keys(lowest).forEach(function (k) {
+      var x = piece.x + Number(k);
+      for (var y = piece.y + lowest[k] + 1; y <= gy + lowest[k]; y++) {
+        ctx.fillRect(x * CELL + 1, y * CELL + 1, CELL - 2, CELL - 2);
+      }
+    });
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = piece.color;
+    ctx.lineWidth = 2;
+    piece.cells.forEach(function (c) {
+      ctx.strokeRect((piece.x + c[0]) * CELL + 2, (gy + c[1]) * CELL + 2, CELL - 4, CELL - 4);
+    });
+  }
+
   function drawCell(x, y, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x * CELL + 1, y * CELL + 1, CELL - 2, CELL - 2);
@@ -195,6 +226,7 @@
       }
     }
     if (piece && running) {
+      drawGuide();
       piece.cells.forEach(function (c) {
         drawCell(piece.x + c[0], piece.y + c[1], piece.color);
       });
