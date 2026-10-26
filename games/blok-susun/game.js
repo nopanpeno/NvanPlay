@@ -1,12 +1,15 @@
 // Blok Susun (mirip Tetris). Dibangun bertahap.
 // Step 1: papan, 7 bentuk jatuh, geser kiri/kanan/turun, kunci di dasar, game over.
 // Step 2: putar blok searah jarum jam, geser otomatis dari dinding.
-// Belum ada: hapus baris, skor, level, rekor.
+// Step 3: hapus baris penuh, skor, hitung baris.
+// Belum ada: level, rekor, drop keras.
 (function () {
   var COLS = 10;
   var ROWS = 20;
   var CELL = 24;
   var DROP_MS = 600;
+  // Poin menurut jumlah baris yang dihapus sekaligus (0 sampai 4).
+  var POINTS = [0, 100, 300, 500, 800];
 
   // Tiap bentuk: daftar kotak [x, y] relatif ke pojok kiri atas.
   // size = sisi kotak putar. 0 = tidak berputar (bentuk O).
@@ -24,9 +27,13 @@
   var ctx = canvas.getContext('2d');
   var msg = document.getElementById('msg');
   var startBtn = document.getElementById('start');
+  var scoreEl = document.getElementById('score');
+  var linesEl = document.getElementById('lines');
 
   var grid;      // grid[y][x] = warna kotak terkunci, atau null
   var piece;     // { color, cells, x, y }
+  var score = 0;
+  var lines = 0;
   var running = false;
   var timer = 0;
 
@@ -59,7 +66,32 @@
     piece.cells.forEach(function (c) {
       grid[piece.y + c[1]][piece.x + c[0]] = piece.color;
     });
+    clearLines();
     spawn();
+  }
+
+  // Hapus baris yang penuh, turunkan sisanya, tambah skor.
+  function clearLines() {
+    var cleared = 0;
+    var y = ROWS - 1;
+    while (y >= 0) {
+      if (grid[y].every(Boolean)) {
+        grid.splice(y, 1);
+        grid.unshift(emptyGrid()[0]);
+        cleared++;
+      } else {
+        y--;
+      }
+    }
+    if (!cleared) return;
+    lines += cleared;
+    score += POINTS[cleared];
+    showStats();
+  }
+
+  function showStats() {
+    scoreEl.textContent = score;
+    linesEl.textContent = lines;
   }
 
   function move(dx, dy) {
@@ -120,13 +152,16 @@
     clearInterval(timer);
     startBtn.disabled = false;
     startBtn.textContent = 'Main lagi';
-    msg.textContent = 'Tumpukan penuh. Game over.';
+    msg.textContent = 'Tumpukan penuh. Skor akhir: ' + score + '.';
     draw();
   }
 
   function start() {
     clearInterval(timer);
     grid = emptyGrid();
+    score = 0;
+    lines = 0;
+    showStats();
     running = true;
     startBtn.disabled = true;
     msg.textContent = 'Geser dan putar dengan tombol panah atau tombol di layar.';
