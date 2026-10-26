@@ -2,12 +2,16 @@
 // Step 1: papan, 7 bentuk jatuh, geser kiri/kanan/turun, kunci di dasar, game over.
 // Step 2: putar blok searah jarum jam, geser otomatis dari dinding.
 // Step 3: hapus baris penuh, skor, hitung baris.
-// Belum ada: level, rekor, drop keras.
+// Step 4: level (tiap 10 baris, jatuh makin cepat), drop keras, blok berikutnya.
+// Belum ada: rekor, kontrol sentuh di papan.
 (function () {
   var COLS = 10;
   var ROWS = 20;
   var CELL = 24;
-  var DROP_MS = 600;
+  var START_DROP_MS = 600;   // jeda jatuh di level 1
+  var FASTER_MS = 50;        // makin cepat tiap level
+  var MIN_DROP_MS = 100;     // batas tercepat
+  var LINES_PER_LEVEL = 10;
   // Poin menurut jumlah baris yang dihapus sekaligus (0 sampai 4).
   var POINTS = [0, 100, 300, 500, 800];
 
@@ -29,11 +33,15 @@
   var startBtn = document.getElementById('start');
   var scoreEl = document.getElementById('score');
   var linesEl = document.getElementById('lines');
+  var levelEl = document.getElementById('level');
+  var nextCtx = document.getElementById('next').getContext('2d');
 
   var grid;      // grid[y][x] = warna kotak terkunci, atau null
   var piece;     // { color, cells, x, y }
   var score = 0;
   var lines = 0;
+  var level = 1;
+  var upcoming;  // bentuk yang keluar berikutnya
   var running = false;
   var timer = 0;
 
@@ -56,8 +64,14 @@
     return true;
   }
 
+  function randomShape() {
+    return SHAPES[Math.floor(Math.random() * SHAPES.length)];
+  }
+
   function spawn() {
-    var shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+    var shape = upcoming || randomShape();
+    upcoming = randomShape();
+    drawNext();
     piece = { color: shape.color, size: shape.size, cells: shape.cells, x: 3, y: 0 };
     if (!fits(piece.cells, piece.x, piece.y)) gameOver();
   }
@@ -86,12 +100,48 @@
     if (!cleared) return;
     lines += cleared;
     score += POINTS[cleared];
+    var newLevel = Math.floor(lines / LINES_PER_LEVEL) + 1;
+    if (newLevel > level) {
+      level = newLevel;
+      restartTimer();
+    }
     showStats();
   }
 
   function showStats() {
     scoreEl.textContent = score;
     linesEl.textContent = lines;
+    levelEl.textContent = level;
+  }
+
+  function dropDelay() {
+    return Math.max(MIN_DROP_MS, START_DROP_MS - (level - 1) * FASTER_MS);
+  }
+
+  function restartTimer() {
+    clearInterval(timer);
+    timer = setInterval(tick, dropDelay());
+  }
+
+  // Jatuhkan blok langsung ke dasar dan kunci.
+  function hardDrop() {
+    if (!running) return;
+    while (fits(piece.cells, piece.x, piece.y + 1)) piece.y++;
+    lockPiece();
+    if (running) {
+      draw();
+      restartTimer();
+    }
+  }
+
+  // Pratinjau blok berikutnya.
+  function drawNext() {
+    nextCtx.clearRect(0, 0, 80, 40);
+    if (!upcoming) return;
+    nextCtx.fillStyle = upcoming.color;
+    upcoming.cells.forEach(function (c) {
+      nextCtx.fillRect(c[0] * 20 + 1, c[1] * 20 + 1, 18, 18);
+    });
   }
 
   function move(dx, dy) {
@@ -161,16 +211,19 @@
     grid = emptyGrid();
     score = 0;
     lines = 0;
+    level = 1;
+    upcoming = null;
     showStats();
     running = true;
     startBtn.disabled = true;
-    msg.textContent = 'Geser dan putar dengan tombol panah atau tombol di layar.';
+    msg.textContent = 'Panah untuk geser dan putar. Spasi menjatuhkan blok.';
     spawn();
     draw();
-    if (running) timer = setInterval(tick, DROP_MS);
+    if (running) restartTimer();
   }
 
   startBtn.addEventListener('click', start);
+  document.getElementById('drop').addEventListener('click', hardDrop);
   document.getElementById('rotate').addEventListener('click', rotate);
   document.getElementById('left').addEventListener('click', function () { move(-1, 0); });
   document.getElementById('right').addEventListener('click', function () { move(1, 0); });
@@ -182,6 +235,7 @@
     else if (e.key === 'ArrowRight') move(1, 0);
     else if (e.key === 'ArrowDown') move(0, 1);
     else if (e.key === 'ArrowUp') rotate();
+    else if (e.key === ' ') hardDrop();
     else handled = false;
     if (handled) e.preventDefault();
   });

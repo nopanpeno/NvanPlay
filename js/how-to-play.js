@@ -288,13 +288,14 @@
     "goal": "Isi baris penuh sebanyak mungkin dan jangan biarkan blok menumpuk sampai atas papan.",
     "steps": [
       "Blok jatuh sendiri dari atas, satu per satu.",
-      "Geser blok ke kiri atau kanan, putar, atau turunkan lebih cepat.",
+      "Geser blok ke kiri atau kanan, putar, turunkan lebih cepat, atau jatuhkan langsung.",
       "Blok terkunci saat menyentuh dasar atau tumpukan.",
       "Baris yang penuh terisi hilang dan memberi skor. Hapus beberapa baris sekaligus untuk poin lebih besar.",
+      "Tiap 10 baris, level naik dan blok jatuh makin cepat. Blok berikutnya tampil di atas papan.",
       "Game berakhir saat tumpukan penuh."
     ],
     "controls": [
-      "Panah kiri dan kanan untuk geser, panah atas untuk putar, panah bawah untuk turun. Atau pakai tombol di layar."
+      "Panah kiri dan kanan untuk geser, panah atas untuk putar, panah bawah untuk turun, Spasi untuk jatuhkan langsung. Atau pakai tombol di layar."
     ]
   }
 };
