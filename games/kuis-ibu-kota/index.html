@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kuis Ibu Kota</title>
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
+  <style>
+    main { max-width: 480px; }
+    .stats { display: flex; justify-content: space-between; margin: 8px 0; font-weight: 700; color: var(--muted); }
+    #question { min-height: 3em; margin: 12px 0; padding: 14px; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); font-size: 1.15rem; line-height: 1.4; }
+    .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .choice { padding: 12px 8px; font: inherit; font-weight: 700; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); cursor: pointer; }
+    .choice:disabled { cursor: default; }
+    .choice.correct { background: #22c55e; color: #fff; }
+    .choice.wrong { background: #ef4444; color: #fff; }
+    #status { min-height: 1.6em; margin: 12px 0 0; font-weight: bold; }
+    #best { color: var(--muted); }
+    .actions { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Kuis Ibu Kota</h1>
+    <p>Tebak ibu kota dari daftar pilihan. 10 soal tiap main, pilihannya mirip-mirip biar susah.</p>
+    <div class="stats"><span id="progress">Soal 1/10</span><span>Skor: <span id="score">0</span></span></div>
+    <div id="question" aria-live="polite"></div>
+    <div id="choices" class="choices"></div>
+    <p id="status" role="status" aria-live="polite"></p>
+    <div class="actions">
+      <button id="next" class="g-btn" type="button" hidden>Lanjut</button>
+      <button id="restart" class="g-btn" type="button" hidden>Main lagi</button>
+    </div>
+    <p id="best">Rekor terbaik: 0</p>
+  </main>
+  <script src="../../js/data/ibu-kota.js"></script>
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+</body>
+</html>
