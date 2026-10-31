@@ -1,5 +1,5 @@
 // Terbang Pesawat. Ketuk atau Spasi untuk naik, lepas untuk turun.
-// Lewati celah tiang. Skor = jumlah tiang yang terlewati. Rekor = skor terbaik.
+// Lewati celah antar gedung. Skor = jumlah gedung yang terlewati. Rekor = skor terbaik.
 (function () {
   var W = 480, H = 360;
   var KEY = 'terbang-pesawat:best';
@@ -61,14 +61,33 @@
     ctx.fillRect(x + 22, y + 10, 6, 4);
   }
 
+  // Gedung: badan berwarna, atap di tepi celah, dan jendela.
+  var BUILDING_COLORS = ['#64748b', '#0ea5e9', '#f59e0b', '#8b5cf6'];
+
+  function drawBuilding(x, y, w, h, color, capAtBottom) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, w, h);
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.25)';
+    ctx.fillRect(x, capAtBottom ? y : y + h - 6, 6, 6);
+    ctx.fillStyle = '#fef08a';
+    for (var wy = y + 10; wy < y + h - 12; wy += 16) {
+      for (var wx = x + 10; wx < x + w - 12; wx += 14) {
+        ctx.fillRect(wx, wy, 6, 8);
+      }
+    }
+  }
+
   function drawPillars() {
-    pillars.forEach(function (p) {
-      ctx.fillStyle = '#22a06b';
-      ctx.fillRect(p.x, 0, PILLAR_W, p.top);
-      ctx.fillRect(p.x, p.top + GAP, PILLAR_W, H - p.top - GAP);
-      ctx.fillStyle = '#16794f';
-      ctx.fillRect(p.x - 4, p.top - 14, PILLAR_W + 8, 14);
-      ctx.fillRect(p.x - 4, p.top + GAP, PILLAR_W + 8, 14);
+    pillars.forEach(function (p, i) {
+      var color = BUILDING_COLORS[i % BUILDING_COLORS.length];
+      // Gedung atas: dari langit-langit sampai tepi bawah celah.
+      drawBuilding(p.x, 0, PILLAR_W, p.top, color, false);
+      // Gedung bawah: dari tepi atas celah sampai tanah.
+      drawBuilding(p.x, p.top + GAP, PILLAR_W, H - 8 - (p.top + GAP), color, true);
+      // Atap kecil di kedua tepi celah.
+      ctx.fillStyle = '#334155';
+      ctx.fillRect(p.x - 4, p.top - 10, PILLAR_W + 8, 10);
+      ctx.fillRect(p.x - 4, p.top + GAP, PILLAR_W + 8, 10);
     });
   }
 
