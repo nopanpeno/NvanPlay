@@ -118,6 +118,15 @@ function matches(game) {
   return text.includes(query);
 }
 
+function shuffleGames(games) {
+  const out = [...games];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
 function orderGames(games) {
   const ordered = [...games];
   if (sortMode === 'title') {
@@ -171,7 +180,7 @@ function buildFilters() {
   const sortLabel = el('label', 'sort-control', 'Urutkan');
   const sortSelect = el('select', 'sort-select');
   sortSelect.setAttribute('aria-label', 'Urutkan game');
-  [['default', 'Urutan awal'], ['title', 'Judul A–Z'], ['recorded', 'Rekor tersimpan dulu']].forEach(([value, label]) => {
+  [['default', 'Acak'], ['title', 'Judul A–Z'], ['recorded', 'Rekor tersimpan dulu']].forEach(([value, label]) => {
     const option = el('option', '', label);
     option.value = value;
     sortSelect.append(option);
@@ -271,7 +280,8 @@ fetch('games.json')
     return r.json();
   })
   .then(games => {
-    allGames = games;
+    // Urutan awal diacak tiap halaman dibuka. Pilihan urut lain tetap jalan.
+    allGames = shuffleGames(games);
     if (games.length) {
       buildFilters();
       randomBtn.disabled = false;
