@@ -15,7 +15,26 @@
     'Sungai itu mengalir jernih sampai ke laut.',
     'Kopi hangat cocok untuk pagi yang dingin.',
     'Teman saya pandai sekali bermain gitar.',
-    'Pasar malam selalu ramai pengunjung.'
+    'Pasar malam selalu ramai pengunjung.',
+    'Nenek menanam cabai dan tomat di halaman belakang.',
+    'Bus kota melewati jembatan tua setiap pagi.',
+    'Hujan turun deras sejak tengah malam tadi.',
+    'Ayah membaca koran sambil minum teh manis.',
+    'Pantai di pulau itu masih sangat bersih.',
+    'Kucing hitam tidur nyenyak di atas sofa.',
+    'Mereka berjalan kaki menyusuri jalan setapak di hutan.',
+    'Belajar setiap hari membuat kita makin pintar.',
+    'Warung kopi di sudut kota buka sampai larut malam.',
+    'Lampu jalan menyala saat matahari mulai terbenam.',
+    'Tim kami berhasil memenangkan pertandingan kemarin.',
+    'Buah mangga manis itu dipetik dari pohon depan rumah.',
+    'Kami menonton film bersama di ruang tamu.',
+    'Jendela kamar terbuka supaya udara segar masuk.',
+    'Sepeda merah itu baru dibeli minggu lalu.',
+    'Dia selalu tersenyum saat bertemu teman lama.',
+    'Air sungai di desa itu dingin dan jernih.',
+    'Gunung itu tertutup kabut tebal di pagi hari.',
+    'Perpustakaan sekolah buka setiap hari kerja.'
   ];
 
   var textEl = document.getElementById('text');
