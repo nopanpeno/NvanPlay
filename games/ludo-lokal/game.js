@@ -6,7 +6,7 @@
   var ORIGIN = 48;
   var CELL = 36;
   var TRACK_LENGTH = 52;
-  var HOME_FINISH = 57;
+  var HOME_FINISH = 58;
   var COLORS = [
     { name: 'Merah', fill: '#ef4444', pale: '#fee2e2', entry: 5, base: [1, 1], lane: [[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]] },
     { name: 'Biru', fill: '#3b82f6', pale: '#dbeafe', entry: 18, base: [9, 1], lane: [[12,5],[11,5],[10,5],[9,5],[8,5],[7,5]] },
