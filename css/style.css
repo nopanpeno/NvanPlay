@@ -342,6 +342,7 @@ body {
   transform: rotate(-8deg);
 }
 .site-header h1 { color: var(--title); text-shadow: 3px 3px 0 var(--accent); }
+.site-header .btn-cta { border-color: var(--fg); }
 .site-header p { max-width: 30ch; font-weight: 650; color: var(--fg); }
 .btn-cta {
   border-width: 3px;
