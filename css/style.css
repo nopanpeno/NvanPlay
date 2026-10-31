@@ -40,6 +40,7 @@
   --dots: rgba(13, 11, 26, .08);
   --display: "Press Start 2P", "Bricolage Grotesque", system-ui, sans-serif;
   --pixel: "Silkscreen", system-ui, sans-serif;
+  --title: #0d0b1a;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -53,6 +54,7 @@
   --cover-bg: #241f42;
   --error: #ff6b9a;
   --dots: rgba(255, 230, 0, .08);
+  --title: #ffe600;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -67,6 +69,7 @@
     --cover-bg: #241f42;
     --error: #ff6b9a;
     --dots: rgba(255, 230, 0, .08);
+    --title: #ffe600;
   }
 }
 
@@ -308,8 +311,10 @@ a { color: var(--accent); }
 /* Comic-book finish */
 body {
   background-color: var(--bg);
-  background-image: radial-gradient(var(--dots) .8px, transparent .8px);
-  background-size: 14px 14px;
+  background-image:
+    repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0, 0, 0, .05) 3px 4px),
+    radial-gradient(var(--dots) .8px, transparent .8px);
+  background-size: auto, 14px 14px;
 }
 .site-header {
   position: relative;
@@ -319,9 +324,9 @@ body {
   padding: 22px 20px 18px;
   border: 3px solid var(--line);
   border-radius: 8px;
-  background: var(--cta);
-  color: var(--on-cta);
-  box-shadow: 7px 7px 0 var(--line);
+  background: var(--surface);
+  color: var(--fg);
+  box-shadow: 7px 7px 0 var(--accent);
 }
 .site-header::before {
   position: absolute;
@@ -336,8 +341,8 @@ body {
   opacity: .16;
   transform: rotate(-8deg);
 }
-.site-header h1 { color: var(--on-cta); text-shadow: 3px 3px 0 var(--accent); }
-.site-header p { max-width: 30ch; font-weight: 650; color: var(--on-cta); }
+.site-header h1 { color: var(--title); text-shadow: 3px 3px 0 var(--accent); }
+.site-header p { max-width: 30ch; font-weight: 650; color: var(--fg); }
 .btn-cta {
   border-width: 3px;
   border-radius: 4px;
