@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terbang Pesawat</title>
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
+  <style>
+    main { max-width: 480px; }
+    #info { display: flex; justify-content: space-between; margin: 8px 0; font-weight: 700; color: var(--muted); }
+    #arena { display: block; width: 100%; height: auto; border: 3px solid var(--line); border-radius: 10px; background: #bfe9ff; touch-action: none; -webkit-user-select: none; user-select: none; }
+    #msg { min-height: 1.6em; margin: 12px 0 0; font-weight: bold; }
+    #best { min-height: 1.4em; margin: 4px 0 0; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Terbang Pesawat</h1>
+    <p>Ketuk layar atau tekan Spasi untuk naik. Lepas untuk turun. Lewati celah tiang sebanyak mungkin.</p>
+    <div id="info"><span id="score">Skor: 0</span><span id="best"></span></div>
+    <canvas id="arena" width="480" height="360" aria-label="Arena Terbang Pesawat"></canvas>
+    <p id="msg" aria-live="polite">Tekan Mulai, lalu ketuk untuk terbang.</p>
+    <button class="g-btn" id="start" type="button">Mulai</button>
+  </main>
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+</body>
+</html>
