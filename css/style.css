@@ -1,4 +1,23 @@
 @font-face {
+  font-family: "Press Start 2P";
+  src: url("../fonts/press-start-2p-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Silkscreen";
+  src: url("../fonts/silkscreen-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Silkscreen";
+  src: url("../fonts/silkscreen-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Bricolage Grotesque";
   src: url("../fonts/bricolage-grotesque-latin-wght-normal.woff2") format("woff2");
   font-weight: 200 800;
@@ -19,7 +38,8 @@
   --on-cta: #0d0b1a;
   --error: #b00030;
   --dots: rgba(13, 11, 26, .08);
-  --display: "Bricolage Grotesque", system-ui, sans-serif;
+  --display: "Press Start 2P", "Bricolage Grotesque", system-ui, sans-serif;
+  --pixel: "Silkscreen", system-ui, sans-serif;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -75,7 +95,7 @@ a { color: var(--accent); }
   font-weight: 800;
   letter-spacing: -0.02em;
 }
-.site-header h1 { font-size: clamp(2rem, 9vw, 3.25rem); line-height: 1.05; }
+.site-header h1 { font-size: clamp(1.6rem, 6vw, 2.6rem); line-height: 1.15; }
 .site-header p { flex-basis: 100%; order: 3; margin: 0; color: var(--muted); }
 .empty { color: var(--muted); }
 
@@ -369,6 +389,7 @@ body {
 .card-cover { border-bottom-width: 3px; }
 .card-title { font-size: 1.15rem; }
 .tag {
+  font-family: var(--pixel);
   border-width: 2px;
   border-radius: 4px;
   color: var(--fg);
@@ -406,7 +427,7 @@ body {
 
 @media (max-width: 639px) {
   .site-header { margin: 14px 12px 0; padding: 18px 16px 16px; }
-  .site-header h1 { font-size: clamp(2.15rem, 12vw, 3rem); }
+  .site-header h1 { font-size: clamp(1.4rem, 7.5vw, 2rem); }
   .site-header .btn-cta { width: 100%; }
   .filters, #catalog { padding-left: 14px; padding-right: 14px; }
   .chips { margin-left: -14px; margin-right: -14px; padding-left: 14px; padding-right: 14px; }
@@ -452,6 +473,7 @@ body {
   font-weight: 700;
 }
 .card-meta {
+  font-family: var(--pixel);
   margin: 0;
   color: var(--muted);
   font-size: .78rem;
