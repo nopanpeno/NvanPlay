@@ -64,14 +64,14 @@ function card(game, index) {
   const body = el('div', 'card-body');
   body.append(el('h2', 'card-title', game.title));
   body.append(el('p', 'card-desc', game.description));
-  body.append(el('p', 'card-meta', gameMeta(game)));
-
-  const best = bestOf(game.id);
-  if (best) body.append(el('p', 'card-record', 'Rekormu: ' + best));
 
   const tags = el('ul', 'tags');
   (game.tags || []).forEach(t => tags.append(el('li', 'tag', t)));
   body.append(tags);
+
+  body.append(el('p', 'card-meta', gameMeta(game)));
+  const best = bestOf(game.id);
+  if (best) body.append(el('p', 'card-record', 'Rekormu: ' + best));
 
   link.append(cover, body);
 
