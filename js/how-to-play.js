@@ -320,6 +320,17 @@
     "controls": [
       "Ketuk layar atau tekan Spasi untuk naik. Di komputer, tombol panah atas juga bisa."
     ]
+  },
+  "kuis-ibu-kota": {
+    "goal": "Tebak ibu kota dari 4 pilihan. Makin banyak jawaban benar dari 10 soal, makin tinggi skor.",
+    "steps": [
+      "Tekan Mulai. Soal pertama langsung tampil, misalnya ibu kota suatu provinsi atau negara.",
+      "Pilih salah satu dari 4 jawaban. Jawaban benar jadi hijau, jawaban salah jadi merah.",
+      "Tekan Lanjut untuk soal berikutnya. Setelah 10 soal, skor akhir tampil."
+    ],
+    "controls": [
+      "Klik atau ketuk pilihan jawaban. Di komputer, pilihan juga bisa dipilih lewat keyboard."
+    ]
   }
 };
 
