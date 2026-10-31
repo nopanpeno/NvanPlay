@@ -482,5 +482,24 @@
       "max": 1
     },
     "duration": "medium"
+  },
+  {
+    "id": "ketik-cepat",
+    "title": "Ketik Cepat",
+    "description": "Ketik kalimat yang tampil secepat mungkin dalam 30 detik.",
+    "tags": [
+      "kata",
+      "refleks",
+      "santai"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#0891b2",
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   }
 ]

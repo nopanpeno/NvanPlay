@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ketik Cepat</title>
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
+  <style>
+    main { max-width: 480px; }
+    #info { display: flex; justify-content: space-between; margin: 8px 0; color: var(--muted); font-weight: 700; }
+    #text { min-height: 4.5em; margin: 12px 0; padding: 14px; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); font-size: 1.2rem; line-height: 1.6; text-align: left; overflow-wrap: anywhere; }
+    #text .ok { color: var(--good); }
+    #text .bad { color: var(--bad); text-decoration: underline; }
+    #input { width: 100%; padding: 12px; font: inherit; font-size: 1.1rem; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); }
+    #msg { min-height: 1.6em; margin: 12px 0 0; font-weight: bold; }
+    #best { min-height: 1.4em; margin: 4px 0 0; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Ketik Cepat</h1>
+    <p>Ketik kalimat yang tampil sebaik mungkin dalam 30 detik. Setiap kalimat benar menambah skor.</p>
+    <div id="info"><span id="time">Waktu: 30</span><span id="score">Skor: 0</span></div>
+    <div id="text" aria-live="off">Tekan Mulai untuk main.</div>
+    <input id="input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Ketik kalimat di sini" disabled>
+    <p id="msg" aria-live="polite"></p>
+    <p id="best"></p>
+    <button class="g-btn" id="start" type="button">Mulai</button>
+  </main>
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+</body>
+</html>
