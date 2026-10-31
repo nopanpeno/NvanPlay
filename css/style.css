@@ -224,7 +224,7 @@ a { color: var(--accent); }
   background: var(--cover-bg);
   border-bottom: 2px solid var(--line);
 }
-.card-cover.no-cover { visibility: hidden; }
+.card-cover.no-cover { background: var(--tile); }
 .card-body { display: flex; flex-direction: column; flex: 1; gap: 6px; padding: 10px 12px 12px; }
 .card-title { margin: 0; font-family: var(--display); font-weight: 700; font-size: 1.1rem; line-height: 1.2; }
 .card-desc {
