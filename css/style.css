@@ -363,6 +363,7 @@ body {
   box-shadow: 3px 3px 0 var(--line), 6px 6px 0 var(--tile);
 }
 .card:focus-within { outline: 3px solid var(--accent); outline-offset: 4px; }
+.card:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--line), 4px 4px 0 var(--tile); }
 .card-open:focus-visible { outline: none; }
 .card-cover { border-bottom-width: 3px; }
 .card-title { font-size: 1.15rem; }
