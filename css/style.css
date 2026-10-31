@@ -7,46 +7,46 @@
 
 :root {
   color-scheme: light;
-  --bg: #f6f0dc;
-  --fg: #211d24;
-  --muted: #59515a;
-  --accent: #d92f3d;
+  --bg: #f3eeff;
+  --fg: #0d0b1a;
+  --muted: #5b5480;
+  --accent: #d6186e;
   --on-accent: #fff;
-  --surface: #fffdf5;
-  --line: #211d24;
-  --cover-bg: #ded5bd;
-  --cta: #ffdc46;
-  --on-cta: #211d24;
-  --error: #a61e2b;
-  --dots: rgba(33, 29, 36, .10);
+  --surface: #ffffff;
+  --line: #0d0b1a;
+  --cover-bg: #e4dcff;
+  --cta: #ffe600;
+  --on-cta: #0d0b1a;
+  --error: #b00030;
+  --dots: rgba(13, 11, 26, .08);
   --display: "Bricolage Grotesque", system-ui, sans-serif;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #17151d;
-  --fg: #fff6dd;
-  --muted: #c9c0a9;
-  --accent: #ff7378;
-  --on-accent: #21161a;
-  --surface: #24212b;
-  --line: #fff1ce;
-  --cover-bg: #39333e;
-  --error: #ff9292;
-  --dots: rgba(255, 241, 206, .10);
+  --bg: #0d0b1a;
+  --fg: #f4f1ff;
+  --muted: #9d94c7;
+  --accent: #ff2e88;
+  --on-accent: #0d0b1a;
+  --surface: #1b1733;
+  --line: #ffe600;
+  --cover-bg: #241f42;
+  --error: #ff6b9a;
+  --dots: rgba(255, 230, 0, .08);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #17151d;
-    --fg: #fff6dd;
-    --muted: #c9c0a9;
-    --accent: #ff7378;
-    --on-accent: #21161a;
-    --surface: #24212b;
-    --line: #fff1ce;
-    --cover-bg: #39333e;
-    --error: #ff9292;
-    --dots: rgba(255, 241, 206, .10);
+    --bg: #0d0b1a;
+    --fg: #f4f1ff;
+    --muted: #9d94c7;
+    --accent: #ff2e88;
+    --on-accent: #0d0b1a;
+    --surface: #1b1733;
+    --line: #ffe600;
+    --cover-bg: #241f42;
+    --error: #ff6b9a;
+    --dots: rgba(255, 230, 0, .08);
   }
 }
 
@@ -300,6 +300,7 @@ body {
   border: 3px solid var(--line);
   border-radius: 8px;
   background: var(--cta);
+  color: var(--on-cta);
   box-shadow: 7px 7px 0 var(--line);
 }
 .site-header::before {
@@ -315,8 +316,8 @@ body {
   opacity: .16;
   transform: rotate(-8deg);
 }
-.site-header h1 { color: var(--fg); text-shadow: 3px 3px 0 var(--surface); }
-.site-header p { max-width: 30ch; font-weight: 650; color: var(--fg); }
+.site-header h1 { color: var(--on-cta); text-shadow: 3px 3px 0 var(--accent); }
+.site-header p { max-width: 30ch; font-weight: 650; color: var(--on-cta); }
 .btn-cta {
   border-width: 3px;
   border-radius: 6px;
