@@ -298,6 +298,17 @@
     "controls": [
       "Panah kiri dan kanan untuk geser, panah atas untuk putar, panah bawah untuk turun, Spasi untuk jatuhkan langsung. Di layar sentuh: geser di papan untuk pindah, ketuk untuk putar, geser cepat ke bawah untuk jatuhkan. Tombol di layar juga ada."
     ]
+  },
+  "ketik-cepat": {
+    "goal": "Ketik kalimat yang tampil sebanyak mungkin dalam 30 detik. Makin banyak kata benar, makin tinggi skor.",
+    "steps": [
+      "Tekan Mulai. Kalimat pertama langsung tampil.",
+      "Ketik kalimat itu persis sama, termasuk tanda baca. Huruf hijau berarti benar, merah berarti salah.",
+      "Kalimat benar langsung ganti ke kalimat berikutnya. Skor bertambah sesuai jumlah kata."
+    ],
+    "controls": [
+      "Ketik lewat keyboard atau keyboard layar di ponsel. Kolom isian langsung aktif saat main."
+    ]
   }
 };
 
