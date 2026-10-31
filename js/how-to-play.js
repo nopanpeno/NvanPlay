@@ -331,6 +331,17 @@
     "controls": [
       "Klik atau ketuk pilihan jawaban. Di komputer, pilihan juga bisa dipilih lewat keyboard."
     ]
+  },
+  "tebak-tts": {
+    "goal": "Isi semua kotak susunan teka-teki silang dengan benar dari petunjuk yang ada.",
+    "steps": [
+      "Baca petunjuk di daftar Mendatar dan Menurun. Angka di kotak sama dengan nomor petunjuk.",
+      "Klik petunjuk, atau klik kotak. Kotak yang aktif jadi kuning. Huruf langsung masuk ke kotak itu.",
+      "Klik kotak yang sama lagi untuk ganti arah Mendatar atau Menurun. Tekan Cek kalau sudah selesai."
+    ],
+    "controls": [
+      "Ketik huruf lewat keyboard atau keyboard di ponsel. Backspace menghapus, panah menggeser kotak."
+    ]
   }
 };
 
