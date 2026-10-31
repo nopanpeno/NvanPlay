@@ -309,6 +309,17 @@
     "controls": [
       "Ketik lewat keyboard atau keyboard layar di ponsel. Kolom isian langsung aktif saat main."
     ]
+  },
+  "terbang-pesawat": {
+    "goal": "Terbang selama mungkin dan lewati sebanyak mungkin celah tiang tanpa menabrak.",
+    "steps": [
+      "Tekan Mulai, lalu ketuk layar untuk membuat pesawat naik.",
+      "Lepas ketukan agar pesawat turun karena gravitasi.",
+      "Lewati celah di antara tiang. Setiap tiang yang terlewati menambah skor."
+    ],
+    "controls": [
+      "Ketuk layar atau tekan Spasi untuk naik. Di komputer, tombol panah atas juga bisa."
+    ]
   }
 };
 
