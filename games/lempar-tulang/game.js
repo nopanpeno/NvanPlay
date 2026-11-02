@@ -17,6 +17,23 @@
 
   var turn = 0, left = [THROWS, THROWS], running = false, timer = null;
   var charging = false, chargeStart = 0, power = 0, proj = null;
+  var mode = 'local', botTimer = null, botTurns = 0;
+
+  function isBotTurn() {
+    return mode === 'bot' && turn === 1;
+  }
+
+  // Bot hitung tenaga dari jarak ke lawan. Error makin kecil tiap lemparan.
+  function botThrow() {
+    botTimer = null;
+    var me = PLAYERS[1], target = PLAYERS[0];
+    var d = Math.abs(target.x - (me.x + 24 * me.dir));
+    var v = Math.sqrt(d * GRAV / 0.94);
+    var err = 0.3 * Math.max(0, 1 - botTurns / (THROWS * 2));
+    power = Math.max(0, Math.min(1, (v - 4) / 10 + (Math.random() - 0.5) * 2 * err));
+    botTurns++;
+    launch();
+  }
 
   function loadBest() {
     try {
@@ -84,6 +101,8 @@
   function finish() {
     running = false;
     clearInterval(timer);
+    clearTimeout(botTimer);
+    botTimer = null;
     timer = null;
     recordBest(Math.max(PLAYERS[0].score, PLAYERS[1].score));
     msgEl.textContent = showResult();
@@ -127,6 +146,9 @@
   }
 
   function tick() {
+    if (running && !proj && isBotTurn() && left[1] > 0 && !botTimer) {
+      botTimer = setTimeout(botThrow, 800);
+    }
     if (proj) {
       var prevX = proj.x;
       proj.x += proj.vx;
@@ -148,7 +170,7 @@
   }
 
   canvas.addEventListener('pointerdown', function (e) {
-    if (!running || proj || left[turn] <= 0) return;
+    if (!running || proj || left[turn] <= 0 || isBotTurn()) return;
     e.preventDefault();
     charging = true;
     chargeStart = performance.now();
@@ -157,6 +179,10 @@
   window.addEventListener('pointercancel', release);
 
   function start() {
+    clearTimeout(botTimer);
+    botTimer = null;
+    botTurns = 0;
+    PLAYERS[1].name = mode === 'bot' ? 'Bot Kucing' : 'Kucing';
     turn = 0;
     left = [THROWS, THROWS];
     PLAYERS.forEach(function (p) { p.score = 0; });
@@ -174,6 +200,17 @@
   }
 
   startBtn.addEventListener('click', start);
+
+  var modeBtns = document.querySelectorAll('#modes button');
+  modeBtns.forEach(function (button) {
+    button.addEventListener('click', function () {
+      if (running) return;
+      mode = button.getAttribute('data-mode');
+      modeBtns.forEach(function (b) {
+        b.setAttribute('aria-pressed', b === button ? 'true' : 'false');
+      });
+    });
+  });
   turnEl.textContent = 'Tekan Mulai';
   showScore();
   showBest();
