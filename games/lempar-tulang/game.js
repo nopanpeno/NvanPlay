@@ -1,6 +1,7 @@
 // Lempar Tulang: dua pemain gantian. Tahan layar buat isi tenaga, lepas buat lempar.
 (function () {
   var W = 340, H = 420, GROUND = 380, CHARGE_MS = 1500, GRAV = 0.25, TICK = 16, THROWS = 5, HIT = 20;
+  var FENCE_X = 164, FENCE_W = 12, FENCE_TOP = GROUND - 70;
   var KEY = 'lempar-tulang:best';
   var PLAYERS = [
     { name: 'Anjing', emoji: '🐶', ammo: '🦴', x: 60, dir: 1, score: 0 },
@@ -16,6 +17,23 @@
 
   var turn = 0, left = [THROWS, THROWS], running = false, timer = null;
   var charging = false, chargeStart = 0, power = 0, proj = null;
+  var mode = 'local', botTimer = null, botTurns = 0;
+
+  function isBotTurn() {
+    return mode === 'bot' && turn === 1;
+  }
+
+  // Bot hitung tenaga dari jarak ke lawan. Error makin kecil tiap lemparan.
+  function botThrow() {
+    botTimer = null;
+    var me = PLAYERS[1], target = PLAYERS[0];
+    var d = Math.abs(target.x - (me.x + 24 * me.dir));
+    var v = Math.sqrt(d * GRAV / 0.94);
+    var err = 0.3 * Math.max(0, 1 - botTurns / (THROWS * 2));
+    power = Math.max(0, Math.min(1, (v - 4) / 10 + (Math.random() - 0.5) * 2 * err));
+    botTurns++;
+    launch();
+  }
 
   function loadBest() {
     try {
@@ -56,6 +74,8 @@
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
     ctx.font = '40px sans-serif';
+    ctx.fillStyle = '#b98a4e';
+    ctx.fillRect(FENCE_X, FENCE_TOP, FENCE_W, GROUND - FENCE_TOP);
     PLAYERS.forEach(function (p) { ctx.fillText(p.emoji, p.x, GROUND); });
     if (proj) {
       ctx.font = '26px sans-serif';
@@ -81,6 +101,8 @@
   function finish() {
     running = false;
     clearInterval(timer);
+    clearTimeout(botTimer);
+    botTimer = null;
     timer = null;
     recordBest(Math.max(PLAYERS[0].score, PLAYERS[1].score));
     msgEl.textContent = showResult();
@@ -91,9 +113,11 @@
     draw();
   }
 
-  function land(x) {
+  function land(x, blocked) {
     var opp = PLAYERS[1 - turn];
-    if (Math.abs(x - opp.x) <= HIT) {
+    if (blocked) {
+      msgEl.textContent = 'Kena pagar!';
+    } else if (Math.abs(x - opp.x) <= HIT) {
       PLAYERS[turn].score++;
       showScore();
       msgEl.textContent = 'Kena ' + opp.name + '!';
@@ -122,11 +146,18 @@
   }
 
   function tick() {
+    if (running && !proj && isBotTurn() && left[1] > 0 && !botTimer) {
+      botTimer = setTimeout(botThrow, 800);
+    }
     if (proj) {
+      var prevX = proj.x;
       proj.x += proj.vx;
       proj.y += proj.vy;
       proj.vy += GRAV;
-      if (proj.y >= GROUND || proj.x < -30 || proj.x > W + 30) land(proj.x);
+      var lo = Math.min(prevX, proj.x), hi = Math.max(prevX, proj.x);
+      var hitFence = hi >= FENCE_X && lo <= FENCE_X + FENCE_W && proj.y >= FENCE_TOP;
+      if (hitFence) land(proj.x, true);
+      else if (proj.y >= GROUND || proj.x < -30 || proj.x > W + 30) land(proj.x, false);
     }
     draw();
   }
@@ -139,7 +170,7 @@
   }
 
   canvas.addEventListener('pointerdown', function (e) {
-    if (!running || proj || left[turn] <= 0) return;
+    if (!running || proj || left[turn] <= 0 || isBotTurn()) return;
     e.preventDefault();
     charging = true;
     chargeStart = performance.now();
@@ -148,6 +179,10 @@
   window.addEventListener('pointercancel', release);
 
   function start() {
+    clearTimeout(botTimer);
+    botTimer = null;
+    botTurns = 0;
+    PLAYERS[1].name = mode === 'bot' ? 'Bot Kucing' : 'Kucing';
     turn = 0;
     left = [THROWS, THROWS];
     PLAYERS.forEach(function (p) { p.score = 0; });
@@ -165,6 +200,17 @@
   }
 
   startBtn.addEventListener('click', start);
+
+  var modeBtns = document.querySelectorAll('#modes button');
+  modeBtns.forEach(function (button) {
+    button.addEventListener('click', function () {
+      if (running) return;
+      mode = button.getAttribute('data-mode');
+      modeBtns.forEach(function (b) {
+        b.setAttribute('aria-pressed', b === button ? 'true' : 'false');
+      });
+    });
+  });
   turnEl.textContent = 'Tekan Mulai';
   showScore();
   showBest();

@@ -11,6 +11,9 @@
     h1 { font-size: 1.6rem; }
     #info { display: flex; justify-content: space-between; margin: 14px 0 8px; font-size: 1.05rem; font-weight: 700; }
     #field { display: block; width: 100%; height: auto; border: 3px solid var(--line); border-radius: 16px; background: var(--surface); touch-action: none; user-select: none; }
+    #modes { display: flex; gap: 10px; margin: 0 0 14px; }
+    #modes button { flex: 1; min-height: 44px; border: 2px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--fg); font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation; }
+    #modes button[aria-pressed="true"] { background: var(--hover); outline: 2px solid var(--fg); outline-offset: 2px; }
     #msg { min-height: 1.6em; margin: 12px 0 0; }
     #best { min-height: 1.4em; color: var(--muted); }
   </style>
@@ -21,6 +24,10 @@
     <p>Tahan layar buat isi tenaga, lepas buat melempar. Kena lawan, dapat nilai.</p>
     <div id="info"><span id="turn"></span><span id="score"></span></div>
     <canvas id="field" width="340" height="420" aria-label="Lapangan lempar"></canvas>
+    <div id="modes" role="group" aria-label="Pilih mode">
+      <button type="button" data-mode="local" aria-pressed="true">Dua pemain</button>
+      <button type="button" data-mode="bot" aria-pressed="false">Lawan bot</button>
+    </div>
     <p id="msg" aria-live="polite"></p>
     <p id="best"></p>
     <button class="g-btn" id="start" type="button">Mulai</button>
