@@ -342,6 +342,17 @@
     "controls": [
       "Ketik huruf lewat keyboard atau keyboard di ponsel. Backspace menghapus, panah menggeser kotak."
     ]
+  },
+  "tebak-bendera": {
+    "goal": "Tebak nama negara dari bendera yang tampil. Makin banyak jawaban benar dari 10 soal, makin tinggi skor.",
+    "steps": [
+      "Tekan Mulai. Bendera pertama langsung tampil.",
+      "Pilih salah satu dari 4 nama negara. Jawaban benar jadi hijau, jawaban salah jadi merah.",
+      "Tekan Lanjut untuk soal berikutnya. Setelah 10 soal, skor akhir tampil."
+    ],
+    "controls": [
+      "Klik atau ketuk pilihan jawaban. Di komputer, pilihan juga bisa dipilih lewat keyboard."
+    ]
   }
 };
 
