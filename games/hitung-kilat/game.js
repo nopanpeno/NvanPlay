@@ -32,10 +32,28 @@
   }
 
   function makeQuestion() {
-    var a = 2 + Math.floor(Math.random() * 19);
-    var b = 2 + Math.floor(Math.random() * 19);
-    answer = a + b;
-    questionEl.textContent = a + ' + ' + b + ' = ?';
+    var ops = ['+', '-', '×', '÷'];
+    var op = ops[Math.floor(Math.random() * ops.length)];
+    var a, b, result;
+    if (op === '+') {
+      a = 2 + Math.floor(Math.random() * 19);
+      b = 2 + Math.floor(Math.random() * 19);
+      result = a + b;
+    } else if (op === '-') {
+      a = 2 + Math.floor(Math.random() * 19);
+      b = 1 + Math.floor(Math.random() * a);
+      result = a - b;
+    } else if (op === '×') {
+      a = 2 + Math.floor(Math.random() * 8);
+      b = 2 + Math.floor(Math.random() * 8);
+      result = a * b;
+    } else {
+      b = 2 + Math.floor(Math.random() * 8);
+      result = 2 + Math.floor(Math.random() * 9);
+      a = b * result;
+    }
+    answer = result;
+    questionEl.textContent = a + ' ' + op + ' ' + b + ' = ?';
 
     var options = [answer];
     while (options.length < 4) {
