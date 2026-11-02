@@ -558,5 +558,24 @@
       "max": 1
     },
     "duration": "medium"
+  },
+  {
+    "id": "tebak-bendera",
+    "title": "Tebak Bendera",
+    "description": "Lihat bendera, tebak nama negaranya dari 4 pilihan.",
+    "tags": [
+      "kuis",
+      "pengetahuan",
+      "santai"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#0ea5e9",
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   }
 ]
