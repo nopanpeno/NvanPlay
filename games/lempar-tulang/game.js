@@ -1,6 +1,7 @@
 // Lempar Tulang: dua pemain gantian. Tahan layar buat isi tenaga, lepas buat lempar.
 (function () {
   var W = 340, H = 420, GROUND = 380, CHARGE_MS = 1500, GRAV = 0.25, TICK = 16, THROWS = 5, HIT = 20;
+  var FENCE_X = 164, FENCE_W = 12, FENCE_TOP = GROUND - 70;
   var KEY = 'lempar-tulang:best';
   var PLAYERS = [
     { name: 'Anjing', emoji: '🐶', ammo: '🦴', x: 60, dir: 1, score: 0 },
@@ -56,6 +57,8 @@
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
     ctx.font = '40px sans-serif';
+    ctx.fillStyle = '#b98a4e';
+    ctx.fillRect(FENCE_X, FENCE_TOP, FENCE_W, GROUND - FENCE_TOP);
     PLAYERS.forEach(function (p) { ctx.fillText(p.emoji, p.x, GROUND); });
     if (proj) {
       ctx.font = '26px sans-serif';
@@ -91,9 +94,11 @@
     draw();
   }
 
-  function land(x) {
+  function land(x, blocked) {
     var opp = PLAYERS[1 - turn];
-    if (Math.abs(x - opp.x) <= HIT) {
+    if (blocked) {
+      msgEl.textContent = 'Kena pagar!';
+    } else if (Math.abs(x - opp.x) <= HIT) {
       PLAYERS[turn].score++;
       showScore();
       msgEl.textContent = 'Kena ' + opp.name + '!';
@@ -123,10 +128,14 @@
 
   function tick() {
     if (proj) {
+      var prevX = proj.x;
       proj.x += proj.vx;
       proj.y += proj.vy;
       proj.vy += GRAV;
-      if (proj.y >= GROUND || proj.x < -30 || proj.x > W + 30) land(proj.x);
+      var lo = Math.min(prevX, proj.x), hi = Math.max(prevX, proj.x);
+      var hitFence = hi >= FENCE_X && lo <= FENCE_X + FENCE_W && proj.y >= FENCE_TOP;
+      if (hitFence) land(proj.x, true);
+      else if (proj.y >= GROUND || proj.x < -30 || proj.x > W + 30) land(proj.x, false);
     }
     draw();
   }
