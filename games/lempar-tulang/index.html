@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lempar Tulang</title>
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
+  <style>
+    main { max-width: 380px; padding: 18px; }
+    h1 { font-size: 1.6rem; }
+    #info { display: flex; justify-content: space-between; margin: 14px 0 8px; font-size: 1.05rem; font-weight: 700; }
+    #field { display: block; width: 100%; height: auto; border: 3px solid var(--line); border-radius: 16px; background: var(--surface); touch-action: none; user-select: none; }
+    #msg { min-height: 1.6em; margin: 12px 0 0; }
+    #best { min-height: 1.4em; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Lempar Tulang</h1>
+    <p>Tahan layar buat isi tenaga, lepas buat melempar. Kena lawan, dapat nilai.</p>
+    <div id="info"><span id="turn"></span><span id="score"></span></div>
+    <canvas id="field" width="340" height="420" aria-label="Lapangan lempar"></canvas>
+    <p id="msg" aria-live="polite"></p>
+    <p id="best"></p>
+    <button class="g-btn" id="start" type="button">Mulai</button>
+  </main>
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+</body>
+</html>
