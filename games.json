@@ -577,5 +577,23 @@
       "max": 1
     },
     "duration": "quick"
+  },
+  {
+    "id": "tembak-bola",
+    "title": "Tembak Bola",
+    "description": "Tembak bola warna sama, tiga atau lebih hilang sebelum sampai ujung.",
+    "tags": [
+      "refleks",
+      "strategi"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#e5483a",
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   }
 ]

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tembak Bola</title>
+  <link rel="stylesheet" href="../../css/game.css">
+  <script src="../../js/game-theme.js"></script>
+  <style>
+    main { max-width: 380px; padding: 18px; }
+    h1 { font-size: 1.6rem; }
+    #info { display: flex; justify-content: space-between; margin: 14px 0; font-size: 1.1rem; font-weight: 700; }
+    #lane { display: block; width: 100%; height: auto; border: 3px solid var(--line); border-radius: 16px; background: var(--surface); cursor: crosshair; touch-action: manipulation; }
+    #colors { display: flex; gap: 12px; justify-content: center; margin: 14px 0; }
+    #colors button { width: 56px; height: 56px; border: 3px solid var(--line); border-radius: 50%; cursor: pointer; touch-action: manipulation; }
+    #colors button[aria-pressed="true"] { outline: 3px solid var(--fg); outline-offset: 3px; }
+    #msg { min-height: 1.6em; margin: 12px 0 0; }
+    #best { min-height: 1.4em; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Tembak Bola</h1>
+    <p>Tembak bola warna sama, tiga atau lebih hilang. Jangan biarkan bola sampai ujung.</p>
+    <div id="info"><span id="score">Skor: 0</span></div>
+    <canvas id="lane" width="340" height="120" aria-label="Jalur bola"></canvas>
+    <div id="colors" role="group" aria-label="Pilih warna bola"></div>
+    <p id="msg" aria-live="polite"></p>
+    <p id="best"></p>
+    <button class="g-btn" id="start" type="button">Mulai</button>
+  </main>
+  <script src="../../js/game-storage.js"></script>
+  <script src="../../js/game-loader.js"></script>
+</body>
+</html>
