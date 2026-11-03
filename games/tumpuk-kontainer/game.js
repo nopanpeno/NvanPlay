@@ -52,6 +52,11 @@
     return GROUND - stack.length * BH + camOffset();
   }
 
+  // Kontainer makin cepat tiap blok naik, dibatasi biar tetap bisa diikuti.
+  function swingSpeed() {
+    return SWING + Math.min(stack.length * 0.08, 4);
+  }
+
   // Titik tengah rata-rata blok dari index from sampai atas.
   function comOf(from) {
     var sum = 0, n = 0;
@@ -168,7 +173,7 @@
         land();
       }
     } else if (swing) {
-      swing.x += SWING * swing.dir;
+      swing.x += swingSpeed() * swing.dir;
       if (swing.x <= 0) { swing.x = 0; swing.dir = 1; }
       if (swing.x >= W - swing.w) { swing.x = W - swing.w; swing.dir = -1; }
     }
