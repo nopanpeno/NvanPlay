@@ -1,7 +1,7 @@
-// Tumpuk Kontainer: kontainer geser di atas. Ketuk untuk jatuhin ke tumpukan.
-// Meleset sama sekali = game over.
+// Tumpuk Kotak: kotak geser di atas. Ketuk untuk jatuhin ke tumpukan.
+// Tiap kotak selalu persegi. Bagian meleset dipotong, kotak makin kecil.
 (function () {
-  var W = 340, H = 440, GROUND = 400, BH = 24, BW = 200, CRANE_Y = 40;
+  var W = 340, H = 440, GROUND = 400, BLOCK = 120, CRANE_Y = 40;
   var TICK = 16, SWING = 2.2, FALL = 6;
   var COLORS = ['#e5483a', '#2f6fed', '#2e9a55', '#f5b700', '#8b5cf6'];
   var KEY = 'tumpuk-kontainer:best';
@@ -12,7 +12,7 @@
   var msgEl = document.getElementById('msg');
   var startBtn = document.getElementById('start');
 
-  var MIN_W = 8;
+  var MIN_W = 14;
   var stack = [], debris = [], swing = null, falling = null, running = false, timer = null, score = 0;
 
   function loadBest() {
@@ -43,16 +43,23 @@
     return Math.floor(Math.random() * COLORS.length);
   }
 
-  // Kamera naik pelan kalau tumpukan sudah tinggi.
+  // Tinggi tumpukan = jumlah sisi kotak (kotak persegi).
+  function stackHeight() {
+    var h = 0;
+    stack.forEach(function (b) { h += b.w; });
+    return h;
+  }
+
+  // Kamera naik pelan kalau tumpukan sudah tinggi, puncak tumpukan tetap di bawah kotak jatuh.
   function camOffset() {
-    return Math.max(0, stack.length * BH - 270);
+    return Math.max(0, stackHeight() - (GROUND - 220));
   }
 
   function topScreenY() {
-    return GROUND - stack.length * BH + camOffset();
+    return GROUND - stackHeight() + camOffset();
   }
 
-  // Kontainer makin cepat tiap blok naik, dibatasi biar tetap bisa diikuti.
+  // Kotak makin cepat tiap tumpukan naik, dibatasi biar tetap bisa diikuti.
   function swingSpeed() {
     return SWING + Math.min(stack.length * 0.08, 4);
   }
@@ -77,12 +84,12 @@
     return lean + wobble;
   }
 
-  function drawBlock(x, y, w, c) {
+  function drawBlock(x, y, w, h, c) {
     ctx.fillStyle = COLORS[c];
-    ctx.fillRect(x, y, w, BH - 2);
+    ctx.fillRect(x, y, w, h);
     ctx.strokeStyle = 'rgba(0,0,0,.25)';
     ctx.lineWidth = 2;
-    ctx.strokeRect(x, y, w, BH - 2);
+    ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
   }
 
   function draw() {
@@ -91,27 +98,31 @@
     ctx.fillRect(0, GROUND + camOffset(), W, H);
     var cam = camOffset();
     var base = stack[0];
-    drawBlock(base.x, GROUND - BH + cam, base.w, base.c);
+    var baseTop = GROUND - base.w + cam;
+    drawBlock(base.x, baseTop, base.w, base.w, base.c);
     if (stack.length > 1) {
       // Tumpukan atas ikut miring dari atas alas.
-      var px = base.x + base.w / 2, py = GROUND - BH + cam;
+      var px = base.x + base.w / 2, py = baseTop;
       ctx.save();
       ctx.translate(px, py);
       ctx.rotate(tiltAngle());
       ctx.translate(-px, -py);
-      stack.forEach(function (b, i) {
-        if (i === 0) return;
-        drawBlock(b.x, GROUND - (i + 1) * BH + cam, b.w, b.c);
-      });
+      var yBottom = baseTop;
+      for (var i = 1; i < stack.length; i++) {
+        var b = stack[i];
+        var y = yBottom - b.w;
+        drawBlock(b.x, y, b.w, b.w, b.c);
+        yBottom = y;
+      }
       ctx.restore();
     }
     debris.forEach(function (d) {
-      drawBlock(d.x, d.y, d.w, d.c);
+      drawBlock(d.x, d.y, d.w, d.h, d.c);
     });
     if (falling) {
-      drawBlock(falling.x, falling.y, falling.w, falling.c);
+      drawBlock(falling.x, falling.y, falling.w, falling.w, falling.c);
     } else if (swing) {
-      drawBlock(swing.x, CRANE_Y, swing.w, swing.c);
+      drawBlock(swing.x, CRANE_Y, swing.w, swing.w, swing.c);
     }
   }
 
@@ -136,14 +147,15 @@
       return;
     }
     // Bagian yang tidak nempel jatuh sebagai sisa potongan.
-    if (lo > fx) debris.push({ x: fx, y: falling.y, w: lo - fx, vy: 0, c: falling.c });
-    if (hi < fx + fw) debris.push({ x: hi, y: falling.y, w: fx + fw - hi, vy: 0, c: falling.c });
+    if (lo > fx) debris.push({ x: fx, y: falling.y, w: lo - fx, h: fw, vy: 0, c: falling.c });
+    if (hi < fx + fw) debris.push({ x: hi, y: falling.y, w: fx + fw - hi, h: fw, vy: 0, c: falling.c });
+    // Kotak baru harus persegi, jadi sisinya ikut lebar yang tersisa.
     stack.push({ x: lo, w: hi - lo, c: falling.c });
     falling = null;
     score = stack.length - 1;
     showScore();
     recordScore();
-    // Tiap blok harus didukung blok di bawahnya. Kalau titik berat keluar, roboh.
+    // Tiap kotak harus didukung kotak di bawahnya. Kalau titik berat keluar, roboh.
     for (var i = 1; i < stack.length; i++) {
       var c = comOf(i), sup = stack[i - 1];
       if (c < sup.x || c > sup.x + sup.w) {
@@ -152,7 +164,7 @@
       }
     }
     if (hi - lo < MIN_W) {
-      gameOver('Kontainer habis!');
+      gameOver('Kotak habis!');
       return;
     }
     msgEl.textContent = '';
@@ -168,8 +180,8 @@
     });
     if (falling) {
       falling.y += FALL;
-      if (falling.y + BH - 2 >= topScreenY()) {
-        falling.y = topScreenY() - (BH - 2);
+      if (falling.y + falling.w >= topScreenY()) {
+        falling.y = topScreenY() - falling.w;
         land();
       }
     } else if (swing) {
@@ -192,9 +204,9 @@
   });
 
   function start() {
-    stack = [{ x: (W - BW) / 2, w: BW, c: randColor() }];
+    stack = [{ x: (W - BLOCK) / 2, w: BLOCK, c: randColor() }];
     debris = [];
-    swing = { x: 0, w: BW, c: randColor(), dir: 1 };
+    swing = { x: 0, w: BLOCK, c: randColor(), dir: 1 };
     falling = null;
     score = 0;
     running = true;
@@ -209,6 +221,6 @@
   startBtn.addEventListener('click', start);
   showScore();
   showBest();
-  stack = [{ x: (W - BW) / 2, w: BW, c: 0 }];
+  stack = [{ x: (W - BLOCK) / 2, w: BLOCK, c: 0 }];
   draw();
 })();
