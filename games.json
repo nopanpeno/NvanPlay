@@ -613,5 +613,23 @@
       "max": 2
     },
     "duration": "quick"
+  },
+  {
+    "id": "tumpuk-kontainer",
+    "title": "Tumpuk Kontainer",
+    "description": "Jatuhkan kontainer yang bergeser ke tumpukan. Meleset sekali, game over.",
+    "tags": [
+      "refleks",
+      "santai"
+    ],
+    "author": "nopanpeno",
+    "license": "MIT",
+    "color": "#f5b700",
+    "touch": true,
+    "players": {
+      "min": 1,
+      "max": 1
+    },
+    "duration": "quick"
   }
 ]
