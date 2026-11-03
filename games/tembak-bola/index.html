@@ -10,10 +10,7 @@
     main { max-width: 380px; padding: 18px; }
     h1 { font-size: 1.6rem; }
     #info { display: flex; justify-content: space-between; margin: 14px 0; font-size: 1.1rem; font-weight: 700; }
-    #lane { display: block; width: 100%; height: auto; border: 3px solid var(--line); border-radius: 16px; background: var(--surface); cursor: crosshair; touch-action: manipulation; }
-    #colors { display: flex; gap: 12px; justify-content: center; margin: 14px 0; }
-    #colors button { width: 56px; height: 56px; border: 3px solid var(--line); border-radius: 50%; cursor: pointer; touch-action: manipulation; }
-    #colors button[aria-pressed="true"] { outline: 3px solid var(--fg); outline-offset: 3px; }
+    #lane { display: block; width: 100%; height: auto; border: 3px solid var(--line); border-radius: 16px; background: var(--surface); cursor: crosshair; touch-action: none; }
     #msg { min-height: 1.6em; margin: 12px 0 0; }
     #best { min-height: 1.4em; color: var(--muted); }
   </style>
@@ -21,10 +18,9 @@
 <body>
   <main>
     <h1>Tembak Bola</h1>
-    <p>Tembak bola warna sama, tiga atau lebih hilang. Jangan biarkan bola sampai ujung.</p>
+    <p>Arahkan, lalu ketuk untuk menembak. Tiga bola warna sama hilang, sisa rantai menutup celah. Ketuk bola kecil di kanan untuk tukar. Jangan biarkan bola masuk lubang.</p>
     <div id="info"><span id="score">Skor: 0</span></div>
-    <canvas id="lane" width="340" height="120" aria-label="Jalur bola"></canvas>
-    <div id="colors" role="group" aria-label="Pilih warna bola"></div>
+    <canvas id="lane" width="340" height="420" aria-label="Jalur bola"></canvas>
     <p id="msg" aria-live="polite"></p>
     <p id="best"></p>
     <button class="g-btn" id="start" type="button">Mulai</button>
