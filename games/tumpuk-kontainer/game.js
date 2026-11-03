@@ -12,7 +12,8 @@
   var msgEl = document.getElementById('msg');
   var startBtn = document.getElementById('start');
 
-  var stack = [], swing = null, falling = null, running = false, timer = null, score = 0;
+  var MIN_W = 8;
+  var stack = [], debris = [], swing = null, falling = null, running = false, timer = null, score = 0;
 
   function loadBest() {
     try {
@@ -67,6 +68,9 @@
     stack.forEach(function (b, i) {
       drawBlock(b.x, GROUND - (i + 1) * BH + cam, b.w, b.c);
     });
+    debris.forEach(function (d) {
+      drawBlock(d.x, d.y, d.w, d.c);
+    });
     if (falling) {
       drawBlock(falling.x, falling.y, falling.w, falling.c);
     } else if (swing) {
@@ -87,23 +91,36 @@
 
   function land() {
     var top = stack[stack.length - 1];
-    var lo = Math.max(falling.x, top.x);
-    var hi = Math.min(falling.x + falling.w, top.x + top.w);
+    var fx = falling.x, fw = falling.w;
+    var lo = Math.max(fx, top.x);
+    var hi = Math.min(fx + fw, top.x + top.w);
     if (hi - lo <= 0) {
       gameOver('Meleset!');
       return;
     }
-    stack.push({ x: falling.x, w: falling.w, c: falling.c });
+    // Bagian yang tidak nempel jatuh sebagai sisa potongan.
+    if (lo > fx) debris.push({ x: fx, y: falling.y, w: lo - fx, vy: 0, c: falling.c });
+    if (hi < fx + fw) debris.push({ x: hi, y: falling.y, w: fx + fw - hi, vy: 0, c: falling.c });
+    stack.push({ x: lo, w: hi - lo, c: falling.c });
     falling = null;
     score = stack.length - 1;
     showScore();
     recordScore();
+    if (hi - lo < MIN_W) {
+      gameOver('Kontainer habis!');
+      return;
+    }
     msgEl.textContent = '';
-    swing = { x: 0, w: BW, c: randColor(), dir: 1 };
+    swing = { x: 0, w: hi - lo, c: randColor(), dir: 1 };
   }
 
   function tick() {
     if (!running) return;
+    debris = debris.filter(function (d) {
+      d.vy += 0.6;
+      d.y += d.vy;
+      return d.y < H;
+    });
     if (falling) {
       falling.y += FALL;
       if (falling.y + BH - 2 >= topScreenY()) {
@@ -131,6 +148,7 @@
 
   function start() {
     stack = [{ x: (W - BW) / 2, w: BW, c: randColor() }];
+    debris = [];
     swing = { x: 0, w: BW, c: randColor(), dir: 1 };
     falling = null;
     score = 0;
