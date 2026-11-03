@@ -117,7 +117,8 @@
       ctx.restore();
     }
     debris.forEach(function (d) {
-      drawBlock(d.x, d.y, d.w, d.h, d.c);
+      // Sisa potongan juga persegi, sisinya sama dengan lebarnya.
+      drawBlock(d.x, d.y, d.w, d.w, d.c);
     });
     if (falling) {
       drawBlock(falling.x, falling.y, falling.w, falling.w, falling.c);
