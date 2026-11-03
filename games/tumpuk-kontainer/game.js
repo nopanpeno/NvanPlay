@@ -52,6 +52,26 @@
     return GROUND - stack.length * BH + camOffset();
   }
 
+  // Titik tengah rata-rata blok dari index from sampai atas.
+  function comOf(from) {
+    var sum = 0, n = 0;
+    for (var i = from; i < stack.length; i++) {
+      sum += stack[i].x + stack[i].w / 2;
+      n++;
+    }
+    return n ? sum / n : 0;
+  }
+
+  // Sudut goyang tumpukan. Makin jauh titik berat dari alas, makin miring.
+  function tiltAngle() {
+    if (stack.length < 2) return 0;
+    var base = stack[0];
+    var imb = comOf(1) - (base.x + base.w / 2);
+    var lean = Math.max(-0.12, Math.min(0.12, imb / 300));
+    var wobble = 0.015 * Math.sin(performance.now() / 200) * Math.min(1, Math.abs(imb) / 60);
+    return lean + wobble;
+  }
+
   function drawBlock(x, y, w, c) {
     ctx.fillStyle = COLORS[c];
     ctx.fillRect(x, y, w, BH - 2);
@@ -65,9 +85,21 @@
     ctx.fillStyle = '#eef2fa';
     ctx.fillRect(0, GROUND + camOffset(), W, H);
     var cam = camOffset();
-    stack.forEach(function (b, i) {
-      drawBlock(b.x, GROUND - (i + 1) * BH + cam, b.w, b.c);
-    });
+    var base = stack[0];
+    drawBlock(base.x, GROUND - BH + cam, base.w, base.c);
+    if (stack.length > 1) {
+      // Tumpukan atas ikut miring dari atas alas.
+      var px = base.x + base.w / 2, py = GROUND - BH + cam;
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.rotate(tiltAngle());
+      ctx.translate(-px, -py);
+      stack.forEach(function (b, i) {
+        if (i === 0) return;
+        drawBlock(b.x, GROUND - (i + 1) * BH + cam, b.w, b.c);
+      });
+      ctx.restore();
+    }
     debris.forEach(function (d) {
       drawBlock(d.x, d.y, d.w, d.c);
     });
@@ -106,6 +138,14 @@
     score = stack.length - 1;
     showScore();
     recordScore();
+    // Tiap blok harus didukung blok di bawahnya. Kalau titik berat keluar, roboh.
+    for (var i = 1; i < stack.length; i++) {
+      var c = comOf(i), sup = stack[i - 1];
+      if (c < sup.x || c > sup.x + sup.w) {
+        gameOver('Tumpukan roboh!');
+        return;
+      }
+    }
     if (hi - lo < MIN_W) {
       gameOver('Kontainer habis!');
       return;
