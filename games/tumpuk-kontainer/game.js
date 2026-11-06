@@ -1,7 +1,12 @@
 // Tumpuk Kontainer: kontainer geser di atas. Ketuk untuk jatuhin ke tumpukan.
 // Meleset sama sekali = game over.
 (function () {
-  var W = 340, H = 440, GROUND = 400, BH = 24, BW = 200, CRANE_Y = 40;
+  var W = 340, H = 440, GROUND = 400;
+  var SIZE = 40;               // sisi kontainer (persegi: lebar = tinggi)
+  var GAP = 2;                 // jarak antar tingkat
+  var BH = SIZE + GAP;         // jarak antar tingkat di layar
+  var BW = SIZE;               // lebar kontainer
+  var CRANE_Y = 40;
   var TICK = 16, SWING = 2.2, FALL = 6;
   var COLORS = ['#e5483a', '#2f6fed', '#2e9a55', '#f5b700', '#8b5cf6'];
   var KEY = 'tumpuk-kontainer:best';
@@ -53,10 +58,10 @@
 
   function drawBlock(x, y, w, c) {
     ctx.fillStyle = COLORS[c];
-    ctx.fillRect(x, y, w, BH - 2);
+    ctx.fillRect(x, y, w, SIZE);
     ctx.strokeStyle = 'rgba(0,0,0,.25)';
     ctx.lineWidth = 2;
-    ctx.strokeRect(x, y, w, BH - 2);
+    ctx.strokeRect(x, y, w, SIZE);
   }
 
   function draw() {
@@ -106,8 +111,10 @@
     if (!running) return;
     if (falling) {
       falling.y += FALL;
-      if (falling.y + BH - 2 >= topScreenY()) {
-        falling.y = topScreenY() - (BH - 2);
+      // Posisi tepat tingkat berikutnya, sesuai tempat blok itu digambar.
+      var target = topScreenY() - BH;
+      if (falling.y >= target) {
+        falling.y = target;
         land();
       }
     } else if (swing) {
