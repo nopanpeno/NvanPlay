@@ -1,5 +1,6 @@
 // Tumpuk Kontainer: kontainer geser di atas. Ketuk untuk jatuhin ke tumpukan.
-// Meleset sama sekali = game over.
+// Kontainer ikut miring pas geser. Jatuhin pas hampir rata.
+// Meleset sama sekali atau kemiringan kebanyakan = game over.
 (function () {
   var W = 340, H = 440, GROUND = 400;
   var SIZE = 40;               // sisi kontainer (persegi: lebar = tinggi)
@@ -8,6 +9,9 @@
   var BW = SIZE;               // lebar kontainer
   var CRANE_Y = 40;
   var TICK = 16, SWING = 2.2, FALL = 6;
+  var TILT_MAX = 0.45;    // miring maksimal saat geser (radian, sekitar 26 derajat)
+  var TILT_OK = 0.15;     // miring yang masih aman saat jatuh (sekitar 9 derajat)
+  var TILT_SPEED = 0.05;  // kecepatan ayunan miring
   var COLORS = ['#e5483a', '#2f6fed', '#2e9a55', '#f5b700', '#8b5cf6'];
   var KEY = 'tumpuk-kontainer:best';
   var canvas = document.getElementById('field');
@@ -47,6 +51,16 @@
     return Math.floor(Math.random() * COLORS.length);
   }
 
+  // Kontainer baru di atas. Fase acak biar miringnya beda tiap kali.
+  function newSwing() {
+    return { x: 0, w: BW, c: randColor(), dir: 1, ph: Math.random() * Math.PI * 2 };
+  }
+
+  // Sudut miring sekarang, dari fase ayunan.
+  function tiltOf(s) {
+    return Math.sin(s.ph) * TILT_MAX;
+  }
+
   // Kamera naik pelan kalau tumpukan sudah tinggi.
   function camOffset() {
     return Math.max(0, stack.length * BH - 270);
@@ -56,12 +70,17 @@
     return GROUND - stack.length * BH + camOffset();
   }
 
-  function drawBlock(x, y, w, c) {
+  // angle (radian) = kemiringan, diputar dari tengah kotak.
+  function drawBlock(x, y, w, c, angle) {
+    ctx.save();
+    ctx.translate(x + w / 2, y + SIZE / 2);
+    ctx.rotate(angle || 0);
     ctx.fillStyle = COLORS[c];
-    ctx.fillRect(x, y, w, SIZE);
+    ctx.fillRect(-w / 2, -SIZE / 2, w, SIZE);
     ctx.strokeStyle = 'rgba(0,0,0,.25)';
     ctx.lineWidth = 2;
-    ctx.strokeRect(x, y, w, SIZE);
+    ctx.strokeRect(-w / 2, -SIZE / 2, w, SIZE);
+    ctx.restore();
   }
 
   function draw() {
@@ -73,9 +92,9 @@
       drawBlock(b.x, GROUND - (i + 1) * BH + cam, b.w, b.c);
     });
     if (falling) {
-      drawBlock(falling.x, falling.y, falling.w, falling.c);
+      drawBlock(falling.x, falling.y, falling.w, falling.c, falling.angle);
     } else if (swing) {
-      drawBlock(swing.x, CRANE_Y, swing.w, swing.c);
+      drawBlock(swing.x, CRANE_Y, swing.w, swing.c, tiltOf(swing));
     }
   }
 
@@ -91,6 +110,10 @@
   }
 
   function land() {
+    if (Math.abs(falling.angle) > TILT_OK) {
+      gameOver('Kotaknya miring!');
+      return;
+    }
     var top = stack[stack.length - 1];
     var lo = Math.max(falling.x, top.x);
     var hi = Math.min(falling.x + falling.w, top.x + top.w);
@@ -104,7 +127,7 @@
     showScore();
     recordScore();
     msgEl.textContent = '';
-    swing = { x: 0, w: BW, c: randColor(), dir: 1 };
+    swing = newSwing();
   }
 
   function tick() {
@@ -118,6 +141,7 @@
         land();
       }
     } else if (swing) {
+      swing.ph += TILT_SPEED;
       swing.x += SWING * swing.dir;
       if (swing.x <= 0) { swing.x = 0; swing.dir = 1; }
       if (swing.x >= W - swing.w) { swing.x = W - swing.w; swing.dir = -1; }
@@ -127,7 +151,7 @@
 
   function drop() {
     if (!running || falling || !swing) return;
-    falling = { x: swing.x, w: swing.w, c: swing.c, y: CRANE_Y };
+    falling = { x: swing.x, w: swing.w, c: swing.c, y: CRANE_Y, angle: tiltOf(swing) };
     swing = null;
   }
 
@@ -138,7 +162,7 @@
 
   function start() {
     stack = [{ x: (W - BW) / 2, w: BW, c: randColor() }];
-    swing = { x: 0, w: BW, c: randColor(), dir: 1 };
+    swing = newSwing();
     falling = null;
     score = 0;
     running = true;
